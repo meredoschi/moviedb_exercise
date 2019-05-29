@@ -1,0 +1,16 @@
+Metrics/LineLength:
+  Max: 100
+  Exclude:
+    - "**/*_seed.rb"
+Metrics/ClassLength:
+  Max: 300
+Metrics/ModuleLength:
+  Exclude:
+    - "**/*_spec.rb"
+Metrics/BlockLength:
+  Exclude:
+    - "**/*_spec.rb"
+ClassLength:
+  Max: 500 # or whatever ends up being appropriate
+Style/Lambda:
+  EnforcedStyle: literal
