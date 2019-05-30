@@ -675,10 +675,9 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@rails/webpacker@^4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-4.0.4.tgz#802761597c66c9f85732497d81cd0fb57cba47ee"
-  integrity sha512-r8cQAU88PCiUM3JJqVL6fum/lVGTaTyG+pdAC6mm2oo5CzoIukH4/KGI+hZnCid0bq98rN0z/beKQurfJiZ+Pg==
+"@rails/webpacker@https://github.com/rails/webpacker.git":
+  version "4.0.5"
+  resolved "https://github.com/rails/webpacker.git#cc5a1b3bde67c2475b2f51abcf43b6e3f7c9396b"
   dependencies:
     "@babel/core" "^7.4.5"
     "@babel/plugin-proposal-class-properties" "^7.4.4"
@@ -6874,7 +6873,14 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@^2.6.10:
+vue-turbolinks@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/vue-turbolinks/-/vue-turbolinks-2.0.4.tgz#a64102b9641b2fc523570b84964620ea7b51aabb"
+  integrity sha512-UnozEGA+HCrETxnBGM3xrsevOOVEsLf1aHKapIANKAf5GdyA2nMXr3yfwlZ5o81PypSx73tfp9XW1nugMeydRA==
+  dependencies:
+    vue "^2.2.4"
+
+vue@^2.2.4, vue@^2.6.10:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==
