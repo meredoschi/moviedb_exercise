@@ -14,5 +14,5 @@
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-
-console.log('Hello World from Webpacker')
+const SayHello='Hello World from Webpacker'
+console.log(SayHello)
