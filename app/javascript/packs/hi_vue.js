@@ -42,6 +42,14 @@
        message: 'Hi Vue!'
      }
    })
+
+   var movieinfo = new Vue({
+     el: '#movieinfo',
+     data: {
+       message: 'All movies'
+     }
+   })
+
  })
 
 //
