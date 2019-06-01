@@ -10,15 +10,25 @@
         "/packs/js/application-2cc0d04965b36645657c.js.map"
       ]
     },
-    "hi_vue": {
+    "movies-index": {
       "js": [
-        "/packs/js/hi_vue-efe03f96c21f744dedc3.js"
+        "/packs/js/movies-index-7da99ab51c5c63a9eed3.js"
       ],
       "js.map": [
-        "/packs/js/hi_vue-efe03f96c21f744dedc3.js.map"
+        "/packs/js/movies-index-7da99ab51c5c63a9eed3.js.map"
+      ]
+    },
+    "movies-show": {
+      "js": [
+        "/packs/js/movies-show-50d7ad721ed75d677cc0.js"
+      ],
+      "js.map": [
+        "/packs/js/movies-show-50d7ad721ed75d677cc0.js.map"
       ]
     }
   },
-  "hi_vue.js": "/packs/js/hi_vue-efe03f96c21f744dedc3.js",
-  "hi_vue.js.map": "/packs/js/hi_vue-efe03f96c21f744dedc3.js.map"
+  "movies-index.js": "/packs/js/movies-index-7da99ab51c5c63a9eed3.js",
+  "movies-index.js.map": "/packs/js/movies-index-7da99ab51c5c63a9eed3.js.map",
+  "movies-show.js": "/packs/js/movies-show-50d7ad721ed75d677cc0.js",
+  "movies-show.js.map": "/packs/js/movies-show-50d7ad721ed75d677cc0.js.map"
 }

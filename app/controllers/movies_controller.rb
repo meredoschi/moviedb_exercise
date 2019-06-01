@@ -8,11 +8,13 @@ class MoviesController < ApplicationController
   # GET /movies.json
   def index
     @movies = Movie.all
+    @movies_jsn=@movies.select(:id, :title, :txt).all.to_json
   end
 
   # GET /movies/1
   # GET /movies/1.json
   def show
+    @movie_jsn=@movie.to_json
   end
 
   # GET /movies/new

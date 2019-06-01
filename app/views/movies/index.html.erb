@@ -36,15 +36,6 @@
 
 <%= link_to 'New Movie', new_movie_path %>
 
-<h5>
-<div id="app">
-  {{ message }}
+<div id="movie-list" data-movies="<%= @movies_jsn %>">
 </div>
-</h5>
-
-<h6>
-
-<div id="movieinfo">
-  {{ message }}
-</div>
-</h6>
+<%= render 'js_index.html.erb' %>
