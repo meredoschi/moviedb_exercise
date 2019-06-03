@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails' # https://www.rubydoc.info/gems/factory_bot/file/GETTING_STARTED.md
   gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+  gem 'capybara'
 
 end
 
