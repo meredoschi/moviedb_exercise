@@ -60,6 +60,7 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'ransack'
 gem 'kaminari'
+gem 'cancancan'
 
 group :test do
   gem 'shoulda-matchers'
