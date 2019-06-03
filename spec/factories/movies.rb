@@ -2,8 +2,12 @@
 
 FactoryBot.define do
   factory :movie do
-    title { 'MyString' }
-    summary { 'MyText' }
-    category_id { 1 }
+    sample_name = Faker::Name.unique.prefix + ' ' + Faker::Name.unique.last_name
+    verb = Faker::Verb.unique.past_participle
+    sequence(:title) { |n| (sample_name + ' ' + verb + ' ' + n.to_s + Faker::Internet.email).to_s }
+
+    #    title { sample_name+' '+verb }
+    summary { 'Movie information...' }
+    association :category, factory: :category
   end
 end

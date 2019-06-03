@@ -11,14 +11,9 @@ namespace :populate do
 
     names_raw = [] # may include duplicates, unsorted
 
-    (1..Settings.number_of_sample_records).each do |_n|
-      names_raw << Faker::Company.industry
-    end
-
-    names = names_raw.sort.uniq
-
-    names.each do |sample_name|
-      category = Category.create(name: sample_name)
+    # https://github.com/stympy/faker/pull/752
+    (1..Settings.number_of_sample_records).each do |n|
+      category = Category.create(name: Faker::Company.unique.industry)
       num_records_created += 1 if category
     end
 
@@ -40,19 +35,21 @@ namespace :populate do
     movie_list << { title: 'A real documentary',
                     summary: 'Things are very real in this documentary about...', category_id: 4 }
     movie_list << { title: 'Sleepwalking in Antarctica',
-                    summary: 'The new release from the famous director...', category_id: 5 }
+                    summary: 'The new release from the famous director...', category_id: 1 }
     movie_list << { title: 'The Zombies',
                     summary: 'As the name implies, there are many zombies...', category_id: 5 }
     movie_list << { title: 'The basketball players',
-                    summary: 'Based on the classic novel by...', category_id: 5 }
+                    summary: 'Based on the classic novel by...', category_id: 2 }
     movie_list << { title: 'The ball game',
                     summary: 'An american baseball story...', category_id: 5 }
     movie_list << { title: 'The sequel',
-                    summary: 'It continues where the previous movie left off...', category_id: 5 }
+                    summary: 'It continues where the previous movie left off...', category_id: 3 }
     movie_list << { title: 'The saga',
                     summary: 'All 17 episodes, restored in full digital colors..', category_id: 5 }
     movie_list << { title: 'Provisional',
                     summary: 'A working title which remained...', category_id: 5 }
+    movie_list << { title: 'The temperature',
+                            summary: 'Tells the tale of a climatologist', category_id: 3 }
 
     movie_list.each do |movie|
       title = movie[:title]

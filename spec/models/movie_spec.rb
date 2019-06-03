@@ -1,5 +1,15 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Movie, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { is_expected.to belong_to(:category) }
+
+  it 'can be created' do
+    FactoryBot.create(:movie)
+  end
+
+  it 'five can be created' do
+    FactoryBot.create_list(:movie, 5)
+  end
 end

@@ -2,7 +2,6 @@
 
 FactoryBot.define do
   factory :category do
-    sample_name = Faker::Company.industry
-    name { sample_name }
+    sequence(:name) { |n| ((n + 100_000).to_s + Faker::Company.unique.industry).to_s }
   end
 end
