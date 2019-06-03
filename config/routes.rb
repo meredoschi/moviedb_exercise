@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'movies#index'
-  resources :movies
   authenticate :user do
     resources :movies, only: [:new, :create, :edit, :update, :destroy]
   end
