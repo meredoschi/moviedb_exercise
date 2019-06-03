@@ -12,7 +12,7 @@ Title
   * String
   * Maxlength: something reasonable, let's say 200
 
-Info
+Summary
 
   * Text
 

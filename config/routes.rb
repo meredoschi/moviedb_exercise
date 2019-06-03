@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :movies
   resources :categories
   devise_for :users
   root 'categories#index'

@@ -7,6 +7,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
+    @title = 'List of categories'
     @categories = Category.all.page(params[:page]).per(10)
   end
 
