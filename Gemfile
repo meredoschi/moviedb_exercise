@@ -63,6 +63,7 @@ gem 'devise'
 gem 'ransack'
 gem 'kaminari'
 gem 'cancancan'
+gem 'settingslogic'
 
 group :test do
   gem 'shoulda-matchers'

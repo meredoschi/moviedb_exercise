@@ -1,0 +1,14 @@
+# config/application_settings.yml
+# https://github.com/settingslogic/settingslogic
+defaults: &defaults
+  application_name: "Movies DB Exercise"
+  max_len:
+    name: 70
+development:
+  <<: *defaults
+  number_of_sample_records: 30
+test:
+  <<: *defaults
+  number_of_sample_records: 10
+production:
+  <<: *defaults
