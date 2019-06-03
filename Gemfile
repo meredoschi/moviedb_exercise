@@ -58,6 +58,8 @@ end
 gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'devise'
+gem 'ransack'
+gem 'kaminari'
 
 group :test do
   gem 'shoulda-matchers'
