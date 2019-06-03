@@ -4,10 +4,12 @@ require 'rails_helper'
 
 RSpec.describe 'categories/edit', type: :view do
   sample_name = Random.rand(100_000).to_s + Faker::Company.unique.industry
+
+  let(:sample_name) { Random.rand(100_000).to_s + Faker::Company.unique.industry }
+  let(:first_category) { FactoryBot.create(:category) }
+
   before(:each) do
-    @category = assign(:category, Category.create!(
-                                    name: sample_name
-                                  ))
+    @category = assign(:category, first_category)
   end
 
   it 'renders the edit category form' do
