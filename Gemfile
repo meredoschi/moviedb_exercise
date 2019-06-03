@@ -43,7 +43,8 @@ group :development, :test do
   gem 'factory_bot_rails' # https://www.rubydoc.info/gems/factory_bot/file/GETTING_STARTED.md
   gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
   gem 'capybara'
-
+  gem 'rubocop', '~> 0.71.0', require: false
+  gem 'rubocop-rails'
 end
 
 group :development do
