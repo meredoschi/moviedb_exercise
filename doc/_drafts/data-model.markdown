@@ -28,6 +28,9 @@ Category
 
 ## Ratings
 
+User
+* user_id: integer
+
 Movie
   * movie_id
   * integer (association)
