@@ -1,25 +1,27 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "movies/index", type: :view do
+# https://codingdaily.wordpress.com/2011/09/16/rails-kaminari-with-rspec/
+# https://stackoverflow.com/questions/7080335/rspec-test-broken-by-pagination-kaminari
+RSpec.describe 'movies/index', type: :view do
+  let(:first_movie) { FactoryBot.create(:movie) }
+  let(:second_movie) { FactoryBot.create(:movie) }
+  let(:movies_arr) { [first_movie, second_movie] }
+
   before(:each) do
-    assign(:movies, [
-      Movie.create!(
-        :title => "Title",
-        :summary => "MyText",
-        :category_id => 2
-      ),
-      Movie.create!(
-        :title => "Title",
-        :summary => "MyText",
-        :category_id => 2
-      )
-    ])
+    assign(:movies, Kaminari.paginate_array(movies_arr).page(1))
   end
 
-  it "renders a list of movies" do
+  it 'movie titles are rendered' do
     render
-    assert_select "tr>td", :text => "Title".to_s, :count => 2
-    assert_select "tr>td", :text => "MyText".to_s, :count => 2
-    assert_select "tr>td", :text => 2.to_s, :count => 2
+    assert_select 'tr>td', text: first_movie.title
+    assert_select 'tr>td', text: second_movie.title
+  end
+
+  it 'summary is rendered (for each movie)' do
+    render
+    assert_select 'tr>td', text: first_movie.summary
+    assert_select 'tr>td', text: second_movie.summary
   end
 end

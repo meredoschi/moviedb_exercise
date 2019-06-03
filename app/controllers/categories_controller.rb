@@ -8,7 +8,8 @@ class CategoriesController < ApplicationController
   # GET /categories.json
   def index
     @title = 'List of categories'
-    @categories = Category.all.page(params[:page]).per(10)
+    @categories=Category.all.order(:name)
+    @scope = @categories.page(params[:page]).per(10)
   end
 
   # GET /categories/1
