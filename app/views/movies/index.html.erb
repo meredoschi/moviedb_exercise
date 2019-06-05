@@ -1,34 +1,21 @@
-<p id="notice"><%= notice %></p>
+<%#= render 'index_header.html.erb' %>
 
-<h1>Movies</h1>
+<%#= render 'index_table.html.erb' %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Summary</th>
-      <th>Category</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%#= render 'index_table.html.erb' %>
 
-  <tbody>
-    <% @movies.each do |movie| %>
-      <tr>
-        <td><%= movie.title %></td>
-        <td><%= movie.summary %></td>
-        <td><%= movie.category_id %></td>
-        <td><%= link_to 'Show', movie %></td>
-        <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
-        <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= javascript_pack_tag 'rate' %>
 
-<%= paginate @movies %>
+<div class="row">
+  <div id='rate'>
 
-<br>
+    <ul id="movie-list">
+      <li v-for="movie in movies_jsn">
+        {{ movie.title }}
+        {{ movie.summary }}
+      </li>
+    </ul>
 
 
-<%= link_to 'New Movie', new_movie_path %>
+ </div>
+</div>
