@@ -1,11 +1,11 @@
 import Vue from 'vue/dist/vue.esm'
-import App from '../app.vue'
+import Rate from '../rate-app.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
-    el: '#hello',
+    el: '#rate',
     data: {
     },
-    components: { App }
+    components: { Rate }
   })
 })

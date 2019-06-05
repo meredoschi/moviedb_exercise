@@ -10,15 +10,15 @@
         "/packs/js/application-2cc0d04965b36645657c.js.map"
       ]
     },
-    "hello_vue": {
+    "rate": {
       "js": [
-        "/packs/js/hello_vue-8ac76d63141f750f0ff1.js"
+        "/packs/js/rate-4871296d758c9e27bcf9.js"
       ],
       "js.map": [
-        "/packs/js/hello_vue-8ac76d63141f750f0ff1.js.map"
+        "/packs/js/rate-4871296d758c9e27bcf9.js.map"
       ]
     }
   },
-  "hello_vue.js": "/packs/js/hello_vue-8ac76d63141f750f0ff1.js",
-  "hello_vue.js.map": "/packs/js/hello_vue-8ac76d63141f750f0ff1.js.map"
+  "rate.js": "/packs/js/rate-4871296d758c9e27bcf9.js",
+  "rate.js.map": "/packs/js/rate-4871296d758c9e27bcf9.js.map"
 }
