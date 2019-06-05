@@ -6,16 +6,23 @@
 
 <%= javascript_pack_tag 'rate' %>
 
+<hr>
+
+<h3>Script</h3>
+
+<h4>Movies (in list format)</h4>
+
 <div class="row">
   <div id='rate'>
-
     <ul id="movie-list">
-      <li v-for="movie in movies_jsn">
-        {{ movie.title }}
-        {{ movie.summary }}
-      </li>
+      <template v-for="movie in movies_jsn">
+        <li>id: {{ movie.id }}</li>
+        <li>title: {{ movie.title }}</li>
+        <li><em>text: {{ movie.summary }}</em></li>
+        <br>
+      </template>
     </ul>
-
-
- </div>
+  </div>
 </div>
+
+<hr>
