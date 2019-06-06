@@ -9,6 +9,7 @@ RSpec.describe Movie, type: :model do
   # Associations
 
   it { is_expected.to belong_to(:category) }
+  it { is_expected.to belong_to(:user) }
 
   # Validations
 

@@ -8,6 +8,8 @@ RSpec.describe User, type: :model do
   # Associations
 
   it { is_expected.to have_many(:ratings).dependent(:destroy) }
+  it { is_expected.to have_many(:movies).dependent(:destroy) }
+  
 
   # Validations
 

@@ -7,7 +7,8 @@ RSpec.describe 'movies/show', type: :view do
     @movie = assign(:movie, Movie.create!(
                               title: 'Title',
                               summary: 'MyText',
-                              category_id: 2
+                              category_id: 2,
+                              user_id: 1
                             ))
   end
 

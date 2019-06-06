@@ -12,7 +12,12 @@
 
 <p>
   <strong>Category:</strong>
-  <%= @movie.category_id %>
+  <%= @movie.category_name %>
+</p>
+
+<p>
+  <strong>User e-mail:</strong>
+  <%= @movie.user.email %>
 </p>
 
 <%= link_to 'Edit', edit_movie_path(@movie) %> |

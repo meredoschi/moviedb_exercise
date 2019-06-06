@@ -15,6 +15,7 @@ RSpec.describe 'movies/edit', type: :view do
     @movie = assign(:movie, Movie.create!(
                               title: sample_title,
                               summary: 'MyText',
+                              user_id: 1,
                               category_id: @category.id
                             ))
   end

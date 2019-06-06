@@ -12,5 +12,7 @@ FactoryBot.define do
     #    title { sample_name+' '+verb }
     summary { 'Movie information...' }
     association :category, factory: :category
+    association :user, factory: :user
+
   end
 end

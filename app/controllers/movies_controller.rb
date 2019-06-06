@@ -9,7 +9,8 @@ class MoviesController < ApplicationController
   def index
     @title = 'List of movies'
     @all_movies = Movie.all.order(:title)
-    @movies = @all_movies.page(params[:page]).per(10)
+#    @movies = @all_movies.page(params[:page]).per(10)
+    @movies = @all_movies
     respond_to do |format|
       format.html
       format.json do
@@ -35,6 +36,8 @@ class MoviesController < ApplicationController
   # POST /movies.json
   def create
     @movie = Movie.new(movie_params)
+
+    @movie.user_id=current_user.id  # authenticated user
 
     respond_to do |format|
       if @movie.save

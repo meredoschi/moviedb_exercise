@@ -8,4 +8,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :ratings, dependent: :destroy
+  has_many :movies, dependent: :destroy
+
 end
