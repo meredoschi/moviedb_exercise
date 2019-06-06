@@ -17,5 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
       {"id":9,"title":"The sequel","summary":"It continues where the previous movie left off...","category_id":3,"created_at":"2019-06-05T15:56:40.621Z","updated_at":"2019-06-05T15:56:40.621Z","url":"http://localhost:3000/movies/9.json"}]
     },
     components: { Rate }
+//    ,
+// https://stackoverflow.com/questions/44440708/vue-js-templating-and-interpolation-not-rendering-data
+//    delimiters: ["((","))"]
   })
 })

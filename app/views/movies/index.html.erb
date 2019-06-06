@@ -38,15 +38,15 @@
 
       <tbody>
 
-        <template v-for="movie in movies_jsn">
+        <template v-for="movie in movies_jsn" v-bind:id="movie.ID">
           <tr>
             <td>{{ movie.id }}</td>
             <td>{{ movie.title }}</td>
             <td>{{ movie.summary }}</td>
             <td>{{ movie.category_id }}</td>
-            <td>'Show'</td>
-            <td>'Edit'</td>
-            <td>'Destroy'</td>
+            <td v-bind:id="`show-${movie.id}`"><button type="button" class="btn btn-primary">Show</button></td>
+            <td v-bind:id="`edit-${movie.id}`"><button type="button" class="btn btn-warning">Edit</button></td>
+            <td v-bind:id="`destroy-${movie.id}`"><button type="button" class="btn btn-danger">Destroy</button></td>
           </tr>
         </template>
       </tbody>
