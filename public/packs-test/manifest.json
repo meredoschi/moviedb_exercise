@@ -9,6 +9,16 @@
       "js.map": [
         "/packs-test/js/application-85ece6ab2896b402a649.js.map"
       ]
+    },
+    "rate": {
+      "js": [
+        "/packs-test/js/rate-7ebaafdaf551eff7396c.js"
+      ],
+      "js.map": [
+        "/packs-test/js/rate-7ebaafdaf551eff7396c.js.map"
+      ]
     }
-  }
+  },
+  "rate.js": "/packs-test/js/rate-7ebaafdaf551eff7396c.js",
+  "rate.js.map": "/packs-test/js/rate-7ebaafdaf551eff7396c.js.map"
 }

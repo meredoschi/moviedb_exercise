@@ -3,6 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe Rating, type: :model do
+  let(:rating) { FactoryBot.create(:rating) }
+
+  # Associations
+
+  # Validations
+
+  # Class methods
+
+  # Instance methods
+
   it { is_expected.to belong_to(:movie) }
   it { is_expected.to belong_to(:user) }
 

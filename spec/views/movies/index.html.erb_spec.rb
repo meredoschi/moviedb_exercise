@@ -15,13 +15,15 @@ RSpec.describe 'movies/index', type: :view do
 
   it 'movie titles are rendered' do
     render
-    assert_select 'tr>td', text: first_movie.title
-    assert_select 'tr>td', text: second_movie.title
+    #    assert_select 'tr>td', text: first_movie.title   # Traditional rails
+    #    assert_select 'tr>td', text: second_movie.title  #     "         "
+    assert_select 'tr>td', text: '{{ movie.title }}' # vuejs
   end
 
   it 'summary is rendered (for each movie)' do
     render
-    assert_select 'tr>td', text: first_movie.summary
-    assert_select 'tr>td', text: second_movie.summary
+    #    assert_select 'tr>td', text: first_movie.summary
+    #    assert_select 'tr>td', text: second_movie.summary
+    assert_select 'tr>td', text: '{{ movie.summary }}' # vuejs
   end
 end

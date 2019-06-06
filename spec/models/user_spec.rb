@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
 
   # Associations
 
-  it { is_expected.to have_many(:ratings) }
+  it { is_expected.to have_many(:ratings).dependent(:destroy) }
 
   # Validations
 

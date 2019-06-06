@@ -2,9 +2,12 @@
 
 FactoryBot.define do
   factory :movie do
-    sample_name = Faker::Name.unique.prefix + ' ' + Faker::Name.unique.last_name
+    sample_name = Faker::Name.prefix + ' ' + Faker::Name.last_name
     verb = Faker::Verb.unique.past_participle
-    sequence(:title) { |n| (sample_name + ' ' + verb + ' ' + n.to_s + Faker::Internet.email).to_s }
+    sequence(:title) do |n|
+      (sample_name + ' ' + verb + ' ' + \
+      n.to_s + Faker::Internet.email).to_s
+    end
 
     #    title { sample_name+' '+verb }
     summary { 'Movie information...' }

@@ -9,7 +9,6 @@ class MoviesController < ApplicationController
     @title="List of movies"
     @all_movies=Movie.all.order(:title)
     @movies = @all_movies.page(params[:page]).per(10)
-
   end
 
   # GET /movies/1
