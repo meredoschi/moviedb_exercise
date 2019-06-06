@@ -71,6 +71,12 @@ class RatingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def rating_params
-      params.fetch(:rating, {})
+      params.require(:rating).permit(:user_id, :movie_id, :stars)
     end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def movie_params
+      params.require(:movie).permit(:title, :summary, :category_id)
+    end
+
 end

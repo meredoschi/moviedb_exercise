@@ -57,8 +57,25 @@ document.addEventListener('DOMContentLoaded', () => {
             // console.log(this.current_user_id);
             // console.log(movie.id);
             // console.log(this.score);
-            console.log('user_id: '+this.current_user_id+', movie_id: '+movie.id, 'stars: '+this.score)
+            console.log('user_id: '+this.current_user_id+', movie_id: '+movie.id, 'stars: '+this.score);
+//            axios.post('/ratings', { "user_id"=>"1","movie_id"=>"6","stars"=>1 })
+//                user_id: this.current_user_id,
+//                movie_id: movie.id,
+//                stars: this.score
+//              })
+//              .then(function (response) {
+//                console.log(response);
+//              })
+//              .catch(function (error) {
+//                console.log(error);
+//              });
 
+//              axios.post('/ratings',{user_id:'1', movie_id: '5', stars: 5}).then(result => {
+              axios.post('/ratings',{user_id:this.current_user_id, movie_id: movie.id, stars: this.score}).then(result => {
+
+                  alert("Movie rated!");
+                  console.log(result.data)
+            })
           }
 
       },

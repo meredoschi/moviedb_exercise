@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   #  resources :movies
   resources :categories
+  resources :ratings
   devise_for :users
   root 'movies#index'
   authenticate :user do
