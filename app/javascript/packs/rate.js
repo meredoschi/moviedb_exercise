@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       return{
         current_user_id: 0,
+        score: 0, // current score
         movies_jsn:[],
         errors: []
       }
@@ -22,8 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     // https://forum.vuejs.org/t/select-element-by-id/21213/7
     mounted() {
-      current_user_id: document.getElementById("current-user");
-      console.log(current_user_id);
+        this.current_user_id = this.$el.getAttribute('data-id');
+  //    current_user_id: document.getElementById("current-user");
+  //    console.log(current_user_id);
 //      console.log(this);
   //    console.log(this.current_user_id.getAttribute('data-value'));
     //  console.log("Info: ",current_user_id)
@@ -43,7 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
 //          this.movies_json = this.movies_json.filter(movie => movie.id !== id)})
 //          .catch(e => {this.errors.push(e)});
 //          console.log(response)
-        }
+      },
+        rate_movie: function (event) {
+            // `this` inside methods points to the Vue instance
+            console.log(event);
+
+            console.log('Hello, your user id is: ' + this.current_user_id + '!');
+            // `event` is the native DOM event
+          }
 
       },
       // https://stackoverflow.com/questions/50169210/vuejs-redirect-to-url-when-clicked-on-a-button
