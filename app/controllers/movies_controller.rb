@@ -1,14 +1,22 @@
 # frozen_string_literal: true
 
+# Movies
 class MoviesController < ApplicationController
   before_action :set_movie, only: %i[show edit update destroy]
 
   # GET /movies
   # GET /movies.json
   def index
-    @title="List of movies"
-    @all_movies=Movie.all.order(:title)
+    @title = 'List of movies'
+    @all_movies = Movie.all.order(:title)
     @movies = @all_movies.page(params[:page]).per(10)
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: @movies.as_json(include: { category: { only: %i[id name] } },
+                                     except: :category_id)
+      end
+    end
   end
 
   # GET /movies/1

@@ -7,6 +7,11 @@ class Movie < ApplicationRecord
 
   delegate :name, to: :category, prefix: true
 
+#   def as_json(options={})
+#     super(:include => {:category => {:only => [:name]}})
+#  end
+
+
   def self.detailed_info
     movie_list = []
     movies = Movie.all
