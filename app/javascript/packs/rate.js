@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     data (){
 
       return{
+        current_user_id: 0,
         movies_jsn:[],
         errors: []
       }
@@ -19,12 +20,21 @@ document.addEventListener('DOMContentLoaded', () => {
     created() {
       this.getmovies()
     },
+    // https://forum.vuejs.org/t/select-element-by-id/21213/7
+    mounted() {
+      current_user_id: document.getElementById("current-user");
+      console.log(current_user_id);
+//      console.log(this);
+  //    console.log(this.current_user_id.getAttribute('data-value'));
+    //  console.log("Info: ",current_user_id)
+
+    },
     methods: {
       getmovies () {
         let url=`/movies.json`;
         axios.get(url).then(response => {this.movies_jsn = response.data })
         .catch(e => {this.errors.push(e)})
-        
+
 //      },
 //      removemovie(id) {
 //        let url=`http://localhost:3000/movies/` + id;
