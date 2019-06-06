@@ -3,14 +3,16 @@
 # Movies
 class MoviesController < ApplicationController
   before_action :set_movie, only: %i[show edit update destroy]
+  before_action :set_current_user_id, only: %i[index]
 
   # GET /movies
   # GET /movies.json
   def index
     @title = 'List of movies'
     @all_movies = Movie.all.order(:title)
-#    @movies = @all_movies.page(params[:page]).per(10)
+    #    @movies = @all_movies.page(params[:page]).per(10)
     @movies = @all_movies
+
     respond_to do |format|
       format.html
       format.json do
@@ -37,7 +39,7 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.new(movie_params)
 
-    @movie.user_id=current_user.id  # authenticated user
+    @movie.user_id = current_user.id # authenticated user
 
     respond_to do |format|
       if @movie.save
@@ -84,5 +86,13 @@ class MoviesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def movie_params
     params.require(:movie).permit(:title, :summary, :category_id)
+  end
+
+  def set_current_user_id
+    @current_user_id = if current_user.present?
+                         current_user.id
+                       else
+                         0
+                       end
   end
 end
