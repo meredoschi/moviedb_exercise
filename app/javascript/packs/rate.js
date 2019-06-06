@@ -16,6 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
       {"id":1,"title":"The sample","summary":"The sample wons an award for...","category_id":1,"created_at":"2019-06-05T15:56:40.589Z","updated_at":"2019-06-05T15:56:40.589Z","url":"http://localhost:3000/movies/1.json"},
       {"id":9,"title":"The sequel","summary":"It continues where the previous movie left off...","category_id":3,"created_at":"2019-06-05T15:56:40.621Z","updated_at":"2019-06-05T15:56:40.621Z","url":"http://localhost:3000/movies/9.json"}]
     },
+// https://stackoverflow.com/questions/50169210/vuejs-redirect-to-url-when-clicked-on-a-button
+    methods : {
+       jump_to(url){ // i.e. destination url
+       this.window.location.href = url
+       }
+    },
     components: { Rate }
 //    ,
 // https://stackoverflow.com/questions/44440708/vue-js-templating-and-interpolation-not-rendering-data

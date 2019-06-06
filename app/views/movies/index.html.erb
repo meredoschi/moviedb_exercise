@@ -1,4 +1,4 @@
-<%#= render 'index_header.html.erb' %>
+<%= render 'index_header.html.erb' %>
 
 <%#= render 'index_table.html.erb' %>
 
@@ -6,29 +6,14 @@
 
 <%= javascript_pack_tag 'rate' %>
 
-<hr>
-
-<h3>Script</h3>
-
-<h4>Movies (in list format)</h4>
+<%#= render 'index_list_js.html.erb' %>
 
 <div class="row">
   <div id='rate'>
 
-
-    <ul id="movie-list">
-      <template v-for="movie in movies_jsn">
-        <li>id: {{ movie.id }}</li>
-        <li>title: {{ movie.title }}</li>
-        <li><em>text: {{ movie.summary }}</em></li>
-        <br>
-      </template>
-    </ul>
-
     <table id="movies-table">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Title</th>
           <th>Summary</th>
           <th>Category_id</th>
@@ -39,13 +24,26 @@
       <tbody>
 
         <template v-for="movie in movies_jsn" v-bind:id="movie.ID">
-          <tr>
-            <td>{{ movie.id }}</td>
-            <td>{{ movie.title }}</td>
-            <td>{{ movie.summary }}</td>
+          <tr v-bind:id="`movie-${movie.id}`">
+            <td><a v-bind:id="`title-${movie.id}`" v-bind:href="`movies/${movie.id}`">{{ movie.title }}</a></td>
+            <td><a v-bind:id="`summary-${movie.id}`" v-bind:href="`movies/${movie.id}`">{{ movie.summary }}</a></td>
             <td>{{ movie.category_id }}</td>
-            <td v-bind:id="`show-${movie.id}`"><button type="button" class="btn btn-primary">Show</button></td>
-            <td v-bind:id="`edit-${movie.id}`"><button type="button" class="btn btn-warning">Edit</button></td>
+            <td><a v-bind:id="`title-${movie.id}`" v-bind:href="`movies/${movie.id}`"></a></td>
+
+            <td>
+              <a v-bind:id="`show-${movie.id}`" v-bind:href="`movies/${movie.id}`" >
+                <button type="button" class="btn btn-primary">Show
+                </button>
+              </a>
+            </td>
+
+            <td>
+              <a v-bind:id="`edit-${movie.id}`" v-bind:href="`movies/${movie.id}/edit`" >
+                <button type="button" class="btn btn-warning">Edit
+                </button>
+              </a>
+            </td>
+
             <td v-bind:id="`destroy-${movie.id}`"><button type="button" class="btn btn-danger">Destroy</button></td>
           </tr>
         </template>
@@ -56,5 +54,3 @@
 
   </div>
 </div>
-
-<hr>
