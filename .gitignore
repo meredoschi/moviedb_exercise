@@ -28,3 +28,6 @@
 
 *.swp
 .DS_Store
+
+# Ignore temprary personal files (used during development)
+.marcelo
