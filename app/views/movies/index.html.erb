@@ -21,7 +21,7 @@
 
       <tbody>
 
-        <template v-for="movie in movies_jsn" v-bind:id="movie.ID">
+        <template v-for="movie in movies_jsn" v-bind:id="movie.id">
           <tr v-bind:id="`movie-${movie.id}`">
             <td><a v-bind:id="`title-${movie.id}`" v-bind:href="`movies/${movie.id}`">{{ movie.title }}</a></td>
             <td><a v-bind:id="`summary-${movie.id}`" v-bind:href="`movies/${movie.id}`">{{ movie.summary }}</a></td>
@@ -31,8 +31,7 @@
               <div v-bind:id="`rate-movie-${movie.id}`">
                 <!-- `greet` is the name of a method defined below -->
                 <input v-model="score">
-                <button class="btn btn-secondary" v-on:click="rate_movie">Rate</button>
-
+                <button class="btn btn-secondary" v-on:click="rate_movie(movie)">Rate</button>
               </div>
             </td>
             <td>

@@ -9,7 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
     data (){
 
       return{
+        rating : {
+          user_id: '',
+          movie_id: '',
+          stars: ''
+        },
         current_user_id: 0,
+        current_movie_id: 0,
         score: 0, // current score
         movies_jsn:[],
         errors: []
@@ -46,12 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
 //          .catch(e => {this.errors.push(e)});
 //          console.log(response)
       },
-        rate_movie: function (event) {
-            // `this` inside methods points to the Vue instance
-            console.log(event);
+        rate_movie: function (movie) {
+            // movie = current movie object
+            // console.log(this.current_user_id);
+            // console.log(movie.id);
+            // console.log(this.score);
+            console.log('user_id: '+this.current_user_id+', movie_id: '+movie.id, 'stars: '+this.score)
 
-            console.log('Hello, your user id is: ' + this.current_user_id + '!');
-            // `event` is the native DOM event
           }
 
       },
