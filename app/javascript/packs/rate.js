@@ -1,10 +1,13 @@
 import Vue from 'vue/dist/vue.esm'
 import Rate from '../rate.vue'
+import axios from 'axios';
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     el: '#rate',
     data: {
+      dynamic:[],
+      errors: [],
       movies_jsn: [ {"id":4,"title":"A real documentary","summary":"Things are very real in this documentary about...","category_id":4,"created_at":"2019-06-05T15:56:40.602Z","updated_at":"2019-06-05T15:56:40.602Z","url":"http://localhost:3000/movies/4.json"},
       {"id":3,"title":"Planet XYZ","summary":"In a recently discovered planet...","category_id":3,"created_at":"2019-06-05T15:56:40.598Z","updated_at":"2019-06-05T15:56:40.598Z","url":"http://localhost:3000/movies/3.json"},
       {"id":11,"title":"Provisional","summary":"A working title which remained...","category_id":5,"created_at":"2019-06-05T15:56:40.628Z","updated_at":"2019-06-05T15:56:40.628Z","url":"http://localhost:3000/movies/11.json"},
@@ -16,15 +19,25 @@ document.addEventListener('DOMContentLoaded', () => {
       {"id":1,"title":"The sample","summary":"The sample wons an award for...","category_id":1,"created_at":"2019-06-05T15:56:40.589Z","updated_at":"2019-06-05T15:56:40.589Z","url":"http://localhost:3000/movies/1.json"},
       {"id":9,"title":"The sequel","summary":"It continues where the previous movie left off...","category_id":3,"created_at":"2019-06-05T15:56:40.621Z","updated_at":"2019-06-05T15:56:40.621Z","url":"http://localhost:3000/movies/9.json"}]
     },
-// https://stackoverflow.com/questions/50169210/vuejs-redirect-to-url-when-clicked-on-a-button
-    methods : {
-       jump_to(url){ // i.e. destination url
-       this.window.location.href = url
-       }
+    // https://alligator.io/vuejs/rest-api-axios/
+    created() {
+      axios.get(`/movies.json`).then(response => {
+        this.dynamic = response.data
+      }).catch(e => {
+        this.errors.push(e)
+      })
     },
+    // https://stackoverflow.com/questions/50169210/vuejs-redirect-to-url-when-clicked-on-a-button
     components: { Rate }
-//    ,
-// https://stackoverflow.com/questions/44440708/vue-js-templating-and-interpolation-not-rendering-data
-//    delimiters: ["((","))"]
+    //    ,
+    // https://stackoverflow.com/questions/44440708/vue-js-templating-and-interpolation-not-rendering-data
+    //    delimiters: ["((","))"]
+  })
+
+
+  axios.get('/movies.json')
+  .then(function (response) {
+    // handle success
+    console.log(response);
   })
 })
