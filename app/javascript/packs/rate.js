@@ -7,6 +7,10 @@ import axios from 'axios-on-rails';
 import StarRating from 'vue-star-rating'
 Vue.component('star-rating', StarRating)
 
+// https://vue-select.org/guide/install.html
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
+
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     el: '#rate',
