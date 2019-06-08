@@ -12,10 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     data (){
 
       return {
-
-        options: [{code: 'IT', country: 'Italy'}, {code: 'CA', country: 'Canada'}, {code: 'BR', country: 'Brazil'}],
+        all_label: '--- All ---',
         // original
-        selected_id: '',
+        selected: undefined,
+        selected_category: '',
+        options: ['First','Second','Third'],
         rating : 0,
         current_user_id: 0,
         current_movie_id: 0,
@@ -25,30 +26,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     },
     computed: {
+      filteredMovies: function() {
+
+        return this.movies_jsn.filter((movie) => {
+          //          console.log(movie.category.name);
+
+          if ((this.selected_category!='') && (this.selected_category!=this.all_label))
+          {
+
+            return movie.category.name==this.selected_category;
+          } else {
+            return true;
+          }
+
+        });
+      },
       // a computed getter
       category_names: function () {
         // `this` points to the vm instance
         console.log(this.movies_jsn.category);
         let category_names=[];
         for (var i=0; i<this.movies_jsn.length; i++) {
-            //let name=JSON.stringify(this.movies_jsn[i].category.name)
-            let name=this.movies_jsn[i].category.name
+          //let name=JSON.stringify(this.movies_jsn[i].category.name)
+          let name=this.movies_jsn[i].category.name
 
-            console.log(name);
-            if(category_names.includes(name) === false) { category_names.push(name); }
+          console.log(name);
+          if(category_names.includes(name) === false) { category_names.push(name); }
 
 
-    //        category_names.push(cat_name);
+          //        category_names.push(cat_name);
         }
 
         console.log(category_names.sort());
 
-      //  console.log(category_names)
+        //  console.log(category_names)
 
 
         return category_names.sort();
 
 
+      },
+      category_name_options: function () {
+        let arr=[];
+        arr.push(this.all_label);
+        arr.push(this.category_names);
+        return arr.flat();
       }
     },
     // https://alligator.io/vuejs/rest-api-axios/
@@ -121,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //    delimiters: ["((","))"]
   })
 
-//
+  //
 
   axios.get('/movies.json')
   .then(function (response) {

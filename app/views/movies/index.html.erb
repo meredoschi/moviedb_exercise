@@ -5,24 +5,19 @@
 <%#= javascript_pack_tag 'rate' %>
 <%= javascript_pack_tag 'facet' %>
 
-
-<h2> Facets </h2>
-
-<h3> Movie list (with category name) </h3>
-
+<h4>Facet</h4>
 <div id='facet' data-id="<%= @current_user_id %>">
 
-  <template v-for="(movie, index) in movies_jsn" v-bind:id="movie.id">
-    <h6>{{index+1}}: {{movie.title}} -  {{movie.category.name}}</h6>
+  <%#= render 'index_footer.html.erb' %>
 
-  </template>
+  <p>Category Names: "{{ category_names }}"</p>
 
+  <p>Category select options: "{{ category_name_options }}"</p>
+
+  <h5>Filter movie by category</h5>
+    <v-select v-model="selected_category" :options="category_name_options" label="category"></v-select>
   <hr>
 
-<p>Category Names: "{{ category_names }}"</p>
-
-<v-select :options="category_names" label="category" />
-
-</div>
-
-<%#= render 'index_footer.html.erb' %>
+  <template v-for="(movie, index) in filteredMovies" v-bind:id="movie.id">
+    <h6> {{index+1}}: {{movie.title}} ({{movie.category.name}} category) </h6>
+  </template>

@@ -8,6 +8,8 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.22",
     "vue": "^2.6.10",
+    "vue-cool-select": "^2.10.2",
+    "vue-dropdowns": "^1.0.6",
     "vue-eva-icons": "^1.1.1",
     "vue-loader": "^15.7.0",
     "vue-multiselect": "^2.1.6",

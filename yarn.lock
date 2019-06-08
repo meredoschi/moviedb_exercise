@@ -6940,6 +6940,16 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-cool-select@^2.10.2:
+  version "2.10.2"
+  resolved "https://registry.yarnpkg.com/vue-cool-select/-/vue-cool-select-2.10.2.tgz#6e3534a6957b0a044b6cdf73d6f68454262146a7"
+  integrity sha512-smUS37qg4AD8dsiC7DoffgMXdbrpX8OOYV30zzy+V5kUVII+BigEiiwkFdoIsfPRMzU4C0Xxi2mKQNkza1Mgmw==
+
+vue-dropdowns@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/vue-dropdowns/-/vue-dropdowns-1.0.6.tgz#cc6d086c8e7570768bda1fc598f9e27dd0145d0a"
+  integrity sha512-es1jf3LWmeSBhdMFaQL46ulcVQXMZjmO1KPG71RFImb2WFCukhYT39rb55iV4ZRUNH88lhf5uk+O8gQ+0BxCpw==
+
 vue-eva-icons@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/vue-eva-icons/-/vue-eva-icons-1.1.1.tgz#da98a494986cb81c21d66d885340c3d250911a0c"
