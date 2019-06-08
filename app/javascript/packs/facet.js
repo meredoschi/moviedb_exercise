@@ -99,12 +99,13 @@ document.addEventListener('DOMContentLoaded', () => {
       average_rating(movie) {
           if (movie.ratings.length > 0) {
 
-            return app.total_stars(movie)/app.number_of_ratings(movie);
+            let score=app.total_stars(movie)/app.number_of_ratings(movie);
+            return Math.round(score * 100)/100;
           }
 
           else
             return 0;
-            
+
   //        return total_stars(movie)/number_of_ratings(movie) ;
     //    else
     //      return 0;
