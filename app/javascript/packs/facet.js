@@ -30,12 +30,29 @@ document.addEventListener('DOMContentLoaded', () => {
         movies_jsn:[],
         errors: [],
         current_page: 1,
-        records_per_page: 3
+        records_per_page: 3,
+        // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
+        pageSize:5,
+        currentPage:1
 
       }
 
     },
     computed: {
+
+      filteredMovieIds: function() {
+
+        let ids=[];
+
+        console.log(app.filteredMovies.ids);
+
+        this.filteredMovies.forEach(function(movie) {
+          ids.push(movie.id)
+        });
+
+        return ids;
+
+      },
 
       paginatedMovies: function() {
 
@@ -85,9 +102,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
         // <p>Search: <input v-model="search_title_txt" placeholder="Movie titles"></p>
 
-        return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
+//        return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
 
-      },
+        return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn)))).filter((row, index) => {
+		let start = (this.currentPage-1)*this.pageSize;
+		let end = this.currentPage*this.pageSize;
+		if(index >= start && index < end) return true;
+	});
+
+        },
       // a computed getter
       category_names: function () {
         // `this` points to the vm instance
@@ -149,6 +172,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     },
     methods: {
+
+      // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
+      nextPage:function() {
+        if((this.currentPage*this.pageSize) < this.movies_jsn.length) this.currentPage++;
+      },
+      prevPage:function() {
+        if(this.currentPage > 1) this.currentPage--;
+      },
 
       movieTitleContainsText(movies) {
 
