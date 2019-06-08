@@ -10,12 +10,19 @@
 
   <%#= render 'index_footer.html.erb' %>
 
+
   <p>Category Names: "{{ category_names }}"</p>
 
   <p>Category select options: "{{ category_name_options }}"</p>
 
+  <p>Rating select options: "{{ rating_options }}"</p>
+
   <h5>Filter movie by category</h5>
   <v-select v-model="selected_category" :options="category_name_options" label="category"></v-select>
+  <hr>
+
+  <h5>Filter movie by rating</h5>
+  <v-select v-model="selected_rating" :options="rating_options" label="rating"></v-select>
   <hr>
 
   <template v-for="(movie, index) in filteredMovies" v-bind:id="movie.id">

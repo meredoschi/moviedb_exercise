@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // original
         selected: undefined,
         selected_category: '',
+        selected_rating: '',
         options: ['First','Second','Third'],
         rating : 0,
         current_user_id: 0,
@@ -26,7 +27,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     },
     computed: {
+
       filteredMovies: function() {
+        //          getByCategory(getByKeyword(this.list, this.keyword), this.category)
+        //  MoviesFilteredByCategory(MoviesFilteredByRating(this.selected_rating), this.selected_category));
+
+        //            MoviesFilteredByCategory(MoviesFilteredByRating(this.selected_rating), this.selected_category));
+        //      return MoviesFilteredByRating(app.MoviesFilteredByCategory);
+        //          return this.movies_jsn;
+        return app.moviesByCategory(app.moviesByRating(this.movies_jsn));
+
+      },
+
+      MoviesFilteredByRating: function() {
+
+        return this.movies_jsn.filter((movie) => {
+          //          console.log(movie.category.name);
+
+          if ((this.selected_rating!='') && (this.selected_rating!=this.all_label))
+          {
+
+            let selected_rating=this.selected_rating;
+            let movie_average=app.average_rating(movie);
+            return  ((movie_average>=selected_rating) && (movie_average-selected_rating<=1));
+
+          } else {
+            return true;
+          }
+
+        });
+
+      },
+      MoviesFilteredByCategory: function() {
 
         return this.movies_jsn.filter((movie) => {
           //          console.log(movie.category.name);
@@ -71,7 +103,14 @@ document.addEventListener('DOMContentLoaded', () => {
         arr.push(this.all_label);
         arr.push(this.category_names);
         return arr.flat();
-      }
+      },
+      rating_options: function () {
+        let arr=[];
+        arr.push(this.all_label);
+        let levels=['5','4','3','2','1'];
+        arr.push(levels);
+        return arr.flat();
+      },
     },
     // https://alligator.io/vuejs/rest-api-axios/
     // https://stackoverflow.com/questions/54757510/how-to-delete-a-record-in-rails-api-and-vue-js
@@ -89,27 +128,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
     },
     methods: {
+      // movies_jsn
+      moviesByRating(movies) {
+
+        return movies.filter((movie) => {
+
+          if ((this.selected_rating!='') && (this.selected_rating!=this.all_label))
+          {
+
+            let selected_rating=this.selected_rating;
+            let movie_average=app.average_rating(movie);
+            return  ((movie_average>=selected_rating) && (movie_average-selected_rating<=1));
+
+          } else {
+            return true;
+          }
+
+        });
+
+      },
+      moviesByCategory(movies) {
+        return movies.filter((movie) => {
+          //          console.log(movie.category.name);
+
+          if ((this.selected_category!='') && (this.selected_category!=this.all_label))
+          {
+
+            return movie.category.name==this.selected_category;
+          } else {
+            return true;
+          }
+
+        });
+
+      },
+
       // get the average rate (number of stars)
       number_of_ratings(movie) {
         console.log(movie.title);
         return -1;
-//        return movie.ratings.length;
+        //        return movie.ratings.length;
 
       },
       average_rating(movie) {
-          if (movie.ratings.length > 0) {
+        if (movie.ratings.length > 0) {
 
-            let score=app.total_stars(movie)/app.number_of_ratings(movie);
-            return Math.round(score * 100)/100;
-          }
+          let score=app.total_stars(movie)/app.number_of_ratings(movie);
+          return Math.round(score * 100)/100;
+        }
 
-          else
-            return 0;
+        else
+        return 0;
 
-  //        return total_stars(movie)/number_of_ratings(movie) ;
-    //    else
-    //      return 0;
-    //    end
+        //        return total_stars(movie)/number_of_ratings(movie) ;
+        //    else
+        //      return 0;
+        //    end
       },
       number_of_ratings(movie) {
         return movie.ratings.length;
@@ -122,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         console.log(movie.title+" has "+total_stars+" stars in total.")
         return total_stars;
-//        return movie.ratings.length;
+        //        return movie.ratings.length;
       },
       getmovies () {
         let url=`/movies.json`;
