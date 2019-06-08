@@ -5,17 +5,11 @@
 <%#= javascript_pack_tag 'rate' %>
 <%= javascript_pack_tag 'facet' %>
 
-<h4>Facet</h4>
 <div id='facet' data-id="<%= @current_user_id %>">
 
+<h4>Facets</h4>
+
   <%#= render 'index_footer.html.erb' %>
-
-
-  <p>Category Names: "{{ category_names }}"</p>
-
-  <p>Category select options: "{{ category_name_options }}"</p>
-
-  <p>Rating select options: "{{ rating_options }}"</p>
 
   <h5>Filter movie by category</h5>
   <v-select v-model="selected_category" :options="category_name_options" label="category"></v-select>
@@ -28,12 +22,54 @@
   <hr>
   <h5>Filter movie by text</h5>
   <p>Title contains: <input v-model="search_title_txt" placeholder="Enter your search text"></p>
-  <p>You typed: {{ search_title_txt }}</p>
 
   <p>Summary contains: <input v-model="search_summary_txt" placeholder="Enter your search text"></p>
-  <p>You typed: {{ search_summary_txt }}</p>
 
   <hr>
+
+  <div class="row">
+
+      <table id="movies-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Text</th>
+            <th>Ratings</th>
+            <th>Category</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <template v-for="(movie, index) in filteredMovies" v-bind:id="movie.id">
+            <tr>
+              <td><a v-bind:id="`title-${movie.id}`" v-bind:href="`movies/${movie.id}`">{{ movie.title }}</a></td>
+              <td><a v-bind:id="`summary-${movie.id}`" v-bind:href="`movies/${movie.id}`">{{ movie.summary }}</a></td>
+              <td>
+                <star-rating v-model="rating" v-bind:star-size="18" active-color="#ebf442" @rating-selected ="rate_movie(movie)"></star-rating>
+              </td>
+              <td><a v-bind:id="`category-${movie.id}`" v-bind:href="`categories/${movie.category_id}`">{{ movie.category["name"] }}</a></td>
+              <td>
+                <a v-bind:id="`show-${movie.id}`" v-bind:href="`movies/${movie.id}`" >
+                  <button type="button" class="btn btn-primary">Show
+                  </button>
+                </a>
+              </td>
+
+              <td>
+                <a v-bind:id="`edit-${movie.id}`" v-bind:href="`movies/${movie.id}/edit`" >
+                  <button type="button" class="btn btn-warning">Edit
+                  </button>
+                </a>
+              </td>
+
+              <td v-bind:id="`destroy-${movie.id}`"><button type="button" class="btn btn-danger">Destroy</button></td>
+            </tr>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
 
   <template v-for="(movie, index) in filteredMovies" v-bind:id="movie.id">
     <h4> {{index+1}}: {{movie.title}} ({{movie.category.name}} category) </h4>

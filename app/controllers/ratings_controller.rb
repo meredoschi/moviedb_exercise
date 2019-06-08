@@ -28,6 +28,8 @@ class RatingsController < ApplicationController
   def create
     @rating = Rating.new(rating_params)
 
+    @rating.user_id=current_user.id 
+
     respond_to do |format|
       if @rating.save
         format.html { redirect_to @rating, notice: 'Rating was successfully created.' }
