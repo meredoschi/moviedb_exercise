@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return {
         all_label: '--- All ---',
         // original
+        search_title_txt: '',
+        search_summary_txt: '',
         selected: undefined,
         selected_category: '',
         selected_rating: '',
@@ -29,13 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
     computed: {
 
       filteredMovies: function() {
-        //          getByCategory(getByKeyword(this.list, this.keyword), this.category)
-        //  MoviesFilteredByCategory(MoviesFilteredByRating(this.selected_rating), this.selected_category));
 
-        //            MoviesFilteredByCategory(MoviesFilteredByRating(this.selected_rating), this.selected_category));
-        //      return MoviesFilteredByRating(app.MoviesFilteredByCategory);
-        //          return this.movies_jsn;
-        return app.moviesByCategory(app.moviesByRating(this.movies_jsn));
+        //    return app.moviesByCategory(app.moviesByRating(this.movies_jsn));
+
+        //      return ;
+
+        return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
 
       },
 
@@ -128,6 +129,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
     },
     methods: {
+
+      movieTitleContainsText(movies) {
+
+        return movies.filter((movie) => {
+
+          if (this.search_title_txt!='')
+          {
+
+            console.log(this.search_tile_txt);
+            console.log(movie.title);
+
+            let movie_text=movie.title.toUpperCase();
+            let search_title_txt_case_insensitive=this.search_title_txt.toUpperCase();
+            // insert logic here
+            return   movie_text.match(search_title_txt_case_insensitive);
+
+            //      let selected_rating=this.selected_rating;
+            //      let movie_average=app.average_rating(movie);
+            //    return  ((movie_average>=selected_rating) && (movie_average-selected_rating<=1));
+
+          } else {
+            return true;
+          }
+          this.search_title_txt=''; // reset
+
+        });
+
+      },
+
+      movieSummaryContainsText(movies) {
+
+        return movies.filter((movie) => {
+
+          if (this.search_summary_txt!='')
+          {
+
+            console.log(this.search_summary_txt);
+            console.log(movie.summary);
+
+            let movie_text=movie.summary.toUpperCase();
+            let search_summary_txt_case_insensitive=this.search_summary_txt.toUpperCase();
+            // insert logic here
+            return   movie_text.match(search_summary_txt_case_insensitive);
+
+            //      let selected_rating=this.selected_rating;
+            //      let movie_average=app.average_rating(movie);
+            //    return  ((movie_average>=selected_rating) && (movie_average-selected_rating<=1));
+
+          } else {
+            return true;
+          }
+          this.search_summary_txt=''; // reset
+
+        });
+
+      },
+
       // movies_jsn
       moviesByRating(movies) {
 
