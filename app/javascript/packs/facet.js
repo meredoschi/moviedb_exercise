@@ -28,12 +28,57 @@ document.addEventListener('DOMContentLoaded', () => {
         current_user_id: 0,
         current_movie_id: 0,
         movies_jsn:[],
-        errors: []
+        errors: [],
+        current_page: 1,
+        records_per_page: 3
+
       }
 
     },
     computed: {
 
+      paginatedMovies: function() {
+
+        return filteredMovies.slice(app.start_indx, app.finish_indx);
+
+      },
+
+      start_indx: function() {
+
+         return (this.current_page-1)*(this.records_per_page);
+     },
+
+     finish_indx: function() {
+
+        return app.start_indx+this.records_per_page;
+    },
+
+
+        totalPages: function() {
+
+          return Math.ceil(app.filteredMovies.length/this.records_per_page);
+
+          return app.filteredMovies.length/(app.pagination.max_records_per_page);
+      },
+
+       paginatedMovies: function() {
+
+//         let start_indx=(this.current_page-1)*(this.records_per_page);
+//          let finish_indx=start_indx+this.records_per_page;
+//         return app.filteredMovies.slice(start_indx,finish_indx);
+      },
+
+      filteredTitles: function() {
+
+        let titles=[];
+
+        this.filteredMovies.forEach(function(movie) {
+          titles.push(movie.title)
+        });
+
+        return titles;
+
+      },
       filteredMovies: function() {
 
         // This would search by movie title as well
@@ -236,15 +281,15 @@ document.addEventListener('DOMContentLoaded', () => {
         axios.get(url).then(response => {this.movies_jsn = response.data })
         .catch(e => {this.errors.push(e)})
 
-        //      },
-        //      removemovie(id) {
-        //        let url=`http://localhost:3000/movies/` + id;
-        //        console.log(url)
-        //        this.axios.delete(url).then(response => {
-        //          this.movies_json = this.movies_json.filter(movie => movie.id !== id)})
-        //          .catch(e => {this.errors.push(e)});
-        //          console.log(response)
       },
+//        remove_movie(id) {
+      //        let url=`http://localhost:3000/movies/` + id;
+      //        console.log(url)
+      //        this.axios.delete(url).then(response => {
+      //          this.movies_json = this.movies_json.filter(movie => movie.id !== id)})
+      //          .catch(e => {this.errors.push(e)});
+      //          console.log(response)
+
       rate_movie: function (movie) {
         // movie = current movie object
         // console.log(this.current_user_id);

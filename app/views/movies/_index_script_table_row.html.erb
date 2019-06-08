@@ -1,0 +1,26 @@
+<tr>
+  <td><a v-bind:id="`title-${movie.id}`" v-bind:href="`movies/${movie.id}`">{{ movie.title }}</a></td>
+  <td><a v-bind:id="`summary-${movie.id}`" v-bind:href="`movies/${movie.id}`">{{ movie.summary }}</a></td>
+  <td v-if="(current_user_id>0)">
+    <star-rating v-model="rating" v-bind:star-size="18" active-color="#ebf442" @rating-selected ="rate_movie(movie)"></star-rating>
+  </td>
+  <td v-if="(current_user_id==0)">
+    {{ average_rating(movie)}}
+  </td>
+  <td><a v-bind:id="`category-${movie.id}`" v-bind:href="`categories/${movie.category_id}`">{{ movie.category["name"] }}</a></td>
+  <td>
+    <a v-bind:id="`show-${movie.id}`" v-bind:href="`movies/${movie.id}`" >
+      <button type="button" class="btn btn-primary">Show
+      </button>
+    </a>
+  </td>
+
+  <td>
+    <a v-bind:id="`edit-${movie.id}`" v-bind:href="`movies/${movie.id}/edit`" >
+      <button type="button" class="btn btn-warning">Edit
+      </button>
+    </a>
+  </td>
+
+  <td v-bind:id="`destroy-${movie.id}`"><button type="button" class="btn btn-danger">Destroy</button></td>
+</tr>

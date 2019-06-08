@@ -7,16 +7,22 @@
     "axios-on-rails": "^0.0.1",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.22",
+    "v-page": "^2.0.8",
     "vue": "^2.6.10",
     "vue-cool-select": "^2.10.2",
     "vue-dropdowns": "^1.0.6",
     "vue-eva-icons": "^1.1.1",
     "vue-loader": "^15.7.0",
+    "vue-lpage": "^1.0.3",
     "vue-multiselect": "^2.1.6",
+    "vue-paginate": "^3.6.0",
+    "vue-pagination-2": "^2.0.3",
     "vue-select": "^3.1.0",
     "vue-star-rating": "^1.6.1",
     "vue-template-compiler": "^2.6.10",
-    "vue-turbolinks": "^2.0.4"
+    "vue-turbolinks": "^2.0.4",
+    "vuejs-paginate": "^2.1.0",
+    "vuejs-paginator": "^2.0.2"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.4.1"
