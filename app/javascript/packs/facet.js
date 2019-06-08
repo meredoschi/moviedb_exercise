@@ -2,6 +2,10 @@ import Vue from 'vue/dist/vue.esm';
 //import axios from 'axios';
 import axios from 'axios-on-rails';
 
+// https://www.npmjs.com/package/vue-star-rating
+import StarRating from 'vue-star-rating'
+Vue.component('star-rating', StarRating)
+
 import vSelect from 'vue-select';
 Vue.component('v-select', vSelect);
 import 'vue-select/dist/vue-select.css';
@@ -38,41 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
 
-      },
-
-      MoviesFilteredByRating: function() {
-
-        return this.movies_jsn.filter((movie) => {
-          //          console.log(movie.category.name);
-
-          if ((this.selected_rating!='') && (this.selected_rating!=this.all_label))
-          {
-
-            let selected_rating=this.selected_rating;
-            let movie_average=app.average_rating(movie);
-            return  ((movie_average>=selected_rating) && (movie_average-selected_rating<=1));
-
-          } else {
-            return true;
-          }
-
-        });
-
-      },
-      MoviesFilteredByCategory: function() {
-
-        return this.movies_jsn.filter((movie) => {
-          //          console.log(movie.category.name);
-
-          if ((this.selected_category!='') && (this.selected_category!=this.all_label))
-          {
-
-            return movie.category.name==this.selected_category;
-          } else {
-            return true;
-          }
-
-        });
       },
       // a computed getter
       category_names: function () {
