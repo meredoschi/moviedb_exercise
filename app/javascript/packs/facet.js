@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // original
         search_title_txt: '',
         search_summary_txt: '',
-        selected: undefined,
+        selected: '',
         selected_category: '',
         selected_rating: '',
         options: ['First','Second','Third'],
@@ -36,9 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       filteredMovies: function() {
 
-        //    return app.moviesByCategory(app.moviesByRating(this.movies_jsn));
-
-        //      return ;
+        // This would search by movie title as well
+        // return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
+        // <p>Search: <input v-model="search_title_txt" placeholder="Movie titles"></p>
 
         return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
 
@@ -85,11 +85,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // https://alligator.io/vuejs/rest-api-axios/
     // https://stackoverflow.com/questions/54757510/how-to-delete-a-record-in-rails-api-and-vue-js
     created() {
-      this.getmovies()
+      //      console.log('User id ===> ');
+      // https://forum.vuejs.org/t/how-to-get-id-value-in-vue-js/44999
+      let user_id=document.querySelector('#current_user').dataset.value;
+      //      console.log(user_id);
+      this.current_user_id=user_id;
+      this.getmovies();
     },
     // https://forum.vuejs.org/t/select-element-by-id/21213/7
     mounted() {
-      this.current_user_id = this.$el.getAttribute('data-id');
+
+      //      this.current_user_id = app.getAttribute('data-current-user-id');
       //    current_user_id: document.getElementById("current-user");
       //    console.log(current_user_id);
       //      console.log(this);

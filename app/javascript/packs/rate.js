@@ -28,7 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // https://alligator.io/vuejs/rest-api-axios/
     // https://stackoverflow.com/questions/54757510/how-to-delete-a-record-in-rails-api-and-vue-js
     created() {
-      this.getmovies()
+      console.log(">>>> created");
+      console.log(this.$refs["facet"]);
+      this.getmovies();
     },
     // https://forum.vuejs.org/t/select-element-by-id/21213/7
     mounted() {

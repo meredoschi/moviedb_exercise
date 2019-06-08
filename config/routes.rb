@@ -3,11 +3,11 @@
 Rails.application.routes.draw do
   #  resources :movies
   resources :categories
-  resources :ratings
   devise_for :users
   root 'movies#index'
   authenticate :user do
     resources :movies, only: %i[new create edit update destroy]
+    resources :ratings
   end
   resources :movies, only: %i[index show]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

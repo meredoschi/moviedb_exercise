@@ -5,75 +5,80 @@
 <%#= javascript_pack_tag 'rate' %>
 <%= javascript_pack_tag 'facet' %>
 
-<div id='facet' data-id="<%= @current_user_id %>">
+<div id="current_user" data-value="<%= @current_user_id %>">
 
-<h4>Facets</h4>
+  <div id='facet' data-current-user-id="<%= @current_user_id %>">
 
-  <%#= render 'index_footer.html.erb' %>
+    <%#= render 'index_footer.html.erb' %>
 
-  <h5>Filter movie by category</h5>
-  <v-select v-model="selected_category" :options="category_name_options" label="category"></v-select>
-  <hr>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <p>Categories</p>
+          <v-select v-model="selected_category" :options="category_name_options" label="category"></v-select>
+        </div>
+        <div class="col-md-4">
+          <p>Ratings</p>
+          <v-select v-model="selected_rating" :options="rating_options" label="rating"></v-select>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <p>Search:</p>
+          </div>
+          <div class="col-md-4">
+            <p><input v-model="search_summary_txt" placeholder="Movie text contents"></p>
+          </div>
+        </div>
+      </div>
 
-  <h5>Filter movie by rating</h5>
-  <v-select v-model="selected_rating" :options="rating_options" label="rating"></v-select>
-  <hr>
+      <br>
+      <div class="row">
 
-  <hr>
-  <h5>Filter movie by text</h5>
-  <p>Title contains: <input v-model="search_title_txt" placeholder="Enter your search text"></p>
-
-  <p>Summary contains: <input v-model="search_summary_txt" placeholder="Enter your search text"></p>
-
-  <hr>
-
-  <div class="row">
-
-      <table id="movies-table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Text</th>
-            <th>Ratings</th>
-            <th>Category</th>
-            <th colspan="3"></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <template v-for="(movie, index) in filteredMovies" v-bind:id="movie.id">
+        <table v-if="(filteredMovies.length>0)" class="table table-striped" id="movies-table">
+          <thead class="thead-dark">
             <tr>
-              <td><a v-bind:id="`title-${movie.id}`" v-bind:href="`movies/${movie.id}`">{{ movie.title }}</a></td>
-              <td><a v-bind:id="`summary-${movie.id}`" v-bind:href="`movies/${movie.id}`">{{ movie.summary }}</a></td>
-              <td>
-                <star-rating v-model="rating" v-bind:star-size="18" active-color="#ebf442" @rating-selected ="rate_movie(movie)"></star-rating>
-              </td>
-              <td><a v-bind:id="`category-${movie.id}`" v-bind:href="`categories/${movie.category_id}`">{{ movie.category["name"] }}</a></td>
-              <td>
-                <a v-bind:id="`show-${movie.id}`" v-bind:href="`movies/${movie.id}`" >
-                  <button type="button" class="btn btn-primary">Show
-                  </button>
-                </a>
-              </td>
-
-              <td>
-                <a v-bind:id="`edit-${movie.id}`" v-bind:href="`movies/${movie.id}/edit`" >
-                  <button type="button" class="btn btn-warning">Edit
-                  </button>
-                </a>
-              </td>
-
-              <td v-bind:id="`destroy-${movie.id}`"><button type="button" class="btn btn-danger">Destroy</button></td>
+              <th>Title</th>
+              <th>Text</th>
+              <th>Ratings</th>
+              <th>Category</th>
+              <th colspan="3"></th>
             </tr>
+          </thead>
+
+          <tbody>
+            <template v-for="(movie, index) in filteredMovies" v-bind:id="movie.id">
+              <tr>
+                <td><a v-bind:id="`title-${movie.id}`" v-bind:href="`movies/${movie.id}`">{{ movie.title }}</a></td>
+                <td><a v-bind:id="`summary-${movie.id}`" v-bind:href="`movies/${movie.id}`">{{ movie.summary }}</a></td>
+                <td v-if="(current_user_id>0)">
+                  <star-rating v-model="rating" v-bind:star-size="18" active-color="#ebf442" @rating-selected ="rate_movie(movie)"></star-rating>
+                </td>
+                <td v-if="(current_user_id==0)">
+                  {{ average_rating(movie)}}
+                </td>
+                <td><a v-bind:id="`category-${movie.id}`" v-bind:href="`categories/${movie.category_id}`">{{ movie.category["name"] }}</a></td>
+                <td>
+                  <a v-bind:id="`show-${movie.id}`" v-bind:href="`movies/${movie.id}`" >
+                    <button type="button" class="btn btn-primary">Show
+                    </button>
+                  </a>
+                </td>
+
+                <td>
+                  <a v-bind:id="`edit-${movie.id}`" v-bind:href="`movies/${movie.id}/edit`" >
+                    <button type="button" class="btn btn-warning">Edit
+                    </button>
+                  </a>
+                </td>
+
+                <td v-bind:id="`destroy-${movie.id}`"><button type="button" class="btn btn-danger">Destroy</button></td>
+              </tr>
             </tr>
           </template>
         </tbody>
       </table>
+      <h4 v-else class="text-warning">No records found with the selected search criteria.</h4>
+
+
+
     </div>
-
-  <template v-for="(movie, index) in filteredMovies" v-bind:id="movie.id">
-    <h4> {{index+1}}: {{movie.title}} ({{movie.category.name}} category) </h4>
-    <h5>{{movie.summary}}</h5>
-    <h6> Average: {{ total_stars(movie)}} stars in total / {{ number_of_ratings(movie)}} ratings  = {{ average_rating(movie)}} average </h6>
-
-  </template>
