@@ -25,12 +25,15 @@
   <v-select v-model="selected_rating" :options="rating_options" label="rating"></v-select>
   <hr>
 
+  <hr>
   <h5>Filter movie by text</h5>
+  <p>Title contains: <input v-model="search_title_txt" placeholder="Enter your search text"></p>
+  <p>You typed: {{ search_title_txt }}</p>
+
   <p>Summary contains: <input v-model="search_summary_txt" placeholder="Enter your search text"></p>
   <p>You typed: {{ search_summary_txt }}</p>
 
-  <p>Title contains: <input v-model="search_title_txt" placeholder="Enter your search text"></p>
-  <p>You typed: {{ search_title_txt }}</p>
+  <hr>
 
   <template v-for="(movie, index) in filteredMovies" v-bind:id="movie.id">
     <h4> {{index+1}}: {{movie.title}} ({{movie.category.name}} category) </h4>
