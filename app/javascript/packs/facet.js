@@ -89,6 +89,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     },
     methods: {
+      // get the average rate (number of stars)
+      number_of_ratings(movie) {
+        console.log(movie.title);
+        return -1;
+//        return movie.ratings.length;
+
+      },
+      average_rating(movie) {
+          if (movie.ratings.length > 0) {
+
+            return app.total_stars(movie)/app.number_of_ratings(movie);
+          }
+
+          else
+            return 0;
+            
+  //        return total_stars(movie)/number_of_ratings(movie) ;
+    //    else
+    //      return 0;
+    //    end
+      },
+      number_of_ratings(movie) {
+        return movie.ratings.length;
+      },
+      total_stars(movie) {
+        let movie_ratings=movie.ratings;
+        let total_stars=0;
+        movie_ratings.forEach(function(movie_rating) {
+          total_stars+=movie_rating.stars;
+        });
+        console.log(movie.title+" has "+total_stars+" stars in total.")
+        return total_stars;
+//        return movie.ratings.length;
+      },
       getmovies () {
         let url=`/movies.json`;
         axios.get(url).then(response => {this.movies_jsn = response.data })

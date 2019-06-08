@@ -15,9 +15,11 @@
   <p>Category select options: "{{ category_name_options }}"</p>
 
   <h5>Filter movie by category</h5>
-    <v-select v-model="selected_category" :options="category_name_options" label="category"></v-select>
+  <v-select v-model="selected_category" :options="category_name_options" label="category"></v-select>
   <hr>
 
   <template v-for="(movie, index) in filteredMovies" v-bind:id="movie.id">
-    <h6> {{index+1}}: {{movie.title}} ({{movie.category.name}} category) </h6>
+    <h5> {{index+1}}: {{movie.title}} ({{movie.category.name}} category) </h5>
+    <h6> Average: {{ total_stars(movie)}} stars in total / {{ number_of_ratings(movie)}} ratings  = {{ average_rating(movie)}} average </h6>
+
   </template>
