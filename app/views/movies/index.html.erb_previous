@@ -28,10 +28,11 @@
             <td><a v-bind:id="`category-${movie.id}`" v-bind:href="`categories/${movie.category_id}`">{{ movie.category["name"] }}</a></td>
 
             <td>
-
-              <star-rating v-bind:star-size="25" active-color="#3f685a" v-model="score" @rating-selected ="rate_movie(movie)"></star-rating>
-              </star-rating>
-
+              <div v-bind:id="`rate-movie-${movie.id}`">
+                <!-- `greet` is the name of a method defined below -->
+                <input v-model="score">
+                <button class="btn btn-secondary" v-on:click="rate_movie(movie)">Rate</button>
+              </div>
             </td>
             <td>
               <a v-bind:id="`show-${movie.id}`" v-bind:href="`movies/${movie.id}`" >

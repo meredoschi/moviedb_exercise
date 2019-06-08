@@ -3,12 +3,16 @@ import Rate from '../rate.vue'
 //import axios from 'axios';
 import axios from 'axios-on-rails';
 
+// https://www.npmjs.com/package/vue-star-rating
+import StarRating from 'vue-star-rating'
+Vue.component('star-rating', StarRating)
+
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     el: '#rate',
     data (){
 
-      return{
+      return {
         rating : {
           user_id: '',
           movie_id: '',
