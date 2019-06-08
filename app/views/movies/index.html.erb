@@ -8,16 +8,21 @@
 
 <h2> Facets </h2>
 
-<h3> Movie list </h3>
+<h3> Movie list (with category name) </h3>
 
 <div id='facet' data-id="<%= @current_user_id %>">
 
-  
   <template v-for="(movie, index) in movies_jsn" v-bind:id="movie.id">
     <h6>{{index+1}}: {{movie.title}} -  {{movie.category.name}}</h6>
 
   </template>
-</div>
 
+  <hr>
+
+<p>Category Names: "{{ category_names }}"</p>
+
+<v-select :options="category_names" label="category" />
+
+</div>
 
 <%#= render 'index_footer.html.erb' %>

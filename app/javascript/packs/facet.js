@@ -1,10 +1,10 @@
-import Vue from 'vue/dist/vue.esm'
+import Vue from 'vue/dist/vue.esm';
 //import axios from 'axios';
 import axios from 'axios-on-rails';
 
-// https://vue-select.org/guide/install.html
-import vSelect from 'vue-select'
-Vue.component('v-select', vSelect)
+import vSelect from 'vue-select';
+Vue.component('v-select', vSelect);
+import 'vue-select/dist/vue-select.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
     data (){
 
       return {
+
+        options: [{code: 'IT', country: 'Italy'}, {code: 'CA', country: 'Canada'}, {code: 'BR', country: 'Brazil'}],
+        // original
+        selected_id: '',
         rating : 0,
         current_user_id: 0,
         current_movie_id: 0,
@@ -19,6 +23,33 @@ document.addEventListener('DOMContentLoaded', () => {
         errors: []
       }
 
+    },
+    computed: {
+      // a computed getter
+      category_names: function () {
+        // `this` points to the vm instance
+        console.log(this.movies_jsn.category);
+        let category_names=[];
+        for (var i=0; i<this.movies_jsn.length; i++) {
+            //let name=JSON.stringify(this.movies_jsn[i].category.name)
+            let name=this.movies_jsn[i].category.name
+
+            console.log(name);
+            if(category_names.includes(name) === false) { category_names.push(name); }
+
+
+    //        category_names.push(cat_name);
+        }
+
+        console.log(category_names.sort());
+
+      //  console.log(category_names)
+
+
+        return category_names.sort();
+
+
+      }
     },
     // https://alligator.io/vuejs/rest-api-axios/
     // https://stackoverflow.com/questions/54757510/how-to-delete-a-record-in-rails-api-and-vue-js
@@ -90,10 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {
     //    delimiters: ["((","))"]
   })
 
+//
 
   axios.get('/movies.json')
   .then(function (response) {
     // handle success
     console.log(response);
   })
+
 })

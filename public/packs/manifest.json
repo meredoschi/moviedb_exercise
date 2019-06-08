@@ -12,10 +12,10 @@
     },
     "facet": {
       "js": [
-        "/packs/js/facet-3c801751127efa094efe.js"
+        "/packs/js/facet-5c6088dff84f5e3dbeff.js"
       ],
       "js.map": [
-        "/packs/js/facet-3c801751127efa094efe.js.map"
+        "/packs/js/facet-5c6088dff84f5e3dbeff.js.map"
       ]
     },
     "rate": {
@@ -27,8 +27,8 @@
       ]
     }
   },
-  "facet.js": "/packs/js/facet-3c801751127efa094efe.js",
-  "facet.js.map": "/packs/js/facet-3c801751127efa094efe.js.map",
+  "facet.js": "/packs/js/facet-5c6088dff84f5e3dbeff.js",
+  "facet.js.map": "/packs/js/facet-5c6088dff84f5e3dbeff.js.map",
   "rate.js": "/packs/js/rate-40a6f0826f3374a89a89.js",
   "rate.js.map": "/packs/js/rate-40a6f0826f3374a89a89.js.map"
 }

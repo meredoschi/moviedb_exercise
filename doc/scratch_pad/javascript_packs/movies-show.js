@@ -8,6 +8,10 @@
      data: {
        // current movie
        movie: JSON.parse(document.getElementById("movie").getAttribute('data-movie'))
+       var a = ["a", "b", "c"];
+       a.forEach(function(entry) {
+         console.log(entry);
+       });
      }
    })
  })
