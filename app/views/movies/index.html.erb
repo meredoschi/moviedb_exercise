@@ -44,15 +44,21 @@
         </table>
         <h4 v-else class="text-warning">No records found with the selected search criteria.</h4>
 
-        <p>
-        <button @click="prevPage">Previous</button>
-        <button @click="nextPage">Next</button>
-        </p>
-
-        <br>
-
       </div>
 
-<hr>
+      <hr>
 
-<button type="button" class="btn btn-success"><%= link_to 'Add a movie', new_movie_path %></button>
+      <%= render 'index_pagination_info.html.erb' %>
+
+      <div v-if="pagination_needed">
+        <p>
+          <button v-if="!on_the_first_page" @click="prevPage">Previous</button>
+          <button v-if="!at_the_last_page" @click="nextPage">Next</button>
+        </p>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <button type="button" class="btn btn-success"><%= link_to 'Add a movie', new_movie_path %></button>

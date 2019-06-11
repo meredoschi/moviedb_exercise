@@ -26,13 +26,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 movies_jsn: [],
                 errors: [],
                 // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
-                pageSize: 10,
+                pageSize: 5,
                 currentPage: 1
 
             }
 
         },
         computed: {
+
+
+
+            on_the_first_page: function() {
+                return (this.currentPage == 1);
+
+            },
+
+            at_the_last_page: function() {
+                return (this.currentPage == app.number_of_pages_needed_for_pagination);
+
+            },
+
+            number_of_pages_needed_for_pagination: function() {
+                return Math.ceil(app.number_of_filtered_movies_without_pagination / this.pageSize);
+
+            },
+
+            pagination_needed: function() {
+                return (app.number_of_pages_needed_for_pagination > 1);
+
+            },
+
+            total_number_of_movies: function() {
+                return this.movies_jsn.length;
+            },
+
+            filtered_movies_total: function() {
+                return this.filteredMovies.length;
+            },
 
             user_logged_in: function() {
 
@@ -45,13 +75,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
             },
 
-            filteredMovies: function() {
+            filteredMoviesWithoutPagination: function() {
 
                 // This would search by movie title as well (for pagination, add filter below)
                 // return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
                 // <p>Search: <input v-model="search_title_txt" placeholder="Movie titles"></p>
 
-                return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn)))).
+                return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))))
+
+            },
+
+            number_of_filtered_movies_without_pagination: function() {
+
+                // This would search by movie title as well (for pagination, add filter below)
+                // return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
+                // <p>Search: <input v-model="search_title_txt" placeholder="Movie titles"></p>
+
+                return app.filteredMoviesWithoutPagination.length
+
+            },
+
+            number_of_filtered_movies_with_pagination: function() {
+
+                // This would search by movie title as well (for pagination, add filter below)
+                // return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
+                // <p>Search: <input v-model="search_title_txt" placeholder="Movie titles"></p>
+
+                return app.filteredMovies.length
+
+            },
+
+            filteredMovies: function() {
+
+                return app.filteredMoviesWithoutPagination.
                 // filter added for pagination, as in: https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
                 filter((row, index) => {
                     let start = (this.currentPage - 1) * this.pageSize;
@@ -62,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             category_names: function() {
                 let category_names = [];
-                for (var i = 0; i < this.movies_jsn.length; i++) {
+                for (var i = 0; i < this.total_number_of_movies; i++) {
                     let name = this.movies_jsn[i].category.name
                     if (category_names.includes(name) === false) {
                         category_names.push(name);
@@ -105,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
             nextPage: function() {
-                if ((this.currentPage * this.pageSize) < this.movies_jsn.length) this.currentPage++;
+                if ((this.currentPage * this.pageSize) < this.total_number_of_movies) this.currentPage++;
             },
             prevPage: function() {
                 if (this.currentPage > 1) this.currentPage--;
