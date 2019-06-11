@@ -16,11 +16,11 @@
   </td>
 
   <td>
-    <a v-bind:id="`edit-${movie.id}`" v-bind:href="`movies/${movie.id}/edit`" >
+    <a v-if="owner(movie)" v-bind:id="`edit-${movie.id}`" v-bind:href="`movies/${movie.id}/edit`" >
       <button type="button" class="btn btn-warning">Edit
       </button>
     </a>
   </td>
 
-  <td v-bind:id="`destroy-${movie.id}`"><button type="button" class="btn btn-danger">Destroy</button></td>
+  <td v-if="owner(movie)" v-bind:id="`destroy-${movie.id}`"><button type="button" class="btn btn-danger">Remove</button></td>
 </tr>

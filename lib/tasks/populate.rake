@@ -83,7 +83,7 @@ namespace :populate do
 
     Movie.all.each do |movie|
       User.all.each do |user|
-        num_stars = rand(2..6)
+        num_stars = rand(1..5)
         rating = Rating.create!(movie_id: movie.id, user_id: user.id, stars: num_stars)
         num_records_created += 1 if rating
       end

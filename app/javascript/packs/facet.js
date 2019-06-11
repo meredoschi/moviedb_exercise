@@ -158,7 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         },
         methods: {
-
+           // used in the table.  Update and remove buttons only appear for the movie's owner
+           owner: function(movie) {
+              return (this.current_user_id==movie.user_id);
+           },
             // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
             nextPage: function() {
                 if ((this.currentPage * this.pageSize) < this.total_number_of_movies) this.currentPage++;
@@ -213,7 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         let selected_rating = this.selected_rating;
                         let movie_average = app.average_rating(movie);
-                        return ((movie_average >= selected_rating) && (movie_average - selected_rating <= 1));
+                        
+                        return ((movie_average >= selected_rating) && (Math.abs(selected_rating-movie_average)<1) );
 
                     } else {
                         return true;
