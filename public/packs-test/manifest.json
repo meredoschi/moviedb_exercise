@@ -10,15 +10,15 @@
         "/packs-test/js/application-85ece6ab2896b402a649.js.map"
       ]
     },
-    "rate": {
+    "facet": {
       "js": [
-        "/packs-test/js/rate-4da4bdc6628c40f8f8bd.js"
+        "/packs-test/js/facet-216647951d150729eb86.js"
       ],
       "js.map": [
-        "/packs-test/js/rate-4da4bdc6628c40f8f8bd.js.map"
+        "/packs-test/js/facet-216647951d150729eb86.js.map"
       ]
     }
   },
-  "rate.js": "/packs-test/js/rate-4da4bdc6628c40f8f8bd.js",
-  "rate.js.map": "/packs-test/js/rate-4da4bdc6628c40f8f8bd.js.map"
+  "facet.js": "/packs-test/js/facet-216647951d150729eb86.js",
+  "facet.js.map": "/packs-test/js/facet-216647951d150729eb86.js.map"
 }

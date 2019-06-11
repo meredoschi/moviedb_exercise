@@ -9,7 +9,7 @@ namespace :populate do
   desc 'Create example.com users'
   task users: :environment do
     num_records_created = 0
-    names = %w[sample jane pat carla mike bob nick]
+    names = %w[jane pat carla mike bob nick]
     names.each do |name|
       e_mail = name + '@example.com'
       user = User.create!(email: e_mail, password: 'samplepass', password_confirmation: 'samplepass')
