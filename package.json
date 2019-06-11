@@ -8,6 +8,8 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.22",
     "eslint": "^5.16.0",
+    "global": "^4.4.0",
+    "js-beautify": "^1.10.0",
     "v-page": "^2.0.8",
     "vue": "^2.6.10",
     "vue-cool-select": "^2.10.2",
