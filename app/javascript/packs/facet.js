@@ -92,6 +92,16 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         methods: {
 
+            user_logged_in: function() {
+
+                return ((app.current_user_id > 0) ? true : false)
+
+            },
+            visitor: function() {
+
+                return !app.user_logged_in
+
+            },
             // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
             nextPage: function() {
                 if ((this.currentPage * this.pageSize) < this.movies_jsn.length) this.currentPage++;
