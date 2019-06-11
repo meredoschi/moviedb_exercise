@@ -26,13 +26,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 movies_jsn: [],
                 errors: [],
                 // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
-                pageSize: 5,
+                pageSize: 10,
                 currentPage: 1
 
             }
 
         },
         computed: {
+
+            user_logged_in: function() {
+
+                return (app.current_user_id > 0);
+
+            },
+            visitor: function() {
+
+                return !app.user_logged_in
+
+            },
 
             filteredMovies: function() {
 
@@ -92,16 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         methods: {
 
-            user_logged_in: function() {
-
-                return ((app.current_user_id > 0) ? true : false)
-
-            },
-            visitor: function() {
-
-                return !app.user_logged_in
-
-            },
             // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
             nextPage: function() {
                 if ((this.currentPage * this.pageSize) < this.movies_jsn.length) this.currentPage++;

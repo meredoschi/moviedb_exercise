@@ -1,7 +1,5 @@
 <%#= render 'index_header.html.erb' %>
 
-<%#= render 'index_new_button.html.erb' %>
-
 <%= javascript_pack_tag 'facet' %>
 
 <div id="current_user" data-value="<%= @current_user_id %>">
@@ -54,3 +52,7 @@
         <br>
 
       </div>
+
+<hr>
+
+<button type="button" class="btn btn-success"><%= link_to 'Add a movie', new_movie_path %></button>

@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title><%= title %></title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
-    <%= javascript_pack_tag 'application' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_pack_tag 'application' %>
+</head>
 
-  <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
-  </body>
+<body>
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
+  <nav class="navbar navbar-dark bg-primary">
+    <span class="navbar-text">
+      <% if user_signed_in? %>
+      <%= link_to "Sign out", destroy_user_session_path, :method=>'delete'%>
+      <% else %>
+      <%= link_to "Log in", new_user_session_path %>
+      <% end %>
+    </span>
+  </nav>
+  <br>
+  
+  <%= yield %>
+</body>
 </html>
