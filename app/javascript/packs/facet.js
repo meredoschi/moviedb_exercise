@@ -17,20 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       return {
         all_label: '--- All ---',
-        // original
         search_title_txt: '',
         search_summary_txt: '',
-        selected: '',
         selected_category: '',
         selected_rating: '',
-        options: ['First', 'Second', 'Third'],
         rating: 0,
         current_user_id: 0,
-        current_movie_id: 0,
         movies_jsn: [],
         errors: [],
-        current_page: 1,
-        records_per_page: 3,
         // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
         pageSize: 5,
         currentPage: 1
@@ -46,8 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
         // <p>Search: <input v-model="search_title_txt" placeholder="Movie titles"></p>
 
-        //        return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
-
         return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn)))).
         // filter added for pagination, as in: https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
         filter((row, index) => {
@@ -57,14 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
       },
-      // a computed getter
       category_names: function() {
-        // `this` points to the vm instance
         let category_names = [];
         for (var i = 0; i < this.movies_jsn.length; i++) {
-          //let name=JSON.stringify(this.movies_jsn[i].category.name)
           let name = this.movies_jsn[i].category.name
-
           if (category_names.includes(name) === false) {
             category_names.push(name);
           }
