@@ -3,17 +3,26 @@
 require 'faker'
 
 namespace :populate do
-     desc 'Create sample category and movie records'
-     task all: %i[categories movies]
+  desc 'Create sample users, category and movie records'
+  task all: %i[users categories movies ratings]
+
+  desc 'Create example.com users'
+  task users: :environment do
+    num_records_created = 0
+    names = %w[sample jane pat carla mike bob nick]
+    names.each do |name|
+      e_mail = name + '@example.com'
+      user = User.create!(email: e_mail, password: 'samplepass', password_confirmation: 'samplepass')
+      num_records_created += 1 if user
+    end
+    puts 'Users created: ' + num_records_created.to_s
+  end
 
   task categories: :environment do
     num_records_created = 0
 
-    names_raw = [] # may include duplicates, unsorted
-
-    # https://github.com/stympy/faker/pull/752
-    (1..Settings.number_of_sample_records).each do |n|
-      category = Category.create(name: Faker::Company.unique.industry)
+    (1..Settings.number_of_sample_records).each do |_n|
+      category = Category.create!(name: Faker::Company.unique.industry)
       num_records_created += 1 if category
     end
 
@@ -24,6 +33,8 @@ namespace :populate do
 
   task movies: :environment do
     num_records_created = 0
+
+    user_ids = User.pluck(:id)
 
     movie_list = []
     movie_list << { title: 'The sample',
@@ -49,17 +60,35 @@ namespace :populate do
     movie_list << { title: 'Provisional',
                     summary: 'A working title which remained...', category_id: 5 }
     movie_list << { title: 'The temperature',
-                            summary: 'Tells the tale of a climatologist', category_id: 3 }
+                    summary: 'Tells the tale of a climatologist', category_id: 3 }
 
     movie_list.each do |movie|
       title = movie[:title]
       summary = movie[:summary]
       category_id = movie[:category_id]
 
-      new_movie_created = Movie.create(title: title, summary: summary, category_id: category_id)
+      new_movie_created = Movie.create!(title: title, summary: summary,
+                                        category_id: category_id, user_id: user_ids.sample)
       num_records_created += 1 if new_movie_created
     end
 
     puts 'Movies created: ' + num_records_created.to_s
+  end
+
+  desc 'Insert sample ratings for every user and film'
+  task ratings: :environment do
+    num_records_created = 0
+
+    category_ids = Category.pluck(:id)
+
+    Movie.all.each do |movie|
+      User.all.each do |user|
+        num_stars = rand(2..6)
+        rating = Rating.create!(movie_id: movie.id, user_id: user.id, stars: num_stars)
+        num_records_created += 1 if rating
+      end
+    end
+
+    puts 'Ratings created: ' + num_records_created.to_s
   end
 end
