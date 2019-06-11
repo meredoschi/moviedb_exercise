@@ -7,6 +7,7 @@
     "axios-on-rails": "^0.0.1",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.22",
+    "eslint": "^5.16.0",
     "v-page": "^2.0.8",
     "vue": "^2.6.10",
     "vue-cool-select": "^2.10.2",
