@@ -10,7 +10,7 @@ RSpec.describe 'categories/show', type: :view do
                                   ))
   end
 
-  it 'renders attributes in <p>' do
+  it 'renders name' do
     render
     expect(rendered).to include(sample_name)
   end

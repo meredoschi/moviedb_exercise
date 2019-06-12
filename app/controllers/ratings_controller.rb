@@ -6,7 +6,9 @@ class RatingsController < ApplicationController
   # GET /ratings
   # GET /ratings.json
   def index
-    @ratings = Rating.all
+    @title = 'List of ratings'
+    @ratings = Rating.all.page(params[:page]).per(10)
+
   end
 
   # GET /ratings/1
@@ -28,7 +30,7 @@ class RatingsController < ApplicationController
   def create
     @rating = Rating.new(rating_params)
 
-    @rating.user_id=current_user.id 
+    @rating.user_id=current_user.id
 
     respond_to do |format|
       if @rating.save

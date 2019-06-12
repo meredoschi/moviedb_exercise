@@ -1,4 +1,4 @@
-<table>
+<table class="table table-striped" id="categories-table">
   <thead>
     <tr>
       <th>Name</th>
@@ -10,9 +10,9 @@
     <% @categories.each do |category| %>
       <tr data-category-id="<%= category.id %>">
         <td><%= category.name %></td>
-        <td><%= link_to 'Show', category %></td>
+        <td><%= link_to 'Show', category, class: 'btn btn-info'  %></td>
         <td><%= link_to 'Edit', edit_category_path(category) %></td>
-        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, id: "remove_#{category.id}_" %></td>
+        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, id: "remove_#{category.id}_" , class: 'btn btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
