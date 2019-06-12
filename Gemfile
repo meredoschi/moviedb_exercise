@@ -43,6 +43,7 @@ group :development, :test do
   gem 'factory_bot_rails' # https://www.rubydoc.info/gems/factory_bot/file/GETTING_STARTED.md
   gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
   gem 'capybara'
+  gem 'capybara_table'
   gem 'rubocop', '~> 0.71.0', require: false
   gem 'rubocop-rails'
 end
@@ -68,6 +69,8 @@ gem 'settingslogic'
 group :test do
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

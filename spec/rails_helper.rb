@@ -13,7 +13,8 @@ require 'support/shoulda_matchers'
 require 'support/devise'
 # https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails-(and-RSpec)
 require_relative 'support/controller_macros'
-
+require 'capybara/rails'
+require 'capybara_table/rspec'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
