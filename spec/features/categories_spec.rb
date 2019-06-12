@@ -6,7 +6,7 @@ RSpec.feature 'Categories', type: :feature do
   let(:name) { Faker::Company.unique.industry + Random.rand(100_000).to_s }
 
   context 'create new category' do
-    scenario 'should be successfull' do
+    scenario 'should be succesful' do
       # category_name=Faker::Company.unique.industry+Random.rand(100_000).to_s
 
       visit new_category_path
@@ -33,7 +33,7 @@ RSpec.feature 'Categories', type: :feature do
       visit edit_category_path(category)
     end
 
-    scenario 'should be successfull' do
+    scenario 'should be succesful' do
       within('form') do
         fill_in 'Name', with: name
       end
@@ -54,9 +54,11 @@ RSpec.feature 'Categories', type: :feature do
   end
 
   context 'Destroy a category' do
-    scenario 'should be successfull' do
+    scenario 'should be succesful' do
       visit categories_path
-      first(:link, 'Destroy').click
+      accept_confirm do
+        first(:link, 'Destroy').click
+      end
       expect(page).to have_content 'Category was successfully destroyed'
     end
   end
