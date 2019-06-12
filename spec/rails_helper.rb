@@ -78,4 +78,6 @@ RSpec.configure do |config|
 
   Capybara.default_driver = :selenium
 
+  config.include Devise::Test::IntegrationHelpers, type: :request
+
 end

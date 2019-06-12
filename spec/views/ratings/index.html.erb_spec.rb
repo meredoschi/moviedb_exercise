@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'ratings/index', type: :view do
-
   let(:first_rating) { FactoryBot.create(:rating) }
   let(:second_rating) { FactoryBot.create(:rating) }
   let(:ratings_arr) { [first_rating, second_rating] }
