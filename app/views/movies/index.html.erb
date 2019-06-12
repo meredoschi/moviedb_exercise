@@ -10,19 +10,19 @@
       <div class="row">
         <div class="col-md-4">
           <p>Categories</p>
-          <v-select v-model="selected_category" :options="category_name_options" label="category"></v-select>
+          <v-select id="category_select" v-model="selected_category" :options="category_name_options" label="category"></v-select>
         </div>
         <div class="col-md-4">
 
           <p>Ratings</p>
-          <v-select v-model="selected_rating" :options="rating_options" label="rating"></v-select>
+          <v-select id="rating_select" v-model="selected_rating" :options="rating_options" label="rating"></v-select>
         </div>
         <div class="row">
           <div class="col-md-4">
             <p>Search:</p>
           </div>
           <div class="col-md-4">
-            <p><input v-model="search_summary_txt" placeholder="Movie text contents"></p>
+            <p><input id="search_text" v-model="search_summary_txt" placeholder="Movie text contents"></p>
           </div>
         </div>
       </div>
