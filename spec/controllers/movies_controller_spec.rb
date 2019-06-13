@@ -7,6 +7,10 @@ RSpec.describe MoviesController, type: :controller do
     { title: 'new title', summary: 'new text', category_id: 1, user_id: 1 }
   end
 
+  let(:movie_attrs) { FactoryBot.attributes_for(:movie) }
+
+  #  let(:movie) { FactoryBot.create(:movie) }
+
   context '#GET index' do
     it 'responds with success' do
       get :index
@@ -49,6 +53,35 @@ RSpec.describe MoviesController, type: :controller do
       key_signature = %w[id title summary created_at updated_at user_id category ratings]
       parsed_response = JSON.parse(response.body)
       expect(parsed_response[0].keys).to eq(key_signature)
+    end
+  end
+
+  context 'Logged in users' do
+    # https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails-(and-RSpec)
+    before(:each) do
+      @request.env['devise.mapping'] = Devise.mappings[:user]
+      user = FactoryBot.create(:user)
+      sign_in user
+    end
+
+    context 'POST #create' do
+      it 'create a new movie' do
+        params = {
+          title: 'A great movie',
+          summary: 'The newest release from the acclaimed director...',
+          category_id: 1,
+          user_id: 1
+        }
+        expect { post(:create, params: { movie: params }) }.to change(Movie, :count).by(1)
+      end
+    end
+
+    context 'DELETE #destroy' do
+      let!(:movie) { create :movie }
+
+      it 'should delete movie' do
+        expect { delete :destroy, params: { id: movie.id } }.to change(Movie, :count).by(-1)
+      end
     end
   end
 end
