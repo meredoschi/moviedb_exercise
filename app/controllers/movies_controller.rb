@@ -35,7 +35,9 @@ class MoviesController < ApplicationController
   end
 
   # GET /movies/1/edit
-  def edit; end
+  def edit
+    authorize! :edit, @movie
+  end
 
   # POST /movies
   # POST /movies.json
@@ -58,6 +60,9 @@ class MoviesController < ApplicationController
   # PATCH/PUT /movies/1
   # PATCH/PUT /movies/1.json
   def update
+
+    authorize! :update, @movie
+
     respond_to do |format|
       if @movie.update(movie_params)
         format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
@@ -72,6 +77,8 @@ class MoviesController < ApplicationController
   # DELETE /movies/1
   # DELETE /movies/1.json
   def destroy
+    authorize! :destroy, @movie
+
     @movie.destroy
     respond_to do |format|
       format.html { redirect_to movies_url, notice: 'Movie was successfully destroyed.' }
