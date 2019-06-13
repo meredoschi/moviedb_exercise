@@ -3,13 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe MoviesController, type: :controller do
+
   let(:attr) do
     { title: 'new title', summary: 'new text', category_id: 1, user_id: 1 }
-  end
-
-  let(:movie_attrs) { FactoryBot.attributes_for(:movie) }
-
-  #  let(:movie) { FactoryBot.create(:movie) }
+  end 
 
   context '#GET index' do
     it 'responds with success' do
@@ -20,31 +17,35 @@ RSpec.describe MoviesController, type: :controller do
 
   context '#GET show' do
     it 'responds with success' do
-      movie = FactoryBot.create(:movie)
-      get :show, params: { id: movie.to_param }
+      @movie = FactoryBot.create(:movie)
+      get :show, params: { id: @movie.to_param }
       expect(response).to be_successful
     end
   end
 
   context '#POST update' do
-    before(:each) do
-      @movie = FactoryBot.create(:movie)
-      put :update, params: { id: @movie.id, movie: attr }
-      @movie.reload
-    end
+    context 'with valid data' do
+      before(:each) do
+        @movie = FactoryBot.create(:movie)
+        put :update, params: { id: @movie.id, movie: attr }
+        @movie.reload
+      end
 
-    it 'redirects to the show view' do
-      puts response
-      puts @movie
-      expect(response).to redirect_to(@movie)
-    end
+      it 'redirects to the show view' do
+        expect(response).to redirect_to(@movie)
+      end
 
-    it 'updates title attribute' do
-      expect(@movie.title).to eql attr[:title]
-    end
+      it 'updates title attribute' do
+        expect(@movie.title).to eql attr[:title]
+      end
 
-    it 'updates summary attribute' do
-      expect(@movie.summary).to eql attr[:summary]
+      it 'updates summary attribute' do
+        expect(@movie.summary).to eql attr[:summary]
+      end
+
+      it 'updates the category_id attribute' do
+        expect(@movie.category_id).to eql attr[:category_id]
+      end
     end
   end
   context 'JSON' do
@@ -66,13 +67,7 @@ RSpec.describe MoviesController, type: :controller do
 
     context 'POST #create' do
       it 'create a new movie' do
-        params = {
-          title: 'A great movie',
-          summary: 'The newest release from the acclaimed director...',
-          category_id: 1,
-          user_id: 1
-        }
-        expect { post(:create, params: { movie: params }) }.to change(Movie, :count).by(1)
+        expect { post(:create, params: { movie: attr }) }.to change(Movie, :count).by(1)
       end
     end
 
