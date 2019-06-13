@@ -10,9 +10,15 @@
     <% @categories.each do |category| %>
       <tr data-category-id="<%= category.id %>">
         <td><%= category.name %></td>
-        <td><%= link_to 'Show', category, class: 'btn btn-info'  %></td>
-        <td><%= link_to 'Edit', edit_category_path(category), class: 'btn btn-warning' %></td>
-        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, id: "remove_#{category.id}_" , class: 'btn btn-danger' %></td>
+        <td><%= link_to 'Show', category, class: 'btn btn-primary'  %></td>
+        <td><% if can? :update, category %>
+          <%= link_to 'Edit', edit_category_path(category), class: 'btn btn-warning' %>
+          <% end %>
+        </td>
+        <td><% if can? :destroy, category %>
+          <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-danger' %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

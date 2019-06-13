@@ -2,7 +2,7 @@
 
 <p>
   <strong>Title:</strong>
-  <%= @rating.movie.title %>
+  <%= link_to @rating.movie.title, @rating.movie  %>
 </p>
 
 <p>
@@ -11,8 +11,8 @@
 </p>
 
 <p>
-  <strong>Stars</strong>
+  <strong>Stars:</strong>
   <%= @rating.stars %>
 </p>
 
-<%= link_to 'Back', ratings_path %>
+<%= link_to 'Back', ratings_path, class: 'btn btn-info' %>

@@ -1,4 +1,4 @@
-<%#= render 'index_header.html.erb' %>
+<%= render 'index_header.html.erb' %>
 
 <%= javascript_pack_tag 'facet' %>
 
@@ -43,16 +43,8 @@
             </template>
           </tbody>
         </table>
+        <%= render 'index_pagination_info.html.erb' %>
+
         <h4 v-else class="text-warning">No records found with the selected search criteria.</h4>
 
       </div>
-
-    <%= render 'index_pagination_info.html.erb' %>
-
-    <%# restricted creation to logged in users %>
-
-    <% if user_signed_in? %>
-
-      <button type="button" class="btn btn-success"><%= link_to 'Add a movie', new_movie_path %></button>
-
-    <% end %>

@@ -7,7 +7,7 @@
   <td v-if="user_logged_in">
     <star-rating v-model="rating" v-bind:star-size="18" active-color="#ebf442" @rating-selected ="rate_movie(movie)"></star-rating>
   </td>
-  <td><a v-bind:id="`category-${movie.id}`" v-bind:href="`categories/${movie.category_id}`">{{ movie.category["name"] }}</a></td>
+  <td>{{ movie.category["name"] }}</td>
   <td>
     <a v-bind:id="`show-${movie.id}`" v-bind:href="`movies/${movie.id}`" >
       <button type="button" class="btn btn-primary">Show
@@ -22,5 +22,5 @@
     </a>
   </td>
 
-  <td v-if="owner(movie)" v-bind:id="`destroy-${movie.id}`"><button type="button" class="btn btn-danger">Remove</button></td>
+  <td v-on:click="invoke_destroy(movie)" v-if="owner(movie)" v-bind:id="`destroy-${movie.id}`"><button type="button" class="btn btn-danger">Remove</button></td>
 </tr>

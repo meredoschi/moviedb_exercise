@@ -276,14 +276,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     })
 
             },
-            //        remove_movie(id) {
-            //        let url=`http://localhost:3000/movies/` + id;
-            //        console.log(url)
-            //        this.axios.delete(url).then(response => {
-            //          this.movies_json = this.movies_json.filter(movie => movie.id !== id)})
-            //          .catch(e => {this.errors.push(e)});
-            //          console.log(response)
+            invoke_destroy(movie) {
 
+              // https://stackoverflow.com/questions/54156534/how-to-create-alert-confirm-box-in-vue
+              alert(movie.title+" will be removed from the list.")
+
+                let url=`movies/` + movie.id;
+                     if(confirm('Are you sure?'))
+                      axios.delete(url).then(response => {
+                          }).catch(e => {this.errors.push(e)});
+                          window.location.reload(true);
+
+                      
+            },
             rate_movie: function(movie) {
 
                 axios.post('/ratings', {
@@ -291,14 +296,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     movie_id: movie.id,
                     stars: this.rating
                 })
-                //    }).then(result => {
-
-                //        console.log(result.data)
-                //      })
-
-                //               .catch(function (error) {
-                //                 console.log(error);
-                //                });
 
                 if (this.rating > 1) {
                     alert("You gave '" + movie.title + "' " + this.rating + " stars.")
