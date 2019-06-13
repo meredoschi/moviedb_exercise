@@ -13,6 +13,5 @@ FactoryBot.define do
     summary { 'Movie information...' }
     association :category, factory: :category
     association :user, factory: :user
-
   end
 end

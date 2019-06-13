@@ -8,9 +8,4 @@ class Movie < ApplicationRecord
 
   delegate :name, to: :category, prefix: true
 
-  # Instance methods
-  def info
-    [title, summary, category_name, id, category_id].reject(&:blank?).join(' ')
-  end
-
 end

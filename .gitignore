@@ -29,5 +29,8 @@
 *.swp
 .DS_Store
 
+# Ignore simple cov report files
+coverage
+
 # Ignore temprary personal files (used during development)
 .marcelo

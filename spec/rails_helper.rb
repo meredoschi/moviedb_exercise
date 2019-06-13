@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# https://github.com/colszowka/simplecov
+require 'simplecov'
+SimpleCov.start
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
@@ -74,10 +78,9 @@ RSpec.configure do |config|
 
   # https://stackoverflow.com/questions/41910712/helper-devise-could-not-find-the-wardenproxy-instance-on-request-environmen
   config.include Devise::Test::ControllerHelpers, type: :controller
-  config.extend ControllerMacros, :type => :controller
+  config.extend ControllerMacros, type: :controller
 
   Capybara.default_driver = :selenium
 
   config.include Devise::Test::IntegrationHelpers, type: :request
-
 end
