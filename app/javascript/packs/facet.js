@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 movies_jsn: [],
                 errors: [],
                 // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
-                pageSize: 5,
+                pageSize: 10,
                 currentPage: 1
 
             }
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         let selected_rating = this.selected_rating;
                         let movie_average = app.average_rating(movie);
-                        
+
                         return ((movie_average >= selected_rating) && (Math.abs(selected_rating-movie_average)<1) );
 
                     } else {

@@ -7,46 +7,35 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-User.create!(email: 'sample@example.com', password: 'samplepass',
-             password_confirmation: 'samplepass')
+
+names = %w[sample jane pat carla mike bob nick]
+names.each do |name|
+  e_mail = name + '@example.com'
+  User.create!(email: e_mail, password: 'samplepass', password_confirmation: 'samplepass')
+end
+
 movie_genres = ['Action', 'Adventure', 'Animation', 'Comedy', 'Documentary', 'Drama',
                 'Musical', 'Mystery', 'Science Fiction', 'Thriller', 'Western']
 movie_genres.each do |genre|
-  Category.create(name: genre)
+  Category.create!(name: genre)
 end
 
-user_ids = User.pluck(:id)
+user_ids = User.all.pluck(:id)
 
-movie_list = []
-movie_list << { title: 'The sample',
-                summary: 'The sample wons an award for...', category_id: 1 }
-movie_list << { title: 'Winter tale',
-                summary: 'On this movie, the main characters...', category_id: 2 }
-movie_list << { title: 'Planet XYZ',
-                summary: 'In a recently discovered planet...', category_id: 3 }
-movie_list << { title: 'A real documentary',
-                summary: 'Things are very real in this documentary about...', category_id: 4 }
-movie_list << { title: 'Sleepwalking in Antarctica',
-                summary: 'The new release from the famous director...', category_id: 1 }
-movie_list << { title: 'The Zombies',
-                summary: 'As the name implies, there are many zombies...', category_id: 7 }
-movie_list << { title: 'The basketball players',
-                summary: 'Based on the classic novel by...', category_id: 2 }
-movie_list << { title: 'The ball game',
-                summary: 'An american baseball story...', category_id: 5 }
-movie_list << { title: 'The sequel',
-                summary: 'It continues where the previous movie left off...', category_id: 3 }
-movie_list << { title: 'The saga',
-                summary: 'All 17 episodes, restored in full digital colors..', category_id: 6 }
-movie_list << { title: 'Provisional',
-                summary: 'A working title which remained...', category_id: 6 }
-movie_list << { title: 'The temperature',
-                summary: 'Tells the tale of a climatologist', category_id: 3 }
+category_ids = Category.pluck(:id)
 
-movie_list.each do |movie|
-  title = movie[:title]
-  summary = movie[:summary]
-  category_id = movie[:category_id]
+(1..35).each do |_n|
+  artist_name = Faker::Artist.unique.name
+  verb1 = Faker::Verb.unique.past_participle.capitalize
+  verb2 = Faker::Verb.unique.past_participle
 
-  Movie.create!(title: title, summary: summary, category_id: category_id, user_id: user_ids.sample)
+  Movie.create!(title: artist_name, summary: verb1 + ' sample text ' + verb2,
+                category_id: category_ids.sample, user_id: user_ids.sample)
+end
+
+Movie.all.each do |movie|
+  User.where.not(email: 'sample@example.com').each do |user|
+    num_stars = rand(1..5)
+    Rating.create!(movie_id: movie.id, user_id: user.id, stars: num_stars)
+  end
 end

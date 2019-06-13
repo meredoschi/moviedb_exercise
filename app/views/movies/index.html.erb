@@ -4,6 +4,7 @@
 
 <div id="current_user" data-value="<%= @current_user_id %>">
 
+
   <div id='facet' data-current-user-id="<%= @current_user_id %>">
 
     <div class="container">
@@ -45,17 +46,6 @@
         <h4 v-else class="text-warning">No records found with the selected search criteria.</h4>
 
       </div>
-
-      <hr>
-
-      <div v-if="pagination_needed">
-        <p>
-          <button v-if="!on_the_first_page" @click="prevPage">Previous</button>
-          <button v-if="!at_the_last_page" @click="nextPage">Next</button>
-        </p>
-      </div>
-
-    <hr>
 
     <%= render 'index_pagination_info.html.erb' %>
 
