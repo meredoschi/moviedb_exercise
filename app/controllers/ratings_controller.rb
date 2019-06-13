@@ -3,6 +3,8 @@ class RatingsController < ApplicationController
 
   skip_before_action :verify_authenticity_token
 
+  load_and_authorize_resource
+
   # GET /ratings
   # GET /ratings.json
   def index

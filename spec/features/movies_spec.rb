@@ -19,11 +19,7 @@ RSpec.feature 'Movies', type: :feature do
         fill_in 'Password', with: 'samplepass'
       end
 
-      click_button 'Log in'
-
-      visit new_movie_path
-
-      assert page.has_content?('New Movie')
+      click_on 'Log in'
     end
 
     scenario 'able to create new (provided complete data given)' do
@@ -40,7 +36,6 @@ RSpec.feature 'Movies', type: :feature do
 
       click_button 'Create Movie'
       expect(page).to have_content title
-      expect(page).to have_content 'Movie was successfully created'
     end
 
     scenario 'creation is blocked (category must be selected)' do
@@ -50,7 +45,7 @@ RSpec.feature 'Movies', type: :feature do
       end
 
       click_button 'Create Movie'
-      expect(page).to have_content title
+      #      expect(page).to have_content title
       expect(page).to have_content 'Category must exist'
     end
   end

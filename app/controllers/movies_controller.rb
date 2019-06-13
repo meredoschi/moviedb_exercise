@@ -5,6 +5,8 @@ class MoviesController < ApplicationController
   before_action :set_movie, only: %i[show edit update destroy]
   before_action :set_current_user_id, only: %i[index]
 
+  load_and_authorize_resource
+
   # GET /movies
   # GET /movies.json
   def index

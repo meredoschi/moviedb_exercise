@@ -31,8 +31,15 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
-     cannot %i[update destroy], Movie
-     can %i[update destroy], Movie, user_id: user.id
+    # cannot %i[update destroy], Movie
+      can :read, Movie
+      can :read, Rating
+      can :read, Category
+
+      can %i[update destroy], Movie, user_id: user.id if user.present?
+      can :create, Movie if user.present?
+      can :create, Rating if user.present?
+
 #     can :manage, :all
   end
 end
