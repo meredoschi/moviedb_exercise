@@ -28,4 +28,20 @@ RSpec.describe Movie, type: :model do
     movie_category_name = movie.category.name
     expect(movie_category_name).to eq(movie.category_name)
   end
+
+  it '-num_ratings' do
+    movie_num_ratings = movie.ratings.count
+    expect(movie_num_ratings).to eq movie.num_ratings
+  end
+
+  it '-stars_total' do
+    movie_stars_total = movie.ratings.sum(:stars)
+    expect(movie_stars_total).to eq movie.stars_total
+  end
+
+  # average rating
+  it '-stars' do
+    movie_stars = movie.stars_total / movie.num_ratings
+    expect(movie_stars).to eq movie.stars
+  end
 end
