@@ -8,18 +8,21 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-names = %w[sample jane pat carla mike bob nick]
+# Sample users
+names = %w[bob carla jane mike nick pat sample wanda]
 names.each do |name|
   e_mail = name + '@example.com'
   User.create!(email: e_mail, password: 'samplepass', password_confirmation: 'samplepass')
 end
 
+# Create movie genres (categories)
 movie_genres = ['Action', 'Adventure', 'Animation', 'Comedy', 'Documentary', 'Drama',
                 'Musical', 'Mystery', 'Science Fiction', 'Thriller', 'Western']
 movie_genres.each do |genre|
   Category.create!(name: genre)
 end
 
+# Create movies
 user_ids = User.all.pluck(:id)
 
 category_ids = Category.pluck(:id)
@@ -28,14 +31,24 @@ category_ids = Category.pluck(:id)
   artist_name = Faker::Artist.unique.name
   verb1 = Faker::Verb.unique.past_participle.capitalize
   verb2 = Faker::Verb.unique.past_participle
-
-  Movie.create!(title: artist_name, summary: verb1 + ' sample text ' + verb2,
+  txt = %w[text script plot narrative story]
+  words = %w[about all and artistic cinematic journey many sequel series]
+  Movie.create!(title: artist_name, summary: [verb1, txt.sample, verb2, words.sample].join(' '),
                 category_id: category_ids.sample, user_id: user_ids.sample)
 end
 
-Movie.all.each do |movie|
-  User.where.not(email: 'sample@example.com').each do |user|
-    num_stars = rand(1..5)
+# Rate movies
+Movie.all.each_with_index do |movie, indx|
+  num_stars = if indx < 5
+                indx + 1
+              else
+                rand(1..5)
+              end
+  User.where.not(email: 'sample@example.com').each_with_index do |user, _indx|
     Rating.create!(movie_id: movie.id, user_id: user.id, stars: num_stars)
   end
 end
+
+# Add site administrator
+User.create!(email: 'admin@example.com', password: 'samplepass',
+             password_confirmation: 'samplepass', admin: true)
