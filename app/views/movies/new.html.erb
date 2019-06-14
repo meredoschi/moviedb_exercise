@@ -1,6 +1,6 @@
-<h2>New Movie</h3>
+<h2 class="row align-items-center justify-content-center">New Movie</h2>
 
 <div class="container">
   <%= render 'form', movie: @movie %>
-  <%= link_to 'Back', movies_path %>
+  <%= link_to 'Back', movies_path, class: 'btn btn-info' %>
 </div>

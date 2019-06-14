@@ -4,10 +4,12 @@
 
 <div class="container">
   <hr>
+  <% if @movie.num_ratings > 0 %>
   <h2 class="text-center"><%= @movie.title %> <div id='icons'>
     <%= @movie.stars %>
     <eva-icon name="star" fill="#f5f968" animation="pulse"></eva-icon>
   </div></h2>
+  <% end %>
   <h4 class="text-center"><%= link_to @movie.category_name, @movie.category %></h4>
   <hr>
   <h6 class="text-justify"><%= @movie.summary %></h6>
@@ -20,7 +22,7 @@
 
   <% if can? :update, Movie %>
 
-    <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-warning' %> |
+  <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-warning' %> |
 
   <% end %>
 
