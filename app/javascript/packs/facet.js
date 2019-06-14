@@ -87,6 +87,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))))
 
             },
+            movieCategoriesWithRepeats: function() {
+            let names=[]
+            //  let cat = { name: '', freq: 0 }
+            let sep=';' // csv separator
+            this.movies_jsn.forEach(function(element) {
+              names.push(element.category.name);
+            });
+
+            let sorted_names=names.sort() // with repetitions
+            console.log(sorted_names)
+            return sorted_names;
+
+            },
+
+            // https://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
+            category_name_options_revised: function() {
+                let arr = [];
+
+                var counts = {};
+                app.movieCategoriesWithRepeats.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+
+
+                // https://stackoverflow.com/questions/14379274/how-to-iterate-over-a-javascript-object/14379304
+                for (let [key, value] of Object.entries(counts)) {
+                  let category_name_with_count=key+' ('+value+')'
+                  console.log(category_name_with_count);
+                  arr.push(category_name_with_count)
+                }
+
+                return (arr) ;
+
+            },
+
+           movieCategoryCounts: function() {
+
+            var counts = {};
+            app.movieCategoriesWithRepeats.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+
+
+            // https://stackoverflow.com/questions/14379274/how-to-iterate-over-a-javascript-object/14379304
+            for (let [key, value] of Object.entries(counts)) {
+              console.log(key+' ('+value+')');
+            }
+
+            return (counts) ;
+
+              },
+
 
             number_of_filtered_movies_without_pagination: function() {
 
@@ -137,6 +185,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 let arr = [];
                 arr.push(this.all_label);
                 arr.push(this.category_names);
+                console.log(this.category_names)
+//                console.log(this.category_name_options_revised)
+          //      arr.push(this.category_name_options_revised);
                 return arr.flat();
             },
             rating_options: function() {
@@ -313,11 +364,5 @@ document.addEventListener('DOMContentLoaded', () => {
         components: {}
 
     })
-
-    axios.get('/movies.json');
-    //    .then(function(response) {
-    // handle success
-    //      console.log(response);
-    //    })
 
 })
