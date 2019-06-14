@@ -1,24 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <div class="container">
-  <p>
-    <strong>Title:</strong>
-    <%= @movie.title %>
-  </p>
-
-  <p>
-    <strong>Summary:</strong>
-    <%= @movie.summary %>
-  </p>
-
-  <p>
-    <strong>Category:</strong>
-    <%= @movie.category_name %>
-  </p>
-
+  <hr>
+  <h2 class="text-center"><%= @movie.title %></h2>
+  <h4 class="text-center"><%= link_to @movie.category_name, @movie.category %></h4>
+  <hr>
+  <h6 class="text-justify"><%= @movie.summary %></h6>
 </div>
 
+<br>
+
 <div class="container">
+
 
   <% if can? :update, Movie %>
 

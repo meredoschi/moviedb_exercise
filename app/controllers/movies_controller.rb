@@ -29,7 +29,11 @@ class MoviesController < ApplicationController
 
   # GET /movies/1
   # GET /movies/1.json
-  def show; end
+  def show
+
+    @title = 'Movie details + | '+@movie.title
+
+  end
 
   # GET /movies/new
   def new

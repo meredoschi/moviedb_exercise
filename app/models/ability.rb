@@ -31,22 +31,35 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
-    cannot %i[update destroy], Category
 
-    if user.admin?
-      can :manage, :all
-    elsif user.present?
-      can :read, :all
-      can %i[update destroy], Movie, user_id: user.id
-      can :create, Movie
-      can :create, Rating
-    #           cannot %i[update destroy], Category
-    else
-      can :read, Movie
-      can :read, Rating
-      can :read, Category
+    class << self
+      def site_administrator(_user)
+        can :manage, :all
+      end
     end
 
-    #     can :manage, :all
+    class << self
+      def visitor(_user)
+        can :read, Movie
+        can :read, Category
+      end
+    end
+
+    class << self
+      def member(user)
+        can :read, [Movie, Category]
+        can %i[read], Rating, user_id: user.id
+
+        can :create, [Movie, Rating]
+
+        can %i[update destroy], Movie, user_id: user.id
+      end
+    end
+
+    if user.nil?
+        then visitor(user)
+    elsif user.admin? then site_administrator(user)
+    else member(user)
+    end
   end
 end
