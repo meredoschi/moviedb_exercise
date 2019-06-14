@@ -13,6 +13,9 @@ RSpec.describe Movie, type: :model do
 
   # Validations
 
+  it { should validate_presence_of(:title) }
+  it { should validate_presence_of(:summary) }
+
   # Class methods
 
   # Instance methods
@@ -41,7 +44,12 @@ RSpec.describe Movie, type: :model do
 
   # average rating
   it '-stars' do
-    movie_stars = movie.stars_total / movie.num_ratings
+    movie_stars = if movie.num_ratings == 0
+                    0
+                  else
+                    movie.stars_total / movie.num_ratings
+                  end
+
     expect(movie_stars).to eq movie.stars
   end
 end

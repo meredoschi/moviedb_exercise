@@ -8,6 +8,9 @@ class Movie < ApplicationRecord
 
   delegate :name, to: :category, prefix: true
 
+  validates :title, presence: true
+  validates :summary, presence: true
+
   def num_ratings
     ratings.count
   end
@@ -18,6 +21,10 @@ class Movie < ApplicationRecord
 
   # average rating
   def stars
-    stars_total / num_ratings
+    if num_ratings.zero?
+      0
+    else
+      stars_total / num_ratings
+    end
   end
 end
