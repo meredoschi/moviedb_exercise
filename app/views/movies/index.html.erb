@@ -10,12 +10,15 @@
     <div class="container">
       <div class="row">
         <div class="col-md-4">
-          <p>Categories</p>
+          <p>Category</p>
           <v-select id="category_select" v-model="selected_category" :options="category_name_options" label="category"></v-select>
         </div>
         <div class="col-md-4">
 
-          <p>Ratings</p>
+          <p>Average rating
+             <eva-icon name="star" fill="yellow" animation="pulse" height="22">
+             </eva-icon>
+          </p>
           <v-select id="rating_select" v-model="selected_rating" :options="rating_options" label="rating"></v-select>
         </div>
         <div class="row">

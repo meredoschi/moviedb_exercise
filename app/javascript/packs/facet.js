@@ -10,6 +10,9 @@ import vSelect from 'vue-select';
 Vue.component('v-select', vSelect);
 import 'vue-select/dist/vue-select.css';
 
+import EvaIcons from 'vue-eva-icons'
+Vue.use(EvaIcons)
+
 document.addEventListener('DOMContentLoaded', () => {
     const app = new Vue({
         el: '#facet',
@@ -246,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (movie.ratings.length > 0) {
 
                     let score = app.total_stars(movie) / app.number_of_ratings(movie);
-                    return Math.round(score * 100) / 100;
+                    return Math.round(score * 10) / 10;
                 } else
                     return 0;
 
@@ -287,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
                           }).catch(e => {this.errors.push(e)});
                           window.location.reload(true);
 
-                      
+
             },
             rate_movie: function(movie) {
 
