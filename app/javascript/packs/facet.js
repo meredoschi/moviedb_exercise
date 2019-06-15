@@ -286,10 +286,13 @@ document.addEventListener('DOMContentLoaded', () => {
         let arr = [];
         arr.push(this.all_label);
 //        let levels = ['5', '4', '3', '2', '1'];
-        let levels=this.rating_scale_counts
-//
+        let levels=this.rating_scale_counts.reverse()
+
         arr.push(levels);
-        return arr.flat().sort((a, b) => a - b);
+        return arr.flat();
+
+//        return arr.flat().sort((a, b) => a - b)
+//        return arr.flat().sort((a, b) => a - b);
       },
     },
     // https://alligator.io/vuejs/rest-api-axios/
