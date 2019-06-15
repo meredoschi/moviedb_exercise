@@ -6183,6 +6183,16 @@ rails-ujs@^5.1.4:
   resolved "https://registry.yarnpkg.com/rails-ujs/-/rails-ujs-5.2.3.tgz#4b65ea781a6befe62e96da6362165286a1fe4099"
   integrity sha512-rYgj185MowWFBJI1wdac2FkX4yFYe4+3jJPlB+CTY7a4rmIyg0TqE4vYZmSBBesp7blPUa57oqKzwQjN7eVbEQ==
 
+ramda@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.25.0.tgz#8fdf68231cffa90bc2f9460390a0cb74a29b29a9"
+  integrity sha512-GXpfrYVPwx3K7RQ6aYT8KPS8XViSXUVJT1ONhoKPE9VAleW42YE+U+8VEyGWt41EnEQW7gwecYJriTI0pKoecQ==
+
+ramda@^0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.1.tgz#8d41351eb8111c55353617fc3bbffad8e4d35d06"
+  integrity sha512-hLWjpy7EnsDBb0p+Z3B7rPi3GDeRG5ZtiI33kJhTt+ORCd38AbAIjB/9zRIUoeTbE/AVX5ZkU7m6bznsvrf8eQ==
+
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
@@ -7622,6 +7632,13 @@ vue-loader@^15.7.0:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+vue-lodash@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/vue-lodash/-/vue-lodash-2.0.2.tgz#08019cc1969ecdf3346017865f86cf4dade0618c"
+  integrity sha512-qC0A6mkF5yUt9Wy2zMa8qGpt+/JTjtlJ+ch1UKfr3eWscTrlK0FlD5GhfPaU/21ZOlZcRXsFriqf/ddchYA6CQ==
+  dependencies:
+    lodash "^4.17.11"
+
 vue-lpage@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/vue-lpage/-/vue-lpage-1.0.3.tgz#c3ce15510e03efb80762c64a69ceb254f24d969d"
@@ -7649,6 +7666,13 @@ vue-pagination-2@^2.0.3:
     merge "^1.2.0"
     vue ">=2.0.0"
     vuex "^2.0.0"
+
+vue-ramda@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vue-ramda/-/vue-ramda-1.0.0.tgz#bb41d3546a0df822243a3e1e9ea100c2d77015b8"
+  integrity sha512-LQX2p/Ev6yDmRU34WophT5NN6viGAPqv10hMSRrQyWPAhOW2nEecuE2rUWkOPSfCmLII5yukLkR2CrIXt9ngCQ==
+  dependencies:
+    ramda "^0.25.0"
 
 vue-resource@^1.0.3:
   version "1.5.1"

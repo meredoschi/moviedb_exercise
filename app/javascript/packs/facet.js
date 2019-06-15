@@ -235,6 +235,26 @@ document.addEventListener('DOMContentLoaded', () => {
         return ratings;
 
       },
+      movie_ids_stars: function() {
+        let ratings = [];
+
+        // https://stackoverflow.com/questions/30176604/nested-foreach-loop-does-not-work
+
+        this.movies_jsn.forEach(function(movie){
+            movie.ratings.forEach(function(rating){
+              let rating_obj={movie_id: rating.id, stars: rating.stars};
+//              // console.log("movie_id: "+rating.id, " stars: "+rating.stars);
+//              // console.log(rating_obj);
+//              // console.log(rating_obj.stars);
+              ratings.push(rating_obj);
+            })
+        })
+
+        return ratings;
+
+// https://stackoverflow.com/questions/27281405/group-by-object-ids-in-javascript/27281586
+      },
+
       temp1: function() {
         let ratings = [];
 
