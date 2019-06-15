@@ -88,16 +88,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             },
             movieCategoriesWithRepeats: function() {
-            let names=[]
-            //  let cat = { name: '', freq: 0 }
-            let sep=';' // csv separator
-            this.movies_jsn.forEach(function(element) {
-              names.push(element.category.name);
-            });
+                let names = []
+                //  let cat = { name: '', freq: 0 }
+                let sep = ';' // csv separator
+                this.movies_jsn.forEach(function(element) {
+                    names.push(element.category.name);
+                });
 
-            let sorted_names=names.sort() // with repetitions
-            console.log(sorted_names)
-            return sorted_names;
+                let sorted_names = names.sort() // with repetitions
+                console.log(sorted_names)
+                return sorted_names;
 
             },
 
@@ -106,34 +106,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 let arr = [];
 
                 var counts = {};
-                app.movieCategoriesWithRepeats.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+                app.movieCategoriesWithRepeats.forEach(function(x) {
+                    counts[x] = (counts[x] || 0) + 1;
+                });
 
 
                 // https://stackoverflow.com/questions/14379274/how-to-iterate-over-a-javascript-object/14379304
                 for (let [key, value] of Object.entries(counts)) {
-                  let category_name_with_count=key+' ('+value+')'
-                  console.log(category_name_with_count);
-                  arr.push(category_name_with_count)
+                    let category_name_with_count = key + ' (' + value + ')'
+                    console.log(category_name_with_count);
+                    arr.push(category_name_with_count)
                 }
 
-                return (arr) ;
+                return (arr);
 
             },
 
-           movieCategoryCounts: function() {
+            movieCategoryCounts: function() {
 
-            var counts = {};
-            app.movieCategoriesWithRepeats.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+                var counts = {};
+                app.movieCategoriesWithRepeats.forEach(function(x) {
+                    counts[x] = (counts[x] || 0) + 1;
+                });
 
 
-            // https://stackoverflow.com/questions/14379274/how-to-iterate-over-a-javascript-object/14379304
-            for (let [key, value] of Object.entries(counts)) {
-              console.log(key+' ('+value+')');
-            }
+                // https://stackoverflow.com/questions/14379274/how-to-iterate-over-a-javascript-object/14379304
+                for (let [key, value] of Object.entries(counts)) {
+                    console.log(key + ' (' + value + ')');
+                }
 
-            return (counts) ;
+                return (counts);
 
-              },
+            },
 
 
             number_of_filtered_movies_without_pagination: function() {
@@ -167,6 +171,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
             },
+            category_names_with_counts: function() {
+
+                let cat_names_raw = [];
+                let cat_names = [];
+                //              cat_names.push(this.all_label);
+                for (var i = 0; i < this.total_number_of_movies; i++) {
+                    let name = this.movies_jsn[i].category.name
+                    //  if (category_names.includes(name) === false) {
+                    cat_names_raw.push(name);
+
+                }
+
+                let elements = cat_names_raw.reduce((b, c) => ((b[b.findIndex(d => d.el === c)] || b[b.push({
+                    el: c,
+                    count: 0
+                }) - 1]).count++, b), []);
+                console.log(elements);
+
+                for (var j = 0; j < elements.length; j++) {
+                    //  console.log(elements[j].el+' ('+elements[j].count+')');
+                    cat_names.push(elements[j].el + ' (' + elements[j].count + ')');
+                }
+
+                console.log(cat_names);
+                return cat_names.sort();
+
+
+
+            },
             category_names: function() {
                 let category_names = [];
                 for (var i = 0; i < this.total_number_of_movies; i++) {
@@ -184,10 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
             category_name_options: function() {
                 let arr = [];
                 arr.push(this.all_label);
-                arr.push(this.category_names);
-                console.log(this.category_names)
-//                console.log(this.category_name_options_revised)
-          //      arr.push(this.category_name_options_revised);
+                arr.push(this.category_names_with_counts);
+                console.log(this.category_names_with_counts);
+
                 return arr.flat();
             },
             rating_options: function() {
@@ -212,10 +244,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         },
         methods: {
-           // used in the table.  Update and remove buttons only appear for the movie's owner
-           owner: function(movie) {
-              return (this.current_user_id==movie.user_id);
-           },
+            // used in the table.  Update and remove buttons only appear for the movie's owner
+            owner: function(movie) {
+                return (this.current_user_id == movie.user_id);
+            },
             // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
             nextPage: function() {
                 if ((this.currentPage * this.pageSize) < this.total_number_of_movies) this.currentPage++;
@@ -271,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         let selected_rating = this.selected_rating;
                         let movie_average = app.average_rating(movie);
 
-                        return ((movie_average >= selected_rating) && (Math.abs(selected_rating-movie_average)<1) );
+                        return ((movie_average >= selected_rating) && (Math.abs(selected_rating - movie_average) < 1));
 
                     } else {
                         return true;
@@ -286,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if ((this.selected_category != '') && (this.selected_category != this.all_label)) {
 
-                        return movie.category.name == this.selected_category;
+                        return this.selected_category.includes(movie.category.name);
                     } else {
                         return true;
                     }
@@ -332,14 +364,15 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             invoke_destroy(movie) {
 
-              // https://stackoverflow.com/questions/54156534/how-to-create-alert-confirm-box-in-vue
-              alert(movie.title+" will be removed from the list.")
+                // https://stackoverflow.com/questions/54156534/how-to-create-alert-confirm-box-in-vue
+                alert(movie.title + " will be removed from the list.")
 
-                let url=`movies/` + movie.id;
-                     if(confirm('Are you sure?'))
-                      axios.delete(url).then(response => {
-                          }).catch(e => {this.errors.push(e)});
-                          window.location.reload(true);
+                let url = `movies/` + movie.id;
+                if (confirm('Are you sure?'))
+                    axios.delete(url).then(response => {}).catch(e => {
+                        this.errors.push(e)
+                    });
+                window.location.reload(true);
 
 
             },

@@ -26,4 +26,19 @@ RSpec.describe 'movies/index', type: :view do
     #    assert_select 'tr>td', text: second_movie.summary
     assert_select 'tr>td', text: '{{ movie.summary }}' # vuejs
   end
+
+  it 'rendered html text contains v-model selected_category' do
+    render
+    expect(rendered).to include('v-model="selected_category"')
+  end
+
+  it 'rendered html text contains v-model selected_rating' do
+    render
+    expect(rendered).to include('v-model="selected_rating"')
+  end
+
+  it 'rendered html text contains v-model search_summary_txt' do
+    render
+    expect(rendered).to include('v-model="search_summary_txt"')
+  end
 end
