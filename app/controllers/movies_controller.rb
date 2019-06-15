@@ -19,7 +19,9 @@ class MoviesController < ApplicationController
       format.html
       format.json do
     # @movies.as_json(include: { category: { only: %i[id name] }, ratings: { only: %i[id user_id movie_id stars] }  }, except: :category_id)
-        render json: @movies.as_json(include:
+#    render json: @movies.as_json(include:
+
+        render json: @movies.as_json(methods: [:num_ratings, :stars], include:
           { category: { only: %i[id name] },
             ratings: { only: %i[id user_id movie_id stars] } },
                                      except: :category_id)
