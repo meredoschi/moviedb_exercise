@@ -13,6 +13,9 @@ import 'vue-select/dist/vue-select.css';
 import EvaIcons from 'vue-eva-icons'
 Vue.use(EvaIcons)
 
+import VueRamda from 'vue-ramda'
+Vue.use(VueRamda)
+
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     el: '#facet',
@@ -235,48 +238,58 @@ document.addEventListener('DOMContentLoaded', () => {
         return ratings;
 
       },
-      movie_ids_stars: function() {
-        let ratings = [];
+      average_ratings: function() {
+        let avg_ratings = [];
 
         // https://stackoverflow.com/questions/30176604/nested-foreach-loop-does-not-work
 
         this.movies_jsn.forEach(function(movie){
-            movie.ratings.forEach(function(rating){
-              let rating_obj={movie_id: rating.id, stars: rating.stars};
-//              // console.log("movie_id: "+rating.id, " stars: "+rating.stars);
-//              // console.log(rating_obj);
-//              // console.log(rating_obj.stars);
-              ratings.push(rating_obj);
-            })
+          avg_ratings.push({movie_id: movie.id, stars: movie.stars})
         })
 
-        return ratings;
+        return avg_ratings;
 
-// https://stackoverflow.com/questions/27281405/group-by-object-ids-in-javascript/27281586
+        // https://stackoverflow.com/questions/27281405/group-by-object-ids-in-javascript/27281586
       },
 
-      temp1: function() {
-        let ratings = [];
-
-        // https://stackoverflow.com/questions/30176604/nested-foreach-loop-does-not-work
-
-        this.movies_jsn.forEach(function(movie){
-            movie.ratings.forEach(function(rating){
-              console.log("movie_id: "+rating.id, " stars: "+rating.stars);
-            })
-        })
+      // https://ramdajs.com/docs/#reduce
+      movies_by_rating_scale: function() {
 
 
-        console.log(ratings);
-        return ratings;
+        const groupMovieIds = (acc, {movie_id}) => acc.concat(movie_id)
+        const ratingScale = ({stars}) =>
+        stars < 1 ? '0' :
+        stars < 2 ? '1' :
+        stars < 3 ? '2' :
+        stars < 4 ? '3' :
+        stars < 5 ? '4' : '5'
+
+        let res=this.$R.reduceBy(groupMovieIds, [], ratingScale, this.average_ratings)
+        return res ;
+
+      },
+
+      rating_scale_counts: function() {
+
+        let arr=[]
+
+        for (let [key, value] of Object.entries(this.movies_by_rating_scale)) {
+           console.log(key + ' (' + value.length + ')');
+           arr.push(key + ' (' + value.length + ')');
+        }
+
+        return arr.sort((a, b) => b - a); // descending
+        // https://stackoverflow.com/questions/1063007/how-to-sort-an-array-of-integers-correctly
 
       },
       rating_options: function() {
         let arr = [];
         arr.push(this.all_label);
-        let levels = ['5', '4', '3', '2', '1'];
+//        let levels = ['5', '4', '3', '2', '1'];
+        let levels=this.rating_scale_counts
+//
         arr.push(levels);
-        return arr.flat();
+        return arr.flat().sort((a, b) => a - b);
       },
     },
     // https://alligator.io/vuejs/rest-api-axios/
@@ -352,7 +365,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let selected_rating = this.selected_rating;
             let movie_average = app.average_rating(movie);
 
-            return ((movie_average >= selected_rating) && (Math.abs(selected_rating - movie_average) < 1));
+            console.log(selected_rating);
+            console.log('selected');
+            console.log(selected_rating[0]*1);
+            return ((movie_average >= selected_rating[0]*1) && (Math.abs(selected_rating[0]*1 - movie_average) < 1));
 
           } else {
             return true;
@@ -389,6 +405,10 @@ document.addEventListener('DOMContentLoaded', () => {
         //    else
         //      return 0;
         //    end
+      },
+
+      selected_rating_as_numeric(movie) {
+        return this.selected_rating[0]*1;
       },
       number_of_ratings(movie) {
         return movie.ratings.length;
