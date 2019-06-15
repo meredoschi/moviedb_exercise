@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 let sorted_names = names.sort() // with repetitions
-                console.log(sorted_names)
+                // console.log(sorted_names)
                 return sorted_names;
 
             },
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // https://stackoverflow.com/questions/14379274/how-to-iterate-over-a-javascript-object/14379304
                 for (let [key, value] of Object.entries(counts)) {
                     let category_name_with_count = key + ' (' + value + ')'
-                    console.log(category_name_with_count);
+                    // console.log(category_name_with_count);
                     arr.push(category_name_with_count)
                 }
 
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // https://stackoverflow.com/questions/14379274/how-to-iterate-over-a-javascript-object/14379304
                 for (let [key, value] of Object.entries(counts)) {
-                    console.log(key + ' (' + value + ')');
+                    // console.log(key + ' (' + value + ')');
                 }
 
                 return (counts);
@@ -187,14 +187,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     el: c,
                     count: 0
                 }) - 1]).count++, b), []);
-                console.log(elements);
+                // console.log(elements);
 
                 for (var j = 0; j < elements.length; j++) {
-                    //  console.log(elements[j].el+' ('+elements[j].count+')');
+                    //  // console.log(elements[j].el+' ('+elements[j].count+')');
                     cat_names.push(elements[j].el + ' (' + elements[j].count + ')');
                 }
 
-                console.log(cat_names);
+                // console.log(cat_names);
                 return cat_names.sort();
 
 
@@ -218,9 +218,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 let arr = [];
                 arr.push(this.all_label);
                 arr.push(this.category_names_with_counts);
-                console.log(this.category_names_with_counts);
+                // console.log(this.category_names_with_counts);
 
                 return arr.flat();
+            },
+            all_movie_ratings: function() {
+              let ratings = [];
+
+
+              this.movies_jsn.forEach(function(movie) {
+                  ratings.push(movie.ratings);
+              });
+
+              console.log(ratings);
+              return ratings;
+
             },
             rating_options: function() {
                 let arr = [];
@@ -235,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         created() {
             // https://forum.vuejs.org/t/how-to-get-id-value-in-vue-js/44999
             let user_id = document.querySelector('#current_user').dataset.value;
-            //      console.log(user_id);
+            //      // console.log(user_id);
             this.current_user_id = user_id;
             this.getmovies();
         },
@@ -314,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             moviesByCategory(movies) {
                 return movies.filter((movie) => {
-                    //          console.log(movie.category.name);
+                    //          // console.log(movie.category.name);
 
                     if ((this.selected_category != '') && (this.selected_category != this.all_label)) {
 
