@@ -25,7 +25,8 @@ RSpec.describe MoviesController, type: :controller do
   context 'JSON' do
     it 'GET returns the expect key signature' do
       get :index, format: :json
-      key_signature = %w[id title summary created_at updated_at user_id category ratings]
+      key_signature = %w[id title summary created_at updated_at user_id
+                         genre num_ratings stars category ratings]
       parsed_response = JSON.parse(response.body)
       expect(parsed_response[0].keys).to eq(key_signature)
     end
