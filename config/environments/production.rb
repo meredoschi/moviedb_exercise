@@ -27,6 +27,11 @@ Rails.application.configure do
 
   # https://github.com/rails/webpacker/issues/1285
   config.assets.js_compressor = Uglifier.new(harmony: true)
+
+  # Needed for Heroku
+  # https://forum.upcase.com/t/heroku-troubleshooting/1052/2
+  config.serve_static_assets = true
+
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
