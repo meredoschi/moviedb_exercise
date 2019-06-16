@@ -1,24 +1,41 @@
-# README
+## The Movies database (MovieDB) sample application is an exercise using Ruby on Rails.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+_In order to log in use the following credentials:_
 
-Things you may want to cover:
+###### Regular user
 
-* Ruby version
+-    `Email: sample@example.com`
 
-* System dependencies
+-    `Password: samplepass`
 
-* Configuration
+###### Site administrator
 
-* Database creation
+  -  `Email: admin@example.com`
 
-* Database initialization
+  -  `Password: samplepass`
 
-* How to run the test suite
+##### Technical information
 
-* Services (job queues, cache servers, search engines, etc.)
+###### Database used during development:
 
-* Deployment instructions
+Postgresql version 9.6.6
 
-* ...
+`rake db:seed`
+
+This should create some sample users, movies, categories and ratings.
+
+###### Ruby version
+
+2.6.1p33
+
+###### Rails version
+
+5.2.3
+
+##### How to run the tests
+
+`rspec spec` should run the tests and generate a coverage report.
+
+##### Prepared by Marcelo E. Redoschi
+
+##### _This page last updated: 16/6/2019_

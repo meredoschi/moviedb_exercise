@@ -44,11 +44,7 @@ RSpec.describe Movie, type: :model do
 
   # average rating
   it '-stars' do
-    movie_stars = if movie.num_ratings == 0
-                    0
-                  else
-                    movie.stars_total / movie.num_ratings
-                  end
+    movie_stars = (movie.num_ratings.zero?) ? 0 : (movie.stars_total / movie.num_ratings)
 
     expect(movie_stars).to eq movie.stars
   end
