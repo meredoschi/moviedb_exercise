@@ -41,7 +41,6 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails' # https://www.rubydoc.info/gems/factory_bot/file/GETTING_STARTED.md
-  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
   gem 'capybara'
   gem 'capybara_table'
   gem 'rubocop', '~> 0.71.0', require: false
@@ -79,3 +78,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'httparty'
 gem 'rack-cors'
 gem 'rails-controller-testing'
+# Heroku
+gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
