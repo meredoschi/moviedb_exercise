@@ -34,14 +34,17 @@ document.addEventListener('DOMContentLoaded', () => {
         errors: [],
         // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
         pageSize: 10,
-        currentPage: 1
-
+        currentPage: 1,
+        movie_ids_recently_rated: []
       }
 
     },
     computed: {
 
+      movie_info: function() {
 
+//        console.log(this.$R.filter(this.$R.where({id: this.$R.equals(movie.id)}), this.movies_jsn));
+      },
 
       on_the_first_page: function() {
         return (this.currentPage == 1);
@@ -100,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         let sorted_names = names.sort() // with repetitions
-        // console.log(sorted_names)
+        // // console.log(sorted_names)
         return sorted_names;
 
       },
@@ -118,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // https://stackoverflow.com/questions/14379274/how-to-iterate-over-a-javascript-object/14379304
         for (let [key, value] of Object.entries(counts)) {
           let category_name_with_count = key + ' (' + value + ')'
-          // console.log(category_name_with_count);
+          // // console.log(category_name_with_count);
           arr.push(category_name_with_count)
         }
 
@@ -136,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // https://stackoverflow.com/questions/14379274/how-to-iterate-over-a-javascript-object/14379304
         for (let [key, value] of Object.entries(counts)) {
-          // console.log(key + ' (' + value + ')');
+          // // console.log(key + ' (' + value + ')');
         }
 
         return (counts);
@@ -191,14 +194,14 @@ document.addEventListener('DOMContentLoaded', () => {
           el: c,
           count: 0
         }) - 1]).count++, b), []);
-        // console.log(elements);
+        // // console.log(elements);
 
         for (var j = 0; j < elements.length; j++) {
-          //  // console.log(elements[j].el+' ('+elements[j].count+')');
+          //  // // console.log(elements[j].el+' ('+elements[j].count+')');
           cat_names.push(elements[j].el + ' (' + elements[j].count + ')');
         }
 
-        // console.log(cat_names);
+        // // console.log(cat_names);
         return cat_names.sort();
 
 
@@ -222,10 +225,12 @@ document.addEventListener('DOMContentLoaded', () => {
         let arr = [];
         arr.push(this.all_label);
         arr.push(this.category_names_with_counts);
-        // console.log(this.category_names_with_counts);
+        // // console.log(this.category_names_with_counts);
 
         return arr.flat();
       },
+
+      // RATINGS
 
       all_movie_ratings: function() {
         let ratings = [];
@@ -235,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ratings.push(movie.ratings);
         });
 
-        console.log(ratings);
+        // console.log(ratings);
         return ratings;
 
       },
@@ -274,8 +279,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let arr=[]
 
-
-
         for (let [key, value] of Object.entries(this.movies_by_rating_scale)) {
 
           let rating_level=key;
@@ -292,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
             suffix='Stars [Not yet rated]';
           }
 
-          //               console.log(rating_level+ ' '+ suffix + ' (' + number_of_movies + ')');
+          //               // console.log(rating_level+ ' '+ suffix + ' (' + number_of_movies + ')');
           arr.push(rating_level +' ' + suffix + ' (' + number_of_movies + ')');
         }
 
@@ -300,17 +303,18 @@ document.addEventListener('DOMContentLoaded', () => {
         // https://stackoverflow.com/questions/1063007/how-to-sort-an-array-of-integers-correctly
 
       },
+
       rating_options: function() {
         let arr = [];
         arr.push(this.all_label);
         //        let levels = ['5', '4', '3', '2', '1'];
         let levels=this.rating_scale_counts;
 
-        console.log('Level indx 0');
+        // console.log('Level indx 0');
         let first_char=levels[0].charAt(0);
-        console.log(first_char);
-        console.log('Is equal to five? ');
-        console.log(first_char==this.highest_rating); // i.e. 5 stars at present
+        // console.log(first_char);
+        // console.log('Is equal to five? ');
+        // console.log(first_char==this.highest_rating); // i.e. 5 stars at present
 
         // Additional check to enforce descending sorting order (numeric characters)
         if (first_char==this.highest_rating) {
@@ -331,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
     created() {
       // https://forum.vuejs.org/t/how-to-get-id-value-in-vue-js/44999
       let user_id = document.querySelector('#current_user').dataset.value;
-      //      // console.log(user_id);
+      //      // // console.log(user_id);
       this.current_user_id = user_id;
       this.getmovies();
     },
@@ -340,6 +344,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
     },
     methods: {
+
+      // receives movie_id, current_user id is implicit
+      user_ids_which_rated_the_movie: function(movie_id) {
+
+          let arr=[];
+
+          // https://gist.github.com/cezarneaga/e7377357d62a2b2909685c1fb94125bb
+
+          // returns an array object
+          let movie_info=this.$R.filter(this.$R.propEq('id', movie_id))(this.movies_jsn)[0]; // similar to .first in Ruby
+
+          let movie_ratings=movie_info.ratings;
+
+           movie_ratings.forEach(function(rating) {
+             arr.push(rating.user_id);
+           });
+
+
+           return arr;
+
+      },
+      rating_stars_visible: function(movie) {
+
+         console.log('Already rated? ')
+         console.log(app.already_rated_by_user(movie.id));
+
+         let user_logged=this.user_logged_in;
+         let not_already_rated=!this.already_rated_by_user(movie.id);
+         let not_rated_recently=!this.was_recently_rated_by_user(movie) ; // i.e. without refresh
+
+           return ((user_logged) && (not_already_rated) && (not_rated_recently));
+      },
+
+      was_recently_rated_by_user: function(movie) {
+
+              return (this.movie_ids_recently_rated.includes(movie.id));
+      },
+      already_rated_by_user: function(movie_id) {
+              console.log(app.user_ids_which_rated_the_movie(movie_id).includes(this.current_user_id*1));
+              return (app.user_ids_which_rated_the_movie(movie_id).includes(this.current_user_id*1));
+      },
       // used in the table.  Update and remove buttons only appear for the movie's owner
       owner: function(movie) {
         return (this.current_user_id == movie.user_id);
@@ -399,9 +444,9 @@ document.addEventListener('DOMContentLoaded', () => {
             let selected_rating = this.selected_rating;
             let movie_average = app.average_rating(movie);
 
-  //          console.log(selected_rating);
-//            console.log('selected');
-        //    console.log(selected_rating[0]*1);
+  //          // console.log(selected_rating);
+//            // console.log('selected');
+        //    // console.log(selected_rating[0]*1);
             return ((movie_average >= selected_rating[0]*1) && (Math.abs(selected_rating[0]*1 - movie_average) < 1));
 
           } else {
@@ -413,7 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       moviesByCategory(movies) {
         return movies.filter((movie) => {
-          //          // console.log(movie.category.name);
+          //          // // console.log(movie.category.name);
 
           if ((this.selected_category != '') && (this.selected_category != this.all_label)) {
 
@@ -493,6 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
           alert("You rated '" + movie.title + "' just one star.")
         }
         this.rating = 0; // Important: reset number of stars to zero (otherwise they would be appear filled in all rows)
+        this.movie_ids_recently_rated.push(movie.id); // Add it to the list of movies recently rated (for responsiveness)
       }
 
     },

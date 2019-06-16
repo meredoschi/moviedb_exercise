@@ -7,8 +7,13 @@
       </eva-icon>
 
   </td>
-  <td v-if="user_logged_in">
+  <td>
+    <template v-if="(rating_stars_visible(movie)) ">
+
     <star-rating v-model="rating" v-bind:star-size="18" active-color="#ebf442" @rating-selected ="rate_movie(movie)"></star-rating>
+
+    </template>
+
   </td>
   <td>{{ movie.category["name"] }}</td>
   <td>
