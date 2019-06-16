@@ -29,7 +29,7 @@ RSpec.describe Movie, type: :model do
 
   it '-category_name' do
     movie_category_name = movie.category.name
-    expect(movie_category_name).to eq(movie.category_name)
+    expect(movie_category_name).to eq(movie.category.name)
   end
 
   it '-num_ratings' do
@@ -62,5 +62,10 @@ RSpec.describe Movie, type: :model do
     end
 
     expect(is_rated).to eq(movie.rated?)
+  end
+
+  it '-genre (category name)' do
+    movie_genre=movie.category.name
+    expect(movie_genre).to eq(movie.genre)
   end
 end

@@ -38,4 +38,8 @@ class Movie < ApplicationRecord
 
     is_rated
   end
+
+  def genre
+      category.name
+  end
 end

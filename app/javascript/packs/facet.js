@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       return {
         all_label: '--- All ---',
+        highest_rating: '5',
         search_title_txt: '',
         search_summary_txt: '',
         selected_category: '',
@@ -165,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       filteredMovies: function() {
 
-        return app.filteredMoviesWithoutPagination.
+        return this.filteredMoviesWithoutPagination.
         // filter added for pagination, as in: https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
         filter((row, index) => {
           let start = (this.currentPage - 1) * this.pageSize;
@@ -273,26 +274,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let arr=[]
 
+
+
         for (let [key, value] of Object.entries(this.movies_by_rating_scale)) {
-           console.log(key + ' (' + value.length + ')');
-           arr.push(key + ' (' + value.length + ')');
+
+          let rating_level=key;
+          let number_of_movies=value.length;
+          let suffix=''
+
+          if (rating_level>1) {
+            suffix='Stars'
+          }
+
+          else if (rating_level==1) {
+            suffix='Star';
+          } else {
+            suffix='Stars [Not yet rated]';
+          }
+
+          //               console.log(rating_level+ ' '+ suffix + ' (' + number_of_movies + ')');
+          arr.push(rating_level +' ' + suffix + ' (' + number_of_movies + ')');
         }
 
-        return arr.sort((a, b) => b - a); // descending
+         return arr.sort((a, b) => b - a); // descending
         // https://stackoverflow.com/questions/1063007/how-to-sort-an-array-of-integers-correctly
 
       },
       rating_options: function() {
         let arr = [];
         arr.push(this.all_label);
-//        let levels = ['5', '4', '3', '2', '1'];
-        let levels=this.rating_scale_counts
+        //        let levels = ['5', '4', '3', '2', '1'];
+        let levels=this.rating_scale_counts;
 
-        arr.push(levels);
+        console.log('Level indx 0');
+        let first_char=levels[0].charAt(0);
+        console.log(first_char);
+        console.log('Is equal to five? ');
+        console.log(first_char==this.highest_rating); // i.e. 5 stars at present
+
+        // Additional check to enforce descending sorting order (numeric characters)
+        if (first_char==this.highest_rating) {
+
+          arr.push(levels);
+        }
+
+        else {
+            arr.push(levels.reverse());
+        }
+
         return arr.flat();
 
-//        return arr.flat().sort((a, b) => a - b)
-//        return arr.flat().sort((a, b) => a - b);
       },
     },
     // https://alligator.io/vuejs/rest-api-axios/
@@ -368,9 +399,9 @@ document.addEventListener('DOMContentLoaded', () => {
             let selected_rating = this.selected_rating;
             let movie_average = app.average_rating(movie);
 
-            console.log(selected_rating);
-            console.log('selected');
-            console.log(selected_rating[0]*1);
+  //          console.log(selected_rating);
+//            console.log('selected');
+        //    console.log(selected_rating[0]*1);
             return ((movie_average >= selected_rating[0]*1) && (Math.abs(selected_rating[0]*1 - movie_average) < 1));
 
           } else {

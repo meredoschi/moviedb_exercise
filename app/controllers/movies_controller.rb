@@ -18,10 +18,7 @@ class MoviesController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-    # @movies.as_json(include: { category: { only: %i[id name] }, ratings: { only: %i[id user_id movie_id stars] }  }, except: :category_id)
-#    render json: @movies.as_json(include:
-
-        render json: @movies.as_json(methods: [:num_ratings, :stars], include:
+        render json: @movies.as_json(methods: %i[genre num_ratings stars], include:
           { category: { only: %i[id name] },
             ratings: { only: %i[id user_id movie_id stars] } },
                                      except: :category_id)
@@ -32,10 +29,7 @@ class MoviesController < ApplicationController
   # GET /movies/1
   # GET /movies/1.json
   def show
-
-    @title = 'Movie details + | '+@movie.title
-
-
+    @title = 'Movie details + | ' + @movie.title
   end
 
   # GET /movies/new
@@ -69,7 +63,6 @@ class MoviesController < ApplicationController
   # PATCH/PUT /movies/1
   # PATCH/PUT /movies/1.json
   def update
-
     authorize! :update, @movie
 
     respond_to do |format|
