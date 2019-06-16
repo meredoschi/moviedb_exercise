@@ -33,6 +33,6 @@ class Movie < ApplicationRecord
   end
 
   def genre
-      category.name
+      category.name if category.present?
   end
 end

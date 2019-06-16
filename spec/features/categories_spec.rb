@@ -7,14 +7,9 @@ RSpec.feature 'Categories', type: :feature do
 
   context 'Site administrator' do
     before(:each) do
-      visit '/users/sign_in'
-
-      within('form') do
-        fill_in 'Email', with: 'admin@example.com'
-        fill_in 'Password', with: 'samplepass'
-      end
-
-      click_on 'Log in'
+      # Sign-in
+      @user = FactoryBot.create(:user, admin: true) # admin
+      login_as(@user, scope: :user)
     end
 
     context 'create new category' do

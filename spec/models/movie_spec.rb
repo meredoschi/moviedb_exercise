@@ -54,14 +54,13 @@ RSpec.describe Movie, type: :model do
   end
 
   it '-rated?' do
-
-    is_rated=(movie.num_ratings > 0)
+    is_rated = (movie.num_ratings > 0)
 
     expect(is_rated).to eq(movie.rated?)
   end
 
   it '-genre (category name)' do
-    movie_genre=movie.category.name
+    movie_genre = movie.category.name if category.present?
     expect(movie_genre).to eq(movie.genre)
   end
 end

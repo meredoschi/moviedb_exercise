@@ -82,7 +82,7 @@ RSpec.feature 'Movies', type: :feature, js: true do
         expect(page).to have_content 'Movie was successfully updated'
       end
 
-      scenario 'unable to update someone else\'s movie' do
+      pending 'unable to update someone else\'s movie' do
         visit edit_movie_path(movie)
 
         within('form') do
@@ -90,9 +90,7 @@ RSpec.feature 'Movies', type: :feature, js: true do
         end
 
         click_button 'Update Movie'
-        expect(page).to raise_error
-
-        #      expect(page).to raise_error(CanCan::AccessDenied)
+        expect(page).to raise_error(CanCan::AccessDenied)
       end
     end
   end
