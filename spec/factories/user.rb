@@ -8,5 +8,11 @@ FactoryBot.define do
     password { sample_pass }
     password_confirmation { sample_pass }
     #    confirmed_at { Date.today }
+
+#    trait :admin do
+
+#      admin true
+
+#    end
   end
 end

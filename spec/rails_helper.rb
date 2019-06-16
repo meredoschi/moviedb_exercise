@@ -20,8 +20,9 @@ require_relative 'support/controller_macros'
 require 'capybara/rails'
 require 'capybara_table/rspec'
 # https://github.com/teampoltergeist/poltergeist
-require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
+#require 'capybara/poltergeist'
+#Capybara.javascript_driver = :poltergeist
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -48,6 +49,10 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+
+  # https://github.com/plataformatec/devise/wiki/How-To:-Test-with-Capybara
+  config.include Warden::Test::Helpers
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -82,5 +87,9 @@ RSpec.configure do |config|
 
   Capybara.default_driver = :selenium
 
-  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.after :each do
+      Warden.test_reset!
+  end
+
+#  config.include Devise::Test::IntegrationHelpers, type: :request
 end

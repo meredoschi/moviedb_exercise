@@ -55,11 +55,7 @@ RSpec.describe Movie, type: :model do
 
   it '-rated?' do
 
-    is_rated=false
-
-    if movie.num_ratings > 0
-      is_rated=true
-    end
+    is_rated=(movie.num_ratings > 0)
 
     expect(is_rated).to eq(movie.rated?)
   end

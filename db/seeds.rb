@@ -49,3 +49,7 @@ Movie.all.each_with_index do |movie, indx|
     Rating.create!(movie_id: movie.id, user_id: user.id, stars: num_stars)
   end
 end
+
+# Administrator user
+User.create!(email: 'admin@example.com', password: 'samplepass',
+             password_confirmation: 'samplepass', admin: true)
