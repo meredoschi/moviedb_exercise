@@ -32,6 +32,10 @@ This should create some sample users, movies, categories and ratings.
 
 5.2.3
 
+###### Front end
+
+Uses Bootstrap and Vuejs
+
 ##### How to run the tests
 
 `rspec spec` should run the tests and generate a coverage report.

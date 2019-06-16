@@ -17,534 +17,455 @@ import VueRamda from 'vue-ramda'
 Vue.use(VueRamda)
 
 document.addEventListener('DOMContentLoaded', () => {
-  const app = new Vue({
-    el: '#facet',
-    data() {
+    const app = new Vue({
+        el: '#facet',
+        data() {
 
-      return {
-        all_label: '--- All ---',
-        highest_rating: '5',
-        search_title_txt: '',
-        search_summary_txt: '',
-        selected_category: '',
-        selected_rating: '',
-        rating: 0,
-        current_user_id: 0,
-        movies_jsn: [],
-        errors: [],
-        // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
-        pageSize: 10,
-        currentPage: 1,
-        movie_ids_recently_rated: []
-      }
+            return {
+                all_label: '--- All ---',
+                highest_rating: '5',
+                search_title_txt: '',
+                search_summary_txt: '',
+                selected_category: '',
+                selected_rating: '',
+                rating: 0,
+                current_user_id: 0,
+                movies_jsn: [],
+                errors: [],
+                // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
+                pageSize: 10,
+                currentPage: 1,
+                //
+                movie_ids_recently_rated: []
+            }
 
-    },
-    computed: {
+        },
+        computed: {
 
-      movie_info: function() {
+            on_the_first_page: function() {
+                return (this.currentPage == 1);
 
-//        console.log(this.$R.filter(this.$R.where({id: this.$R.equals(movie.id)}), this.movies_jsn));
-      },
+            },
 
-      on_the_first_page: function() {
-        return (this.currentPage == 1);
+            at_the_last_page: function() {
+                return (this.currentPage == app.number_of_pages_needed_for_pagination);
 
-      },
+            },
 
-      at_the_last_page: function() {
-        return (this.currentPage == app.number_of_pages_needed_for_pagination);
+            number_of_pages_needed_for_pagination: function() {
+                return Math.ceil(app.number_of_filtered_movies_without_pagination / this.pageSize);
 
-      },
+            },
 
-      number_of_pages_needed_for_pagination: function() {
-        return Math.ceil(app.number_of_filtered_movies_without_pagination / this.pageSize);
+            pagination_needed: function() {
+                return (app.number_of_pages_needed_for_pagination > 1);
 
-      },
+            },
 
-      pagination_needed: function() {
-        return (app.number_of_pages_needed_for_pagination > 1);
+            total_number_of_movies: function() {
+                return this.movies_jsn.length;
+            },
 
-      },
+            filtered_movies_total: function() {
+                return this.filteredMovies.length;
+            },
 
-      total_number_of_movies: function() {
-        return this.movies_jsn.length;
-      },
+            user_logged_in: function() {
 
-      filtered_movies_total: function() {
-        return this.filteredMovies.length;
-      },
+                return (app.current_user_id > 0);
 
-      user_logged_in: function() {
+            },
+            visitor: function() {
 
-        return (app.current_user_id > 0);
+                return !app.user_logged_in
 
-      },
-      visitor: function() {
+            },
 
-        return !app.user_logged_in
+            filteredMoviesWithoutPagination: function() {
 
-      },
+                return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))))
 
-      filteredMoviesWithoutPagination: function() {
+            },
+            movieCategoriesWithRepeats: function() {
+                let names = []
 
-        // This would search by movie title as well (for pagination, add filter below)
-        // return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
-        // <p>Search: <input v-model="search_title_txt" placeholder="Movie titles"></p>
+                this.movies_jsn.forEach(function(element) {
+                    names.push(element.category.name);
+                });
 
-        return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))))
+                let sorted_names = names.sort() // with repetitions
+                return sorted_names;
 
-      },
-      movieCategoriesWithRepeats: function() {
-        let names = []
-        //  let cat = { name: '', freq: 0 }
-        let sep = ';' // csv separator
-        this.movies_jsn.forEach(function(element) {
-          names.push(element.category.name);
-        });
+            },
 
-        let sorted_names = names.sort() // with repetitions
-        // // console.log(sorted_names)
-        return sorted_names;
+            category_name_options_revised: function() {
+                let arr = [];
 
-      },
+                var counts = {};
 
-      // https://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
-      category_name_options_revised: function() {
-        let arr = [];
+                // https://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
+                app.movieCategoriesWithRepeats.forEach(function(x) {
+                    counts[x] = (counts[x] || 0) + 1;
+                });
 
-        var counts = {};
-        app.movieCategoriesWithRepeats.forEach(function(x) {
-          counts[x] = (counts[x] || 0) + 1;
-        });
 
+                // https://stackoverflow.com/questions/14379274/how-to-iterate-over-a-javascript-object/14379304
+                for (let [key, value] of Object.entries(counts)) {
+                    let category_name_with_count = key + ' (' + value + ')'
+                    arr.push(category_name_with_count)
+                }
 
-        // https://stackoverflow.com/questions/14379274/how-to-iterate-over-a-javascript-object/14379304
-        for (let [key, value] of Object.entries(counts)) {
-          let category_name_with_count = key + ' (' + value + ')'
-          // // console.log(category_name_with_count);
-          arr.push(category_name_with_count)
-        }
+                return (arr);
 
-        return (arr);
+            },
 
-      },
+            number_of_filtered_movies_without_pagination: function() {
 
-      movieCategoryCounts: function() {
+                return app.filteredMoviesWithoutPagination.length
 
-        var counts = {};
-        app.movieCategoriesWithRepeats.forEach(function(x) {
-          counts[x] = (counts[x] || 0) + 1;
-        });
+            },
 
+            number_of_filtered_movies_with_pagination: function() {
 
-        // https://stackoverflow.com/questions/14379274/how-to-iterate-over-a-javascript-object/14379304
-        for (let [key, value] of Object.entries(counts)) {
-          // // console.log(key + ' (' + value + ')');
-        }
+                return app.filteredMovies.length
 
-        return (counts);
+            },
 
-      },
+            filteredMovies: function() {
 
+                return this.filteredMoviesWithoutPagination.
+                // filter added for pagination, as in: https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
+                filter((row, index) => {
+                    let start = (this.currentPage - 1) * this.pageSize;
+                    let end = this.currentPage * this.pageSize;
+                    if (index >= start && index < end) return true;
+                });
 
-      number_of_filtered_movies_without_pagination: function() {
+            },
+            category_names_with_counts: function() {
 
-        // This would search by movie title as well (for pagination, add filter below)
-        // return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
-        // <p>Search: <input v-model="search_title_txt" placeholder="Movie titles"></p>
+                let cat_names_raw = [];
+                let cat_names = [];
 
-        return app.filteredMoviesWithoutPagination.length
+                for (var i = 0; i < this.total_number_of_movies; i++) {
+                    let name = this.movies_jsn[i].category.name
 
-      },
+                    cat_names_raw.push(name);
 
-      number_of_filtered_movies_with_pagination: function() {
+                }
+                // https://gist.github.com/ralphcrisostomo/3141412
+                let elements = cat_names_raw.reduce((b, c) => ((b[b.findIndex(d => d.el === c)] || b[b.push({
+                    el: c,
+                    count: 0
+                }) - 1]).count++, b), []);
 
-        // This would search by movie title as well (for pagination, add filter below)
-        // return app.movieTitleContainsText(app.movieSummaryContainsText(app.moviesByCategory(app.moviesByRating(this.movies_jsn))));
-        // <p>Search: <input v-model="search_title_txt" placeholder="Movie titles"></p>
+                for (var j = 0; j < elements.length; j++) {
+                    cat_names.push(elements[j].el + ' (' + elements[j].count + ')');
+                }
 
-        return app.filteredMovies.length
+                return cat_names.sort();
 
-      },
 
-      filteredMovies: function() {
 
-        return this.filteredMoviesWithoutPagination.
-        // filter added for pagination, as in: https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
-        filter((row, index) => {
-          let start = (this.currentPage - 1) * this.pageSize;
-          let end = this.currentPage * this.pageSize;
-          if (index >= start && index < end) return true;
-        });
+            },
+            category_names: function() {
+                let category_names = [];
+                for (var i = 0; i < this.total_number_of_movies; i++) {
+                    let name = this.movies_jsn[i].category.name
+                    if (category_names.includes(name) === false) {
+                        category_names.push(name);
+                    }
 
-      },
-      category_names_with_counts: function() {
+                }
 
-        let cat_names_raw = [];
-        let cat_names = [];
-        //              cat_names.push(this.all_label);
-        for (var i = 0; i < this.total_number_of_movies; i++) {
-          let name = this.movies_jsn[i].category.name
-          //  if (category_names.includes(name) === false) {
-          cat_names_raw.push(name);
+                return category_names.sort();
 
-        }
 
-        let elements = cat_names_raw.reduce((b, c) => ((b[b.findIndex(d => d.el === c)] || b[b.push({
-          el: c,
-          count: 0
-        }) - 1]).count++, b), []);
-        // // console.log(elements);
+            },
+            category_name_options: function() {
+                let arr = [];
+                arr.push(this.all_label);
+                arr.push(this.category_names_with_counts);
 
-        for (var j = 0; j < elements.length; j++) {
-          //  // // console.log(elements[j].el+' ('+elements[j].count+')');
-          cat_names.push(elements[j].el + ' (' + elements[j].count + ')');
-        }
+                return arr.flat();
+            },
+            average_ratings: function() {
+                let avg_ratings = [];
 
-        // // console.log(cat_names);
-        return cat_names.sort();
+                // https://stackoverflow.com/questions/30176604/nested-foreach-loop-does-not-work
 
+                this.movies_jsn.forEach(function(movie) {
+                    avg_ratings.push({
+                        movie_id: movie.id,
+                        stars: movie.stars
+                    })
+                })
 
+                return avg_ratings;
 
-      },
-      category_names: function() {
-        let category_names = [];
-        for (var i = 0; i < this.total_number_of_movies; i++) {
-          let name = this.movies_jsn[i].category.name
-          if (category_names.includes(name) === false) {
-            category_names.push(name);
-          }
+                // https://stackoverflow.com/questions/27281405/group-by-object-ids-in-javascript/27281586
+            },
 
-        }
+            // https://ramdajs.com/docs/#reduce
+            movies_by_rating_scale: function() {
 
-        return category_names.sort();
 
+                const groupMovieIds = (acc, {
+                    movie_id
+                }) => acc.concat(movie_id)
+                const ratingScale = ({
+                        stars
+                    }) =>
+                    stars < 1 ? '0' :
+                    stars < 2 ? '1' :
+                    stars < 3 ? '2' :
+                    stars < 4 ? '3' :
+                    stars < 5 ? '4' : '5'
 
-      },
-      category_name_options: function() {
-        let arr = [];
-        arr.push(this.all_label);
-        arr.push(this.category_names_with_counts);
-        // // console.log(this.category_names_with_counts);
+                let res = this.$R.reduceBy(groupMovieIds, [], ratingScale, this.average_ratings)
+                return res;
 
-        return arr.flat();
-      },
+            },
 
-      // RATINGS
+            rating_scale_counts: function() {
 
-      all_movie_ratings: function() {
-        let ratings = [];
+                let arr = []
 
+                for (let [key, value] of Object.entries(this.movies_by_rating_scale)) {
 
-        this.movies_jsn.forEach(function(movie) {
-          ratings.push(movie.ratings);
-        });
+                    let rating_level = key;
+                    let number_of_movies = value.length;
+                    let suffix = ''
 
-        // console.log(ratings);
-        return ratings;
+                    if (rating_level > 1) {
+                        suffix = 'Stars'
+                    } else if (rating_level == 1) {
+                        suffix = 'Star';
+                    } else {
+                        suffix = 'Stars [Not yet rated]';
+                    }
 
-      },
-      average_ratings: function() {
-        let avg_ratings = [];
+                    arr.push(rating_level + ' ' + suffix + ' (' + number_of_movies + ')');
+                }
 
-        // https://stackoverflow.com/questions/30176604/nested-foreach-loop-does-not-work
+                return arr.sort((a, b) => b - a); // descending
+                // https://stackoverflow.com/questions/1063007/how-to-sort-an-array-of-integers-correctly
 
-        this.movies_jsn.forEach(function(movie){
-          avg_ratings.push({movie_id: movie.id, stars: movie.stars})
-        })
+            },
 
-        return avg_ratings;
+            rating_options: function() {
+                let arr = [];
+                arr.push(this.all_label);
+                let levels = this.rating_scale_counts;
+                let first_char = levels[0].charAt(0);
 
-        // https://stackoverflow.com/questions/27281405/group-by-object-ids-in-javascript/27281586
-      },
+                // Additional check to enforce descending sorting order (numeric characters)
+                if (first_char == this.highest_rating) {
 
-      // https://ramdajs.com/docs/#reduce
-      movies_by_rating_scale: function() {
+                    arr.push(levels);
+                } else {
+                    arr.push(levels.reverse());
+                }
 
+                return arr.flat();
 
-        const groupMovieIds = (acc, {movie_id}) => acc.concat(movie_id)
-        const ratingScale = ({stars}) =>
-        stars < 1 ? '0' :
-        stars < 2 ? '1' :
-        stars < 3 ? '2' :
-        stars < 4 ? '3' :
-        stars < 5 ? '4' : '5'
+            },
+        },
+        // https://alligator.io/vuejs/rest-api-axios/
+        // https://stackoverflow.com/questions/54757510/how-to-delete-a-record-in-rails-api-and-vue-js
+        created() {
+            // https://forum.vuejs.org/t/how-to-get-id-value-in-vue-js/44999
+            let user_id = document.querySelector('#current_user').dataset.value;
+            this.current_user_id = user_id;
+            this.getmovies();
+        },
 
-        let res=this.$R.reduceBy(groupMovieIds, [], ratingScale, this.average_ratings)
-        return res ;
+        mounted() {
 
-      },
+        },
+        methods: {
 
-      rating_scale_counts: function() {
+            // receives movie_id, current_user id is implicit
+            user_ids_which_rated_the_movie: function(movie_id) {
 
-        let arr=[]
+                let arr = [];
 
-        for (let [key, value] of Object.entries(this.movies_by_rating_scale)) {
+                // https://gist.github.com/cezarneaga/e7377357d62a2b2909685c1fb94125bb
+                // returns an array object
+                let movie_info = this.$R.filter(this.$R.propEq('id', movie_id))(this.movies_jsn)[0]; // similar to .first in Ruby
 
-          let rating_level=key;
-          let number_of_movies=value.length;
-          let suffix=''
+                let movie_ratings = movie_info.ratings;
 
-          if (rating_level>1) {
-            suffix='Stars'
-          }
+                movie_ratings.forEach(function(rating) {
+                    arr.push(rating.user_id);
+                });
 
-          else if (rating_level==1) {
-            suffix='Star';
-          } else {
-            suffix='Stars [Not yet rated]';
-          }
+                return arr;
 
-          //               // console.log(rating_level+ ' '+ suffix + ' (' + number_of_movies + ')');
-          arr.push(rating_level +' ' + suffix + ' (' + number_of_movies + ')');
-        }
+            },
+            rating_stars_visible: function(movie) {
 
-         return arr.sort((a, b) => b - a); // descending
-        // https://stackoverflow.com/questions/1063007/how-to-sort-an-array-of-integers-correctly
+                let user_logged = this.user_logged_in;
+                let not_already_rated = !this.already_rated_by_user(movie.id);
+                let not_rated_recently = !this.was_recently_rated_by_user(movie); // i.e. without refresh
 
-      },
+                return ((user_logged) && (not_already_rated) && (not_rated_recently));
+            },
 
-      rating_options: function() {
-        let arr = [];
-        arr.push(this.all_label);
-        //        let levels = ['5', '4', '3', '2', '1'];
-        let levels=this.rating_scale_counts;
+            was_recently_rated_by_user: function(movie) {
 
-        // console.log('Level indx 0');
-        let first_char=levels[0].charAt(0);
-        // console.log(first_char);
-        // console.log('Is equal to five? ');
-        // console.log(first_char==this.highest_rating); // i.e. 5 stars at present
+                return (this.movie_ids_recently_rated.includes(movie.id));
+            },
+            already_rated_by_user: function(movie_id) {
+                return (app.user_ids_which_rated_the_movie(movie_id).includes(this.current_user_id * 1));
+            },
+            // used in the table.  Update and remove buttons only appear for the movie's owner
+            owner: function(movie) {
+                return (this.current_user_id == movie.user_id);
+            },
+            // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
+            nextPage: function() {
+                if ((this.currentPage * this.pageSize) < this.total_number_of_movies) this.currentPage++;
+            },
+            prevPage: function() {
+                if (this.currentPage > 1) this.currentPage--;
+            },
 
-        // Additional check to enforce descending sorting order (numeric characters)
-        if (first_char==this.highest_rating) {
+            movieTitleContainsText(movies) {
 
-          arr.push(levels);
-        }
+                return movies.filter((movie) => {
 
-        else {
-            arr.push(levels.reverse());
-        }
+                    if (this.search_title_txt != '') {
 
-        return arr.flat();
+                        let movie_text = movie.title.toUpperCase();
+                        let search_title_txt_case_insensitive = this.search_title_txt.toUpperCase();
 
-      },
-    },
-    // https://alligator.io/vuejs/rest-api-axios/
-    // https://stackoverflow.com/questions/54757510/how-to-delete-a-record-in-rails-api-and-vue-js
-    created() {
-      // https://forum.vuejs.org/t/how-to-get-id-value-in-vue-js/44999
-      let user_id = document.querySelector('#current_user').dataset.value;
-      //      // // console.log(user_id);
-      this.current_user_id = user_id;
-      this.getmovies();
-    },
-    // https://forum.vuejs.org/t/select-element-by-id/21213/7
-    mounted() {
+                        return movie_text.match(search_title_txt_case_insensitive);
 
-    },
-    methods: {
+                    } else {
+                        return true;
+                    }
 
-      // receives movie_id, current_user id is implicit
-      user_ids_which_rated_the_movie: function(movie_id) {
+                });
 
-          let arr=[];
+            },
 
-          // https://gist.github.com/cezarneaga/e7377357d62a2b2909685c1fb94125bb
+            movieSummaryContainsText(movies) {
 
-          // returns an array object
-          let movie_info=this.$R.filter(this.$R.propEq('id', movie_id))(this.movies_jsn)[0]; // similar to .first in Ruby
+                return movies.filter((movie) => {
 
-          let movie_ratings=movie_info.ratings;
+                    if (this.search_summary_txt != '') {
 
-           movie_ratings.forEach(function(rating) {
-             arr.push(rating.user_id);
-           });
+                        let movie_text = movie.summary.toUpperCase();
+                        let search_summary_txt_case_insensitive = this.search_summary_txt.toUpperCase();
+                        return movie_text.match(search_summary_txt_case_insensitive);
 
+                    } else {
+                        return true;
+                    }
 
-           return arr;
+                });
 
-      },
-      rating_stars_visible: function(movie) {
+            },
 
-         console.log('Already rated? ')
-         console.log(app.already_rated_by_user(movie.id));
+            // movies_jsn
+            moviesByRating(movies) {
 
-         let user_logged=this.user_logged_in;
-         let not_already_rated=!this.already_rated_by_user(movie.id);
-         let not_rated_recently=!this.was_recently_rated_by_user(movie) ; // i.e. without refresh
+                return movies.filter((movie) => {
 
-           return ((user_logged) && (not_already_rated) && (not_rated_recently));
-      },
+                    if ((this.selected_rating != '') && (this.selected_rating != this.all_label)) {
 
-      was_recently_rated_by_user: function(movie) {
+                        let selected_rating = this.selected_rating;
+                        let movie_average = app.average_rating(movie);
+                        return ((movie_average >= selected_rating[0] * 1) && (Math.abs(selected_rating[0] * 1 - movie_average) < 1));
 
-              return (this.movie_ids_recently_rated.includes(movie.id));
-      },
-      already_rated_by_user: function(movie_id) {
-              console.log(app.user_ids_which_rated_the_movie(movie_id).includes(this.current_user_id*1));
-              return (app.user_ids_which_rated_the_movie(movie_id).includes(this.current_user_id*1));
-      },
-      // used in the table.  Update and remove buttons only appear for the movie's owner
-      owner: function(movie) {
-        return (this.current_user_id == movie.user_id);
-      },
-      // https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
-      nextPage: function() {
-        if ((this.currentPage * this.pageSize) < this.total_number_of_movies) this.currentPage++;
-      },
-      prevPage: function() {
-        if (this.currentPage > 1) this.currentPage--;
-      },
+                    } else {
+                        return true;
+                    }
 
-      movieTitleContainsText(movies) {
+                });
 
-        return movies.filter((movie) => {
+            },
+            moviesByCategory(movies) {
+                return movies.filter((movie) => {
 
-          if (this.search_title_txt != '') {
+                    if ((this.selected_category != '') && (this.selected_category != this.all_label)) {
 
-            let movie_text = movie.title.toUpperCase();
-            let search_title_txt_case_insensitive = this.search_title_txt.toUpperCase();
+                        return this.selected_category.includes(movie.category.name);
+                    } else {
+                        return true;
+                    }
 
-            return movie_text.match(search_title_txt_case_insensitive);
+                });
 
-          } else {
-            return true;
-          }
+            },
 
-        });
+            // get the average rate (number of stars)
+            average_rating(movie) {
+                if (movie.ratings.length > 0) {
 
-      },
+                    let score = app.total_stars(movie) / app.number_of_ratings(movie);
+                    return Math.round(score * 10) / 10;
+                } else
+                    return 0;
 
-      movieSummaryContainsText(movies) {
+            },
 
-        return movies.filter((movie) => {
+            number_of_ratings(movie) {
+                return movie.ratings.length;
+            },
+            total_stars(movie) {
+                let movie_ratings = movie.ratings;
+                let total_stars = 0;
+                movie_ratings.forEach(function(movie_rating) {
+                    total_stars += movie_rating.stars;
+                });
+                return total_stars;
+            },
+            getmovies() {
+                let url = `/movies.json`;
+                axios.get(url).then(response => {
+                        this.movies_jsn = response.data
+                    })
+                    .catch(e => {
+                        this.errors.push(e)
+                    })
 
-          if (this.search_summary_txt != '') {
+            },
+            invoke_destroy(movie) {
 
-            let movie_text = movie.summary.toUpperCase();
-            let search_summary_txt_case_insensitive = this.search_summary_txt.toUpperCase();
-            return movie_text.match(search_summary_txt_case_insensitive);
+                alert(movie.title + " will be removed from the list.")
 
-          } else {
-            return true;
-          }
+                let url = `movies/` + movie.id;
+                if (confirm('Are you sure?'))
+                    axios.delete(url).then(response => {}).catch(e => {
+                        this.errors.push(e)
+                    });
+                window.location.reload(true);
 
-        });
 
-      },
+            },
+            rate_movie: function(movie) {
 
-      // movies_jsn
-      moviesByRating(movies) {
+                axios.post('/ratings', {
+                    user_id: this.current_user_id,
+                    movie_id: movie.id,
+                    stars: this.rating
+                })
 
-        return movies.filter((movie) => {
+                if (this.rating > 1) {
+                    alert("You gave '" + movie.title + "' " + this.rating + " stars.")
+                } else {
+                    alert("You rated '" + movie.title + "' just one star.")
+                }
+                this.rating = 0; // Important: reset number of stars to zero (otherwise they would be appear filled in all rows)
+                this.movie_ids_recently_rated.push(movie.id); // Add it to the list of movies recently rated (for responsiveness)
+            }
 
-          if ((this.selected_rating != '') && (this.selected_rating != this.all_label)) {
+        },
 
-            let selected_rating = this.selected_rating;
-            let movie_average = app.average_rating(movie);
+        components: {}
 
-  //          // console.log(selected_rating);
-//            // console.log('selected');
-        //    // console.log(selected_rating[0]*1);
-            return ((movie_average >= selected_rating[0]*1) && (Math.abs(selected_rating[0]*1 - movie_average) < 1));
-
-          } else {
-            return true;
-          }
-
-        });
-
-      },
-      moviesByCategory(movies) {
-        return movies.filter((movie) => {
-          //          // // console.log(movie.category.name);
-
-          if ((this.selected_category != '') && (this.selected_category != this.all_label)) {
-
-            return this.selected_category.includes(movie.category.name);
-          } else {
-            return true;
-          }
-
-        });
-
-      },
-
-      // get the average rate (number of stars)
-      average_rating(movie) {
-        if (movie.ratings.length > 0) {
-
-          let score = app.total_stars(movie) / app.number_of_ratings(movie);
-          return Math.round(score * 10) / 10;
-        } else
-        return 0;
-
-        //        return total_stars(movie)/number_of_ratings(movie) ;
-        //    else
-        //      return 0;
-        //    end
-      },
-
-      selected_rating_as_numeric(movie) {
-        return this.selected_rating[0]*1;
-      },
-      number_of_ratings(movie) {
-        return movie.ratings.length;
-      },
-      total_stars(movie) {
-        let movie_ratings = movie.ratings;
-        let total_stars = 0;
-        movie_ratings.forEach(function(movie_rating) {
-          total_stars += movie_rating.stars;
-        });
-        return total_stars;
-      },
-      getmovies() {
-        let url = `/movies.json`;
-        axios.get(url).then(response => {
-          this.movies_jsn = response.data
-        })
-        .catch(e => {
-          this.errors.push(e)
-        })
-
-      },
-      invoke_destroy(movie) {
-
-        // https://stackoverflow.com/questions/54156534/how-to-create-alert-confirm-box-in-vue
-        alert(movie.title + " will be removed from the list.")
-
-        let url = `movies/` + movie.id;
-        if (confirm('Are you sure?'))
-        axios.delete(url).then(response => {}).catch(e => {
-          this.errors.push(e)
-        });
-        window.location.reload(true);
-
-
-      },
-      rate_movie: function(movie) {
-
-        axios.post('/ratings', {
-          user_id: this.current_user_id,
-          movie_id: movie.id,
-          stars: this.rating
-        })
-
-        if (this.rating > 1) {
-          alert("You gave '" + movie.title + "' " + this.rating + " stars.")
-        } else {
-          alert("You rated '" + movie.title + "' just one star.")
-        }
-        this.rating = 0; // Important: reset number of stars to zero (otherwise they would be appear filled in all rows)
-        this.movie_ids_recently_rated.push(movie.id); // Add it to the list of movies recently rated (for responsiveness)
-      }
-
-    },
-    // https://stackoverflow.com/questions/50169210/vuejs-redirect-to-url-when-clicked-on-a-button
-    components: {}
-
-  })
+    })
 
 })
