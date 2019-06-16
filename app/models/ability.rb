@@ -52,6 +52,7 @@ class Ability
 
         can :create, [Movie, Rating]
 
+#        can %i[update destroy], Movie # for testing 
         can %i[update destroy], Movie, user_id: user.id
       end
     end

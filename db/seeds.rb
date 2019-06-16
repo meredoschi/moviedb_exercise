@@ -9,7 +9,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Sample users
-names = %w[bob carla jane mike nick pat sample wanda]
+
+names = %w[sample carla jane mike nick pat bob wanda]
 names.each do |name|
   e_mail = name + '@example.com'
   User.create!(email: e_mail, password: 'samplepass', password_confirmation: 'samplepass')
@@ -48,7 +49,3 @@ Movie.all.each_with_index do |movie, indx|
     Rating.create!(movie_id: movie.id, user_id: user.id, stars: num_stars)
   end
 end
-
-# Add site administrator
-User.create!(email: 'admin@example.com', password: 'samplepass',
-             password_confirmation: 'samplepass', admin: true)
