@@ -27,4 +27,15 @@ class Movie < ApplicationRecord
       stars_total / num_ratings
     end
   end
+
+  def rated?
+
+    is_rated=false
+
+    if num_ratings > 0
+      is_rated=true
+    end
+
+    is_rated
+  end
 end

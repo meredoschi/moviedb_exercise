@@ -35,6 +35,7 @@ class MoviesController < ApplicationController
 
     @title = 'Movie details + | '+@movie.title
 
+
   end
 
   # GET /movies/new

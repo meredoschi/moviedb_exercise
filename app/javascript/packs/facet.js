@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let arr = [];
         arr.push(this.all_label);
 //        let levels = ['5', '4', '3', '2', '1'];
-        let levels=this.rating_scale_counts.reverse()
+        let levels=this.rating_scale_counts
 
         arr.push(levels);
         return arr.flat();

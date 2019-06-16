@@ -52,4 +52,15 @@ RSpec.describe Movie, type: :model do
 
     expect(movie_stars).to eq movie.stars
   end
+
+  it '-rated?' do
+
+    is_rated=false
+
+    if movie.num_ratings > 0
+      is_rated=true
+    end
+
+    expect(is_rated).to eq(movie.rated?)
+  end
 end
