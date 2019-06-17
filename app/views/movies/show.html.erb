@@ -1,24 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<%= javascript_pack_tag 'icons' %>
+<%#= javascript_pack_tag 'icons' %>
+
+
 
 <div class="container">
+
   <hr>
   <h2 class="text-center"><%= @movie.title %></h2>
 
     <% if @movie.rated?  %>
 
     <h2 class="text-center"> <%= @movie.stars %></h2>
+    <%= render 'show_star_icon.html.erb' %>
     <h6 class="text-center"><%= pluralize(@movie.ratings.count, 'rating') %> </h6>
 
-    <div id='icons'>
-      <h2 class="text-center"><eva-icon name="star" fill="#f5f968" animation="pulse"></eva-icon>
-      </h2>
-    </div>
 
     <% else %>
 
-    <h6 class="text-center text-muted">Not yet rated<h6> 
+    <h6 class="text-center text-muted">Not yet rated<h6>
 
     <% end %>
 
