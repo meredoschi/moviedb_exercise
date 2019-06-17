@@ -1,7 +1,7 @@
+
 <p id="notice"><%= notice %></p>
 
 <%#= javascript_pack_tag 'icons' %>
-
 
 
 <div class="container">
@@ -9,21 +9,22 @@
   <hr>
   <h2 class="text-center"><%= @movie.title %></h2>
 
-    <% if @movie.rated?  %>
+  <h4 class="text-center"><%= link_to @movie.category_name, @movie.category %></h4>
 
-    <h2 class="text-center"> <%= @movie.stars %></h2>
-    <%= render 'show_star_icon.html.erb' %>
-    <h6 class="text-center"><%= pluralize(@movie.ratings.count, 'rating') %> </h6>
+  <% if @movie.rated?  %>
 
+  <h5 class="text-center"><%= pluralize(@movie.num_ratings, 'rating') %> </h5>
+  <h5 class="text-center"><%= pluralize(@movie.stars, 'star') %> average</h5>
+  
 
-    <% else %>
+  <% else %>
 
-    <h6 class="text-center text-muted">Not yet rated<h6>
+  <h5 class="text-center text-muted">Not yet rated<h5>
 
     <% end %>
 
-    <h4 class="text-center"><%= link_to @movie.category_name, @movie.category %></h4>
     <hr>
+
     <h5 class="text-justify"><%= @movie.summary %></h5>
   </div>
 
