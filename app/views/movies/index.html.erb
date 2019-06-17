@@ -1,55 +1,5 @@
 <%= render 'index_header.html.erb' %>
 
-<%= javascript_pack_tag 'facet' %>
-
 <div id="current_user" data-value="<%= @current_user_id %>">
 
-
-  <div id='facet' data-current-user-id="<%= @current_user_id %>">
-
-
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <p>Category</p>
-          <v-select id="category_select" v-model="selected_category" :options="category_name_options" label="category"></v-select>
-        </div>
-        <div class="col-md-4">
-
-          <p>Average rating
-             <eva-icon name="star" fill="yellow" animation="pulse" height="22">
-             </eva-icon>
-          </p>
-          <v-select id="rating_select" v-model="selected_rating" :options="rating_options" label="rating"></v-select>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <p>Search:</p>
-          </div>
-          <div class="col-md-4">
-            <p><input id="search_text" v-model="search_summary_txt" placeholder="Movie text contents"></p>
-          </div>
-        </div>
-      </div>
-      <br>
-
-      <div class="row">
-
-        <table v-if="(filteredMovies.length>0)" class="table table-striped" id="movies-table">
-
-          <%= render 'index_script_table_head.html.erb' %>
-
-          <tbody>
-            <template v-for="(movie, index) in filteredMovies" v-bind:id="movie.id">
-
-              <%= render 'index_script_table_row.html.erb' %>
-
-            </template>
-          </tbody>
-        </table>
-        <%= render 'index_pagination_info.html.erb' %>
-
-        <h4 v-if="(filteredMovies.length==0)" class="text-warning">No records found with the selected search criteria.</h4>
-
-
-      </div>
+<%= javascript_pack_tag 'development/movies' %>
