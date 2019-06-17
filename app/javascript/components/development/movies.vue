@@ -1,13 +1,21 @@
 <template>
   <div id="app-movies">
     <br>
-          Rating
-          <p>
-            <v-select id="rating_select" v-model="selected_rating" :options="rating_options"></v-select>
-          </p>
+    <div class="container bg-light">
 
-          Category
-          <p><v-select id="category_select" v-model="selected_category" :options="category_name_options" label="category"></v-select></p>
+          <h5>Average rating
+            <v-select id="rating_select" v-model="selected_rating" :options="rating_options"></v-select>
+          </h5>
+
+          <h5>Category
+            <v-select id="category_select" v-model="selected_category" :options="category_name_options" label="category"></v-select>
+          </h5>
+
+          <h5 class="text-left"><input id="search_text" v-model="search_summary_txt" placeholder="Search text"></h5>
+
+    </div>
+
+    <br>
 
           <!--
 
@@ -24,6 +32,8 @@
     <table class="table table-striped" id="movies-table">
 
   -->
+
+  <div class="container">
 
   <table class="table table-striped" id="movies-table">
 
@@ -100,7 +110,9 @@
   </tbody>
 </table>
 
-</div>
+</div> <!-- table container (bootstrap)  -->
+
+</div> <!-- App  -->
 </template>
 
 <script>
