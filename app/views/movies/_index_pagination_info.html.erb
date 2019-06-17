@@ -1,8 +1,0 @@
-<div v-if="pagination_needed">
-  <p>
-    <button type="button" class="btn btn-info" v-if="!on_the_first_page" @click="prevPage">Previous</button>
-    <button type="button" class="btn btn-info" v-if="!at_the_last_page" @click="nextPage">Next</button>
-  </p>
-  <p>Page: {{ currentPage }} / {{  number_of_pages_needed_for_pagination }}</p>
-
-</div>
