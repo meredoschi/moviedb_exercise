@@ -1,6 +1,8 @@
 {
   "application.js": "/packs/js/application-2cc0d04965b36645657c.js",
   "application.js.map": "/packs/js/application-2cc0d04965b36645657c.js.map",
+  "development/movies.js": "/packs/js/development/movies-5a1793adca990cc6b134.js",
+  "development/movies.js.map": "/packs/js/development/movies-5a1793adca990cc6b134.js.map",
   "entrypoints": {
     "application": {
       "js": [
@@ -10,25 +12,33 @@
         "/packs/js/application-2cc0d04965b36645657c.js.map"
       ]
     },
-    "facet": {
+    "development/movies": {
       "js": [
-        "/packs/js/facet-1385619e29dfc7d015ba.js"
+        "/packs/js/development/movies-5a1793adca990cc6b134.js"
       ],
       "js.map": [
-        "/packs/js/facet-1385619e29dfc7d015ba.js.map"
+        "/packs/js/development/movies-5a1793adca990cc6b134.js.map"
+      ]
+    },
+    "facet": {
+      "js": [
+        "/packs/js/facet-9d5cc044a30fdcce19fd.js"
+      ],
+      "js.map": [
+        "/packs/js/facet-9d5cc044a30fdcce19fd.js.map"
       ]
     },
     "icons": {
       "js": [
-        "/packs/js/icons-2651fe047ec2c7724351.js"
+        "/packs/js/icons-0a5e701dd9e855491b24.js"
       ],
       "js.map": [
-        "/packs/js/icons-2651fe047ec2c7724351.js.map"
+        "/packs/js/icons-0a5e701dd9e855491b24.js.map"
       ]
     }
   },
-  "facet.js": "/packs/js/facet-1385619e29dfc7d015ba.js",
-  "facet.js.map": "/packs/js/facet-1385619e29dfc7d015ba.js.map",
-  "icons.js": "/packs/js/icons-2651fe047ec2c7724351.js",
-  "icons.js.map": "/packs/js/icons-2651fe047ec2c7724351.js.map"
+  "facet.js": "/packs/js/facet-9d5cc044a30fdcce19fd.js",
+  "facet.js.map": "/packs/js/facet-9d5cc044a30fdcce19fd.js.map",
+  "icons.js": "/packs/js/icons-0a5e701dd9e855491b24.js",
+  "icons.js.map": "/packs/js/icons-0a5e701dd9e855491b24.js.map"
 }

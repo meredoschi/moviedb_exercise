@@ -35,3 +35,4 @@ coverage
 
 # Ignore temprary personal files (used during development)
 .marcelo
+.env

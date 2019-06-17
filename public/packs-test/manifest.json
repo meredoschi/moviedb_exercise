@@ -1,6 +1,8 @@
 {
   "application.js": "/packs-test/js/application-85ece6ab2896b402a649.js",
   "application.js.map": "/packs-test/js/application-85ece6ab2896b402a649.js.map",
+  "development/movies.js": "/packs-test/js/development/movies-5dcf13c1250a672d47c5.js",
+  "development/movies.js.map": "/packs-test/js/development/movies-5dcf13c1250a672d47c5.js.map",
   "entrypoints": {
     "application": {
       "js": [
@@ -10,25 +12,33 @@
         "/packs-test/js/application-85ece6ab2896b402a649.js.map"
       ]
     },
-    "facet": {
+    "development/movies": {
       "js": [
-        "/packs-test/js/facet-0c6bed072a86d335961d.js"
+        "/packs-test/js/development/movies-5dcf13c1250a672d47c5.js"
       ],
       "js.map": [
-        "/packs-test/js/facet-0c6bed072a86d335961d.js.map"
+        "/packs-test/js/development/movies-5dcf13c1250a672d47c5.js.map"
+      ]
+    },
+    "facet": {
+      "js": [
+        "/packs-test/js/facet-3239be15c4c3493cdc93.js"
+      ],
+      "js.map": [
+        "/packs-test/js/facet-3239be15c4c3493cdc93.js.map"
       ]
     },
     "icons": {
       "js": [
-        "/packs-test/js/icons-87423c1995c453448588.js"
+        "/packs-test/js/icons-2e633e6f18068a1b72e9.js"
       ],
       "js.map": [
-        "/packs-test/js/icons-87423c1995c453448588.js.map"
+        "/packs-test/js/icons-2e633e6f18068a1b72e9.js.map"
       ]
     }
   },
-  "facet.js": "/packs-test/js/facet-0c6bed072a86d335961d.js",
-  "facet.js.map": "/packs-test/js/facet-0c6bed072a86d335961d.js.map",
-  "icons.js": "/packs-test/js/icons-87423c1995c453448588.js",
-  "icons.js.map": "/packs-test/js/icons-87423c1995c453448588.js.map"
+  "facet.js": "/packs-test/js/facet-3239be15c4c3493cdc93.js",
+  "facet.js.map": "/packs-test/js/facet-3239be15c4c3493cdc93.js.map",
+  "icons.js": "/packs-test/js/icons-2e633e6f18068a1b72e9.js",
+  "icons.js.map": "/packs-test/js/icons-2e633e6f18068a1b72e9.js.map"
 }

@@ -1,4 +1,7 @@
 import Vue from 'vue/dist/vue.esm';
+
+import App from '../components/facet.vue'
+
 //import axios from 'axios';
 import axios from 'axios-on-rails';
 
