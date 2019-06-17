@@ -29,7 +29,7 @@ RSpec.feature 'Movies', type: :feature, js: true do
         end
 
         select(category_name, from: 'Category')
-        click_button 'Create Movie'
+        click_button 'Confirm'
         expect(page).to have_content title
       end
 
@@ -40,7 +40,7 @@ RSpec.feature 'Movies', type: :feature, js: true do
         #        fill_in 'Title', with: ''
         #      end
 
-        click_button 'Create Movie'
+        click_button 'Confirm'
         expect(page).to have_content 'Title can\'t be blank'
         expect(page).to have_content 'Category must exist'
         expect(page).to have_content 'Summary can\'t be blank'
@@ -50,7 +50,7 @@ RSpec.feature 'Movies', type: :feature, js: true do
       scenario 'creation is blocked if title is missing' do
         visit new_movie_path
 
-        click_button 'Create Movie'
+        click_button 'Confirm'
         expect(page).to have_content 'Title can\'t be blank'
       end
 
@@ -62,7 +62,7 @@ RSpec.feature 'Movies', type: :feature, js: true do
           fill_in 'Summary', with: title + verb
         end
 
-        click_button 'Create Movie'
+        click_button 'Confirm'
       end
     end
 
@@ -77,7 +77,7 @@ RSpec.feature 'Movies', type: :feature, js: true do
           fill_in 'Title', with: 'some new title ' + title
         end
 
-        click_button 'Update Movie'
+        click_button 'Confirm'
         expect(page).to have_content 'some new title ' + title
         expect(page).to have_content 'Movie was successfully updated'
       end
@@ -89,7 +89,7 @@ RSpec.feature 'Movies', type: :feature, js: true do
           fill_in 'Title', with: 'some new title ' + title
         end
 
-        click_button 'Update Movie'
+        click_button 'Confirm'
         expect(page).to raise_error(CanCan::AccessDenied)
       end
     end
@@ -105,7 +105,7 @@ end
 #         fill_in 'Name', with: name
 #       end
 #
-#       click_button 'Create movie'
+#       click_button 'Confirm'
 #       expect(page).to have_content name
 #       expect(page).to have_content 'movie was successfully created'
 #     end
@@ -113,12 +113,12 @@ end
 #     scenario 'creation should fail when name is missing' do
 #       visit new_movie_path
 #
-#       click_button 'Create movie'
+#       click_button 'Confirm'
 #       expect(page).to have_content 'Name can\'t be blank'
 #     end
 #   end
 #
-#   context 'update movie' do
+#   context 'Confirm' do
 #     let!(:movie) { movie.create(name: name) }
 #     before (:each) do
 #       visit edit_movie_path(movie)
@@ -129,7 +129,7 @@ end
 #         fill_in 'Name', with: name
 #       end
 #
-#       click_button 'Update movie'
+#       click_button 'Confirm'
 #       expect(page).to have_content name
 #       expect(page).to have_content 'movie was successfully updated'
 #     end
@@ -139,7 +139,7 @@ end
 #         fill_in 'Name', with: ''
 #       end
 #
-#       click_button 'Update movie'
+#       click_button 'Confirm'
 #       expect(page).to have_content 'Name can\'t be blank'
 #     end
 #   end

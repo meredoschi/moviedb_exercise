@@ -1,8 +1,8 @@
 {
   "application.js": "/packs-test/js/application-85ece6ab2896b402a649.js",
   "application.js.map": "/packs-test/js/application-85ece6ab2896b402a649.js.map",
-  "development/movies.js": "/packs-test/js/development/movies-4cccefd5c0ea809a0a8b.js",
-  "development/movies.js.map": "/packs-test/js/development/movies-4cccefd5c0ea809a0a8b.js.map",
+  "development/movies.js": "/packs-test/js/development/movies-02b7127756519a696020.js",
+  "development/movies.js.map": "/packs-test/js/development/movies-02b7127756519a696020.js.map",
   "entrypoints": {
     "application": {
       "js": [
@@ -14,10 +14,10 @@
     },
     "development/movies": {
       "js": [
-        "/packs-test/js/development/movies-4cccefd5c0ea809a0a8b.js"
+        "/packs-test/js/development/movies-02b7127756519a696020.js"
       ],
       "js.map": [
-        "/packs-test/js/development/movies-4cccefd5c0ea809a0a8b.js.map"
+        "/packs-test/js/development/movies-02b7127756519a696020.js.map"
       ]
     },
     "facet": {
