@@ -36,10 +36,8 @@
               <td><a v-bind:id="`summary-${movie.id}`" v-bind:href="`movies/${movie.id}`">{{ movie.summary }}</a></td>
 
               <td>
-              <!--
 
               {{ average_rating(movie)}}
-            -->
 
                 <eva-icon name="star" fill="#05e5d6" animation="pulse" height="22">
                 </eva-icon>
@@ -139,6 +137,15 @@ export default {
 
 
   },
+  computed: {
+
+    average_ratings: function() {
+        // https://stackoverflow.com/questions/41762429/javascript-map-multiple-values-into-list
+        return this.movies_jsn.map(movie => new Object({movie_id: movie.id, stars: movie.stars}))
+    },
+
+  },
+
   methods: {
 
 
@@ -150,8 +157,18 @@ export default {
       .catch(e => {
         this.errors.push(e)
       })
+    },
 
-    }
+      average_rating(movie) {
+
+        // find the individual movie rating
+        let movie_rating=this.average_ratings.find(rating => rating.movie_id === movie.id)
+        // e.g. { "movie_id": 1, "stars": 1 }
+
+        return movie_rating.stars ;
+
+        }
+
 
   },
   // https://alligator.io/vuejs/rest-api-axios/
