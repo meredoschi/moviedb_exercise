@@ -57,7 +57,7 @@ group :development do
 end
 
 # Marcelo
-gem 'bootstrap', '~> 4.0.0'
+gem "bootstrap", ">= 4.3.1"
 gem 'jquery-rails'
 gem 'devise'
 gem 'ransack'
