@@ -35,7 +35,13 @@
 
   <div class="container">
 
-  <table class="table table-striped" id="movies-table">
+    <div v-if="pagination_needed">
+
+      <h6 class="text-right">Page: {{ currentPage }} / {{  number_of_pages_needed_for_pagination }}</h6>
+      <br>
+    </div>
+
+  <table v-if="(filteredMovies.length>0)" class="table table-striped" id="movies-table">
 
 
     <thead class="thead-dark">
@@ -84,7 +90,7 @@
 
         <td>
           <a v-bind:id="`show-${movie.id}`" v-bind:href="`movies/${movie.id}`" >
-            <button type="button" class="btn btn-primary">Show
+            <button type="button" class="btn btn-primary btn-sm">Show
             </button>
           </a>
         </td>
@@ -94,21 +100,34 @@
 
 
           <a v-if="owner(movie)" v-bind:id="`edit-${movie.id}`" v-bind:href="`movies/${movie.id}/edit`" >
-            <button type="button" class="btn btn-warning">Edit
+            <button type="button" class="btn btn-warning btn-sm">Edit
             </button>
           </a>
 
 
+          <td>
 
-          <td v-on:click="invoke_destroy(movie)" v-if="owner(movie)" v-bind:id="`destroy-${movie.id}`"><button type="button" class="btn btn-danger">Remove</button></td>
-
-        </td>
+            <p v-on:click="invoke_destroy(movie)" v-if="owner(movie)" v-bind:id="`destroy-${movie.id}`"><button type="button" class="btn btn-danger btn-sm">Remove</button>
+            </p>
+          </td>
 
       </tr>
 
     </template>     <!-- v-for loop end  -->
   </tbody>
 </table>
+
+<!-- Pagination info  -->
+
+<div v-if="pagination_needed">
+  <p class="text-left">
+    <button type="button" class="btn btn-info btn-sm" v-if="!on_the_first_page" @click="prevPage">Previous page</button>
+    <button type="button" class="btn btn-info btn-sm" v-if="!at_the_last_page" @click="nextPage">Next page</button>
+  </p>
+
+</div>
+
+<h5 v-if="(filteredMovies.length==0)" class="text-warning">No records found with the selected search criteria.</h5>
 
 </div> <!-- table container (bootstrap)  -->
 
