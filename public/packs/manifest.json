@@ -1,8 +1,8 @@
 {
   "application.js": "/packs/js/application-2cc0d04965b36645657c.js",
   "application.js.map": "/packs/js/application-2cc0d04965b36645657c.js.map",
-  "development/movies.js": "/packs/js/development/movies-d157042a861c078b8d4c.js",
-  "development/movies.js.map": "/packs/js/development/movies-d157042a861c078b8d4c.js.map",
+  "development/movies.js": "/packs/js/development/movies-81b4537657ce9a65161d.js",
+  "development/movies.js.map": "/packs/js/development/movies-81b4537657ce9a65161d.js.map",
   "entrypoints": {
     "application": {
       "js": [
@@ -14,18 +14,18 @@
     },
     "development/movies": {
       "js": [
-        "/packs/js/development/movies-d157042a861c078b8d4c.js"
+        "/packs/js/development/movies-81b4537657ce9a65161d.js"
       ],
       "js.map": [
-        "/packs/js/development/movies-d157042a861c078b8d4c.js.map"
+        "/packs/js/development/movies-81b4537657ce9a65161d.js.map"
       ]
     },
     "facet": {
       "js": [
-        "/packs/js/facet-9d5cc044a30fdcce19fd.js"
+        "/packs/js/facet-237bbd75e89a7ce3bb60.js"
       ],
       "js.map": [
-        "/packs/js/facet-9d5cc044a30fdcce19fd.js.map"
+        "/packs/js/facet-237bbd75e89a7ce3bb60.js.map"
       ]
     },
     "icons": {
@@ -37,8 +37,8 @@
       ]
     }
   },
-  "facet.js": "/packs/js/facet-9d5cc044a30fdcce19fd.js",
-  "facet.js.map": "/packs/js/facet-9d5cc044a30fdcce19fd.js.map",
+  "facet.js": "/packs/js/facet-237bbd75e89a7ce3bb60.js",
+  "facet.js.map": "/packs/js/facet-237bbd75e89a7ce3bb60.js.map",
   "icons.js": "/packs/js/icons-0a5e701dd9e855491b24.js",
   "icons.js.map": "/packs/js/icons-0a5e701dd9e855491b24.js.map"
 }

@@ -29,7 +29,7 @@
       </thead>
 
         <tbody>
-          <template v-for="(movie, index) in movies_jsn">
+          <template v-for="(movie, index) in movies_jsn" v-bind:id="movie.id">
 
             <tr>
               <td><a v-bind:id="`title-${movie.id}`" v-bind:href="`movies/${movie.id}`">{{ movie.title }}</a></td>
@@ -46,15 +46,11 @@
 
               <td>
 
-            <!--
+                <template v-if="(rating_stars_visible(movie)) ">
 
-            <template v-if="(rating_stars_visible(movie)) ">
+                <star-rating v-model="rating" v-bind:star-size="18" active-color="#ebf442" @rating-selected ="rate_movie(movie)"></star-rating>
 
-            <star-rating v-model="rating" v-bind:star-size="18" active-color="#ebf442" @rating-selected ="rate_movie(movie)"></star-rating>
-
-          </template>
-
-             -->
+              </template>
 
              </td>
 
@@ -70,24 +66,15 @@
 
              <td>
 
-        <!--
 
         <a v-if="owner(movie)" v-bind:id="`edit-${movie.id}`" v-bind:href="`movies/${movie.id}/edit`" >
         <button type="button" class="btn btn-warning">Edit
       </button>
-    </a>
+      </a>
 
-    -->
 
-            </td>
-
-            <td>
-
-      <!--
 
       <td v-on:click="invoke_destroy(movie)" v-if="owner(movie)" v-bind:id="`destroy-${movie.id}`"><button type="button" class="btn btn-danger">Remove</button></td>
-
-    -->
 
             </td>
 
@@ -139,15 +126,66 @@ export default {
   },
   computed: {
 
+    all_ratings: function() {
+        return this.movies_jsn.map(movie => movie.ratings).flat()
+    },
+
     average_ratings: function() {
         // https://stackoverflow.com/questions/41762429/javascript-map-multiple-values-into-list
         return this.movies_jsn.map(movie => new Object({movie_id: movie.id, stars: movie.stars}))
     },
 
+    user_logged_in: function() {
+
+        return (this.current_user_id > 0);
+
+    },
+    visitor: function() {
+
+        return !this.user_logged_in
+
+    }
+
   },
 
   methods: {
 
+    // ratings for a specific movie
+    ratings(movie) {
+
+      return this.all_ratings.filter(function (rating) {
+        return rating.movie_id == movie.id
+      });
+
+    },
+
+    // user ids for those people who rated this movie
+    user_ids_rated: function(movie) {
+
+      return this.ratings(movie).map(movie => movie.user_id);
+
+    },
+
+    was_recently_rated_by_user: function(movie) {
+
+        return (this.movie_ids_recently_rated.includes(movie.id));
+    },
+    already_rated_by_user: function(movie) {
+        return (this.user_ids_rated(movie).includes(this.current_user_id * 1));
+    },
+    // used in the table.  Update and remove buttons only appear for the movie's owner
+    owner: function(movie) {
+        return (this.current_user_id == movie.user_id);
+    },
+    rating_stars_visible: function(movie) {
+
+        let user_logged = this.user_logged_in;
+        let not_already_rated = !this.already_rated_by_user(movie.id);
+        let not_rated_recently = !this.was_recently_rated_by_user(movie); // i.e. without refresh
+
+        return ((user_logged) && (not_already_rated) && (not_rated_recently));
+
+    },
 
     getmovies() {
       let url = `/movies.json`;
@@ -157,6 +195,37 @@ export default {
       .catch(e => {
         this.errors.push(e)
       })
+    },
+
+
+    invoke_destroy(movie) {
+
+        alert(movie.title + " will be removed from the list.")
+
+        let url = `movies/` + movie.id;
+        if (confirm('Are you sure?'))
+            axios.delete(url).then(response => {}).catch(e => {
+                this.errors.push(e)
+            });
+        window.location.reload(true);
+
+
+    },
+    rate_movie: function(movie) {
+
+        axios.post('/ratings', {
+            user_id: this.current_user_id,
+            movie_id: movie.id,
+            stars: this.rating
+        })
+
+        if (this.rating > 1) {
+            alert("You gave '" + movie.title + "' " + this.rating + " stars.")
+        } else {
+            alert("You rated '" + movie.title + "' just one star.")
+        }
+        this.rating = 0; // Important: reset number of stars to zero (otherwise they would be appear filled in all rows)
+        this.movie_ids_recently_rated.push(movie.id); // Add it to the list of movies recently rated (for responsiveness)
     },
 
       average_rating(movie) {
@@ -179,7 +248,7 @@ export default {
     this.current_user_id = user_id;
     this.getmovies();
   },
-  components: {
+  components: { StarRating
 
   }
 }

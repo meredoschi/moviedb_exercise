@@ -308,11 +308,13 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             rating_stars_visible: function(movie) {
 
-                let user_logged = this.user_logged_in;
-                let not_already_rated = !this.already_rated_by_user(movie.id);
-                let not_rated_recently = !this.was_recently_rated_by_user(movie); // i.e. without refresh
+//                let user_logged = this.user_logged_in;
+  //              let not_already_rated = !this.already_rated_by_user(movie.id);
+    //            let not_rated_recently = !this.was_recently_rated_by_user(movie); // i.e. without refresh
 
-                return ((user_logged) && (not_already_rated) && (not_rated_recently));
+      //          return ((user_logged) && (not_already_rated) && (not_rated_recently));
+              return true
+              
             },
 
             was_recently_rated_by_user: function(movie) {
@@ -412,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else
                     return 0;
 
-            },
+             },
 
             number_of_ratings(movie) {
                 return movie.ratings.length;
