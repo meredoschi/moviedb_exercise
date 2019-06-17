@@ -69,6 +69,7 @@
 
         <td>
 
+
           {{ average_rating(movie)}}
 
           <eva-icon name="star" fill="#05e5d6" animation="pulse" height="22">
@@ -421,10 +422,10 @@ export default {
     rating_stars_visible: function(movie) {
 
       let user_logged = this.user_logged_in;
-      let not_already_rated = !this.already_rated_by_user(movie.id);
+      let not_already_rated = !this.already_rated_by_user(movie);
       let not_rated_recently = !this.was_recently_rated_by_user(movie); // i.e. without refresh
 
-      return ((user_logged) && (not_already_rated) && (not_rated_recently));
+      return (user_logged && not_already_rated && not_rated_recently);
 
     },
 
