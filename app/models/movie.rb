@@ -22,7 +22,7 @@ class Movie < ApplicationRecord
   # average rating
   def stars
 
-    (num_ratings.zero?) ? 0 : (stars_total / num_ratings)
+    (num_ratings.zero?) ? 0 : (stars_total*1.0 / num_ratings)
 
   end
 

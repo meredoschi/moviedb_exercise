@@ -538,14 +538,14 @@ export default {
 
     },
 
-
+    // rounds to the nearest decimal point
     average_rating(movie) {
 
       // find the individual movie rating
       let movie_rating=this.average_ratings.find(rating => rating.movie_id === movie.id)
       // e.g. { "movie_id": 1, "stars": 1 }
 
-      return movie_rating.stars ;
+      return Math.round(movie_rating.stars * 10) / 10 ;
 
     }
 
