@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.json
   def index
-    @title = 'List of movies'
+    @title = 'Homepage'
     @all_movies = Movie.all.order(:title)
     #    @movies = @all_movies.page(params[:page]).per(10)
     @movies = @all_movies

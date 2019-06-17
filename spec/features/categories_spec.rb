@@ -21,7 +21,7 @@ RSpec.feature 'Categories', type: :feature do
           fill_in 'Name', with: name
         end
 
-        click_button 'Create Category'
+        click_button 'Confirm'
         expect(page).to have_content name
         expect(page).to have_content 'Category was successfully created'
       end
@@ -29,12 +29,12 @@ RSpec.feature 'Categories', type: :feature do
       scenario 'should fail when name is missing' do
         visit new_category_path
 
-        click_button 'Create Category'
+        click_button 'Confirm'
         expect(page).to have_content 'Name can\'t be blank'
       end
     end
 
-    context 'update category' do
+    context 'Confirm' do
       let!(:category) { Category.create(name: name) }
       before(:each) do
         visit edit_category_path(category)
@@ -45,7 +45,7 @@ RSpec.feature 'Categories', type: :feature do
           fill_in 'Name', with: name
         end
 
-        click_button 'Update Category'
+        click_button 'Confirm'
         expect(page).to have_content name
         expect(page).to have_content 'Category was successfully updated'
       end
@@ -55,7 +55,7 @@ RSpec.feature 'Categories', type: :feature do
           fill_in 'Name', with: ''
         end
 
-        click_button 'Update Category'
+        click_button 'Confirm'
         expect(page).to have_content 'Name can\'t be blank'
       end
     end
