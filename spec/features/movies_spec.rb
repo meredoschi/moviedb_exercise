@@ -7,7 +7,13 @@ RSpec.feature 'Movies', type: :feature, js: true do
 
   let(:verb) { Faker::Verb.unique.past_participle }
   let(:title) { sample_name + ' ' + verb + ' ' + Faker::Internet.email.to_s }
-  let!(:movie) { FactoryBot.create(:movie) }
+
+  let!(:first_category) { FactoryBot.create(:category) }
+  let!(:second_category) { FactoryBot.create(:category) }
+  let!(:movie) { FactoryBot.create(:movie, category_id: first_category.id) }
+  let!(:second_movie) { FactoryBot.create(:movie, category_id: second_category.id) }
+
+  let(:no_records_found_message) { 'No records found with the selected search criteria.' }
 
   # https://github.com/plataformatec/devise/wiki/How-To:-Test-with-Capybara
   context 'logged in users' do
@@ -18,6 +24,34 @@ RSpec.feature 'Movies', type: :feature, js: true do
     end
 
     context 'Script' do
+      scenario 'Search by text is consistent' do
+        visit movies_path
+        expect(page).not_to have_content(no_records_found_message)
+        fill_in 'search_text', with: 'xyz12345'
+        expect(page).to have_content(no_records_found_message)
+        chars = movie.summary[0..5]
+        fill_in 'search_text', with: chars
+        expect(page).to have_content(chars)
+      end
+
+      scenario 'Filter by category' do
+        visit movies_path
+        expect(page).not_to have_content(no_records_found_message)
+
+        movies_table = page.find(:css, 'table#movies-table')
+
+        movies_table_initial_row_count = movies_table.all(:css, 'tr').size
+
+        # find the category select button, fill in with the category name and press enter
+        page.find_by(id: 'category_select').select_option.fill_in(with:
+          first_category.name).send_keys :return
+
+        filtered_row_count = movies_table.all(:css, 'tr').size
+
+        expect((movies_table_initial_row_count - filtered_row_count)).to be 1
+
+      end
+
       scenario 'Has a show button' do
         visit movies_path
         expect(page).to have_button('Show')
