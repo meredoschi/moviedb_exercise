@@ -10,8 +10,12 @@ RSpec.feature 'Movies', type: :feature, js: true do
 
   let!(:first_category) { FactoryBot.create(:category) }
   let!(:second_category) { FactoryBot.create(:category) }
+
   let!(:movie) { FactoryBot.create(:movie, category_id: first_category.id) }
   let!(:second_movie) { FactoryBot.create(:movie, category_id: second_category.id) }
+
+  let!(:first_movie_rating) { FactoryBot.create(:rating,  movie_id: movie.id, stars: 3) }
+  let!(:second_movie_rating) { FactoryBot.create(:rating, movie_id: second_movie.id, stars: 5) }
 
   let(:no_records_found_message) { 'No records found with the selected search criteria.' }
 
@@ -43,13 +47,29 @@ RSpec.feature 'Movies', type: :feature, js: true do
         movies_table_initial_row_count = movies_table.all(:css, 'tr').size
 
         # find the category select button, fill in with the category name and press enter
-        page.find_by(id: 'category_select').select_option.fill_in(with:
+        page.find(:css, 'div#category_select').select_option.fill_in(with:
           first_category.name).send_keys :return
 
         filtered_row_count = movies_table.all(:css, 'tr').size
 
         expect((movies_table_initial_row_count - filtered_row_count)).to be 1
+      end
 
+      scenario 'Filter by rating' do
+        visit movies_path
+        expect(page).not_to have_content(no_records_found_message)
+
+        movies_table = page.find(:css, 'table#movies-table')
+
+        movies_table_initial_row_count = movies_table.all(:css, 'tr').size
+
+        # find the rating select button, fill in with the numeric stars rating and press enter
+        page.find(:css, 'div#rating_select').select_option.fill_in(with:
+          first_movie_rating.stars.to_s + ' Star').send_keys :return
+
+        filtered_row_count = movies_table.all(:css, 'tr').size
+
+        expect((movies_table_initial_row_count - filtered_row_count)).to be 1
       end
 
       scenario 'Has a show button' do
