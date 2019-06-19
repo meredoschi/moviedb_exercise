@@ -41,7 +41,11 @@
       <br>
     </div>
 
-  <table v-if="(filteredMovies.length>0)" class="table table-striped" id="movies-table">
+    <template v-if="(filtered_movies_total>0)">
+      <h6 class="text-left">Records: {{ filtered_movies_total }} / {{ total_number_of_movies }} </h6>
+    </template>
+
+  <table v-if="(filtered_movies_total>0)" class="table table-striped" id="movies-table">
 
 
     <thead class="thead-dark">

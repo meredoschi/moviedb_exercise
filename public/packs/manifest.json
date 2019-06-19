@@ -1,8 +1,8 @@
 {
   "application.js": "/packs/js/application-2e83cb4d68f92f4b75d1.js",
   "application.js.map": "/packs/js/application-2e83cb4d68f92f4b75d1.js.map",
-  "development/movies.js": "/packs/js/development/movies-6a577185ff90100e8702.js",
-  "development/movies.js.map": "/packs/js/development/movies-6a577185ff90100e8702.js.map",
+  "development/movies.js": "/packs/js/development/movies-fe55d962dccb3d9a44e8.js",
+  "development/movies.js.map": "/packs/js/development/movies-fe55d962dccb3d9a44e8.js.map",
   "entrypoints": {
     "application": {
       "js": [
@@ -14,18 +14,10 @@
     },
     "development/movies": {
       "js": [
-        "/packs/js/development/movies-6a577185ff90100e8702.js"
+        "/packs/js/development/movies-fe55d962dccb3d9a44e8.js"
       ],
       "js.map": [
-        "/packs/js/development/movies-6a577185ff90100e8702.js.map"
-      ]
-    },
-    "facet": {
-      "js": [
-        "/packs/js/facet-11899adcb40d561ca0bf.js"
-      ],
-      "js.map": [
-        "/packs/js/facet-11899adcb40d561ca0bf.js.map"
+        "/packs/js/development/movies-fe55d962dccb3d9a44e8.js.map"
       ]
     },
     "icons": {
@@ -37,8 +29,6 @@
       ]
     }
   },
-  "facet.js": "/packs/js/facet-11899adcb40d561ca0bf.js",
-  "facet.js.map": "/packs/js/facet-11899adcb40d561ca0bf.js.map",
   "icons.js": "/packs/js/icons-ad038ce1457eadb7ec16.js",
   "icons.js.map": "/packs/js/icons-ad038ce1457eadb7ec16.js.map"
 }
