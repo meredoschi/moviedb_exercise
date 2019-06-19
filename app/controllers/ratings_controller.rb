@@ -12,7 +12,7 @@ class RatingsController < ApplicationController
   # GET /ratings.json
   def index
     @title = 'List of ratings'
-    @ratings = Rating.all.page(params[:page]).per(10)
+    @ratings = Rating.accessible_by(current_ability).page(params[:page]).per(10)
   end
 
   # GET /ratings/1
