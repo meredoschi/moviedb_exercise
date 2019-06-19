@@ -10,12 +10,12 @@
   <h2 class="text-center"><%= @movie.title %></h2>
 
   <h4 class="text-center"><%= link_to @movie.category_name, @movie.category %></h4>
-
+  
   <% if @movie.rated?  %>
 
   <h5 class="text-center"><%= pluralize(@movie.num_ratings, 'rating') %> </h5>
-  <h5 class="text-center"><%= pluralize(@movie.stars, 'star') %> average</h5>
-  
+  <h5 class="text-center"><%= pluralize(number_with_precision(@movie.stars, precision: 1, strip_insignificant_zeros: true), 'star') %> average</h5>
+
 
   <% else %>
 
