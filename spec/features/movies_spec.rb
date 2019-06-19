@@ -17,6 +17,68 @@ RSpec.feature 'Movies', type: :feature, js: true do
       login_as(@user, scope: :user)
     end
 
+    context 'Script' do
+      scenario 'Has a show button' do
+        visit movies_path
+        expect(page).to have_button('Show')
+      end
+
+      scenario 'able to remove own movie' do
+        category_name = Category.first.name
+
+        visit new_movie_path
+
+        within('form') do
+          fill_in 'Title', with: title
+          fill_in 'Summary', with: title + verb
+        end
+
+        select(category_name, from: 'Category')
+        click_button 'Confirm'
+
+        visit movies_path
+        page.accept_confirm do
+          click_button 'Remove'
+        end
+      end
+
+      scenario 'Create new movie, increasing the movie count by 1, able to edit it
+         (due to being its owner) and the updated title appears on the list (index view)' do
+
+        category_name = Category.first.name
+
+        # Since pagination is in effect, ensure it is first on the list, thus appearing on the page
+        a_title = 'AAAAAAAAAAAAAAAA'
+
+        initial_num_movies = Movie.count
+
+        visit new_movie_path
+
+        within('form') do
+          fill_in 'Title', with: title
+          fill_in 'Summary', with: title + verb
+        end
+
+        select(category_name, from: 'Category')
+        click_button 'Confirm'
+
+        current_num_movies = Movie.count
+
+        expect(current_num_movies).to eq(initial_num_movies + 1)
+
+        visit movies_path
+        click_button 'Edit'
+
+        fill_in 'Title', with: a_title
+        click_button 'Confirm'
+
+        visit movies_path
+        expect(page).to have_content a_title
+      end
+
+      # script context ends
+    end
+
     context 'CREATE' do
       scenario 'able to create new (provided complete data given)' do
         category_name = Category.first.name

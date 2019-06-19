@@ -17,19 +17,4 @@ RSpec.describe 'movies/index', type: :view, js: true do
     render
     expect(rendered).to include('Movie list')
   end
-
-  pending 'rendered html text contains v-model selected_category' do
-    render
-    expect(rendered).to include('v-model="selected_category"')
-  end
-
-  pending 'rendered html text contains v-model selected_rating' do
-    render
-    expect(rendered).to include('v-model="selected_rating"')
-  end
-
-  pending 'rendered html text contains v-model search_summary_txt' do
-    render
-    expect(rendered).to include('v-model="search_summary_txt"')
-  end
 end
