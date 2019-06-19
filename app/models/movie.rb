@@ -21,18 +21,14 @@ class Movie < ApplicationRecord
 
   # average rating
   def stars
-
-    (num_ratings.zero?) ? 0 : (stars_total*1.0 / num_ratings)
-
+    num_ratings.zero? ? 0 : (stars_total * 1.0 / num_ratings)
   end
 
   def rated?
-
-    (num_ratings > 0)
-
+    num_ratings.positive?
   end
 
   def genre
-      category.name if category.present?
+    category.name if category.present?
   end
 end

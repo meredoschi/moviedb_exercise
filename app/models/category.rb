@@ -4,6 +4,5 @@
 class Category < ApplicationRecord
   has_many :movies, dependent: :nullify
   validates :name, uniqueness: { case_sensitive: false }
-  validates_presence_of :name
-
+  validates :name, presence: true
 end

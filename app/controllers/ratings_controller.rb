@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# To allow users to rate a movie
 class RatingsController < ApplicationController
-  before_action :set_rating, only: [:show, :edit, :update, :destroy]
+  before_action :set_rating, only: %i[show edit update destroy]
 
   skip_before_action :verify_authenticity_token
 
@@ -10,13 +13,11 @@ class RatingsController < ApplicationController
   def index
     @title = 'List of ratings'
     @ratings = Rating.all.page(params[:page]).per(10)
-
   end
 
   # GET /ratings/1
   # GET /ratings/1.json
-  def show
-  end
+  def show; end
 
   # GET /ratings/new
   def new
@@ -24,15 +25,14 @@ class RatingsController < ApplicationController
   end
 
   # GET /ratings/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /ratings
   # POST /ratings.json
   def create
     @rating = Rating.new(rating_params)
 
-    @rating.user_id=current_user.id
+    @rating.user_id = current_user.id
 
     respond_to do |format|
       if @rating.save
@@ -70,19 +70,15 @@ class RatingsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_rating
-      @rating = Rating.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def rating_params
-      params.require(:rating).permit(:user_id, :movie_id, :stars)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_rating
+    @rating = Rating.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def movie_params
-      params.require(:movie).permit(:title, :summary, :category_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def rating_params
+    params.require(:rating).permit(:user_id, :movie_id, :stars)
+  end
 
 end

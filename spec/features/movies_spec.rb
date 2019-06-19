@@ -23,7 +23,7 @@ RSpec.feature 'Movies', type: :feature, js: true do
         expect(page).to have_button('Show')
       end
 
-      scenario 'able to remove own movie' do
+      it 'able to remove own movie' do
         category_name = Category.first.name
 
         visit new_movie_path
@@ -141,17 +141,6 @@ RSpec.feature 'Movies', type: :feature, js: true do
         click_button 'Confirm'
         expect(page).to have_content 'some new title ' + title
         expect(page).to have_content 'Movie was successfully updated'
-      end
-
-      pending 'unable to update someone else\'s movie' do
-        visit edit_movie_path(movie)
-
-        within('form') do
-          fill_in 'Title', with: 'some new title ' + title
-        end
-
-        click_button 'Confirm'
-        expect(page).to raise_error(CanCan::AccessDenied)
       end
     end
   end

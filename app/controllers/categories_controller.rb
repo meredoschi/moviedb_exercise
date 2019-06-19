@@ -11,13 +11,12 @@ class CategoriesController < ApplicationController
   # GET /categories.json
   def index
     @title = 'List of categories'
-    @categories=Category.all.order(:name).page(params[:page]).per(10)
+    @categories = Category.all.order(:name).page(params[:page]).per(10)
 
     respond_to do |format|
       format.html
       format.json
     end
-
   end
 
   # GET /categories/1
