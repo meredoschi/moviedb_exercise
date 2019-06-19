@@ -3,8 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe MoviesController, type: :controller do
+  let!(:movie) { FactoryBot.create(:movie) }
+  let!(:second_movie) { FactoryBot.create(:movie) }
+
   let(:attr) do
-    { title: 'new title', summary: 'new text', category_id: 1, user_id: 1 }
+    #    { title: 'new title', summary: 'new text', category_id: 1, user_id: 1 }
+    { title: movie.title, summary: movie.summary, category_id: movie.category.id,
+      user_id: movie.user.id }
   end
 
   context '#GET index' do

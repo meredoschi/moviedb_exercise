@@ -16,7 +16,7 @@
           <% end %>
         </td>
         <td><% if can? :destroy, category %>
-          <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-danger' %>
+          <%= link_to 'Remove', category, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-danger' %>
           <% end %>
         </td>
       </tr>

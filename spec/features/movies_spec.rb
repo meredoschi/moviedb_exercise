@@ -44,7 +44,6 @@ RSpec.feature 'Movies', type: :feature, js: true do
 
       scenario 'Create new movie, increasing the movie count by 1, able to edit it
          (due to being its owner) and the updated title appears on the list (index view)' do
-
         category_name = Category.first.name
 
         # Since pagination is in effect, ensure it is first on the list, thus appearing on the page

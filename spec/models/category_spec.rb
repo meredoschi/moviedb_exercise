@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
-  let(:category) { FactoryBot.create(:category) }
+  let!(:category) { FactoryBot.create(:category) }
 
   it { is_expected.to have_many(:movies).dependent(:nullify) }
   it { is_expected.to have_db_index(:name) }

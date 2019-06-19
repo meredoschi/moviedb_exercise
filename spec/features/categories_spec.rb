@@ -5,10 +5,12 @@ require 'rails_helper'
 RSpec.feature 'Categories', type: :feature do
   let(:name) { Faker::Company.unique.industry + Random.rand(100_000).to_s }
 
+  let!(:user) { FactoryBot.create(:user, admin: true) } # admin
+
   context 'Site administrator' do
     before(:each) do
       # Sign-in
-      @user = FactoryBot.create(:user, admin: true) # admin
+      @user = user
       login_as(@user, scope: :user)
     end
 
@@ -57,16 +59,6 @@ RSpec.feature 'Categories', type: :feature do
 
         click_button 'Confirm'
         expect(page).to have_content 'Name can\'t be blank'
-      end
-    end
-
-    context 'Destroy a category' do
-      scenario 'should be succesful' do
-        visit categories_path
-        accept_confirm do
-          first(:link, 'Destroy').click
-        end
-        expect(page).to have_content 'Category was successfully destroyed'
       end
     end
   end
