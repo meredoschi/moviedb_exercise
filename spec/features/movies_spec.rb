@@ -38,6 +38,23 @@ RSpec.feature 'Movies', type: :feature, js: true do
         expect(page).to have_content(chars)
       end
 
+      scenario 'Give the last movie on the list five stars' do
+        visit movies_path
+
+        initial_num_ratings = Rating.count
+
+        # the last star on the page has index -1 (it is an svg)
+        sleep 5
+        page.all('svg')[-1].click
+        sleep 5
+        num_ratings_after_star_was_clicked = Rating.count
+
+        puts initial_num_ratings.to_s
+        puts num_ratings_after_star_was_clicked
+
+        expect((num_ratings_after_star_was_clicked - initial_num_ratings)).to eq(1)
+      end
+
       scenario 'Filter by category' do
         visit movies_path
         expect(page).not_to have_content(no_records_found_message)
@@ -52,7 +69,7 @@ RSpec.feature 'Movies', type: :feature, js: true do
 
         filtered_row_count = movies_table.all(:css, 'tr').size
 
-        expect((movies_table_initial_row_count - filtered_row_count)).to be 1
+        expect((movies_table_initial_row_count - filtered_row_count)).to eq(1)
       end
 
       scenario 'Filter by rating' do
@@ -69,7 +86,7 @@ RSpec.feature 'Movies', type: :feature, js: true do
 
         filtered_row_count = movies_table.all(:css, 'tr').size
 
-        expect((movies_table_initial_row_count - filtered_row_count)).to be 1
+        expect((movies_table_initial_row_count - filtered_row_count)).to eq(1)
       end
 
       scenario 'Has a show button' do

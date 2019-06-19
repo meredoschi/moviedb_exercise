@@ -462,9 +462,9 @@ export default {
       })
 
       if (this.rating > 1) {
-        alert("You gave '" + movie.title + "' " + this.rating + " stars.")
+  //      alert("You gave '" + movie.title + "' " + this.rating + " stars.")
       } else {
-        alert("You rated '" + movie.title + "' just one star.")
+//        alert("You rated '" + movie.title + "' just one star.")
       }
       this.rating = 0; // Important: reset number of stars to zero (otherwise they would be appear filled in all rows)
       this.movie_ids_recently_rated.push(movie.id); // Add it to the list of movies recently rated (for responsiveness)

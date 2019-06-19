@@ -8,10 +8,9 @@ RSpec.describe 'ratings/show', type: :view do
     @rating = assign(:rating, FactoryBot.create(:rating))
   end
 
-  it 'renders Movie Title, User email and stars awarded' do
+  it 'renders Movie Title and stars awarded' do
     render
     expect(rendered).to match(@rating.movie.title)
-    expect(rendered).to match(@rating.user.email)
     expect(rendered).to match(@rating.stars.to_s)
   end
 end
