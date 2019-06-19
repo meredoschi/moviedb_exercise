@@ -48,10 +48,7 @@ RSpec.feature 'Movies', type: :feature, js: true do
         page.all('svg')[-1].click
         sleep 5
         num_ratings_after_star_was_clicked = Rating.count
-
-        puts initial_num_ratings.to_s
-        puts num_ratings_after_star_was_clicked
-
+        
         expect((num_ratings_after_star_was_clicked - initial_num_ratings)).to eq(1)
       end
 

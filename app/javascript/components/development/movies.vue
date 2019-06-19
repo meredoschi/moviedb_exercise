@@ -442,7 +442,7 @@ export default {
 
     invoke_destroy(movie) {
 
-      alert(movie.title + " will be removed from the list.")
+    //  alert(movie.title + " will be removed from the list.")
 
       let url = `movies/` + movie.id;
       if (confirm('Are you sure?'))
