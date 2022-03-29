@@ -16,21 +16,19 @@ _In order to log in use the following credentials:_
 
 ##### Technical information
 
-###### Database used during development:
+###### Database
 
-Postgresql version 9.6.6
+Postgresql 12.9
 
-`rake db:seed`
+*Developed using version 9.6.6*
 
-This should create some sample users, movies, categories and ratings.
+###### Ruby language
 
-###### Ruby version
-
-2.6.1p33
+2.7.5
 
 ###### Rails version
 
-5.2.3
+6.0.4.7 (updated from 5.2.3)
 
 ###### Front end
 
@@ -42,4 +40,4 @@ Uses Bootstrap and Vuejs
 
 ##### Prepared by Marcelo E. Redoschi
 
-##### _This page last updated: 16/6/2019_
+##### _This page last updated: 29/3/2022
